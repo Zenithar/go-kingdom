@@ -22,13 +22,6 @@ syntax = "proto3";
 
 package kingdom.realm.v1;
 
-option csharp_namespace = "Kingdom.Realm.V1";
-option go_package = "realmv1";
-option java_multiple_files = true;
-option java_outer_classname = "RealmApiProto";
-option java_package = "org.zenithar.kingdom.realm.v1";
-option objc_class_prefix = "KRX";
-option php_namespace = "Kingdom\\Realm\\V1";
 option (gogoproto.benchgen_all) = true;
 option (gogoproto.equal_all) = true;
 option (gogoproto.marshaler_all) = true;
@@ -36,6 +29,13 @@ option (gogoproto.populate_all) = true;
 option (gogoproto.sizer_all) = true;
 option (gogoproto.testgen_all) = true;
 option (gogoproto.unmarshaler_all) = true;
+option csharp_namespace = "Kingdom.Realm.V1";
+option go_package = "realmv1";
+option java_multiple_files = true;
+option java_outer_classname = "RealmApiProto";
+option java_package = "org.zenithar.kingdom.realm.v1";
+option objc_class_prefix = "KRX";
+option php_namespace = "Kingdom\\Realm\\V1";
 
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 import "github.com/lyft/protoc-gen-validate/validate/validate.proto";
@@ -46,11 +46,11 @@ import "pkg/protocol/kingdom/realm/v1/realm.proto";
 service RealmAPI {
   // Create a realm.
   rpc Create(RealmCreateRequest) returns (SingleRealmResponse);
-  // Get a realm by id
+  // Get a realm by id.
   rpc Get(RealmGetRequest) returns (SingleRealmResponse);
-  // Update realm attributes
+  // Update realm attributes.
   rpc Update(RealmUpdateRequest) returns (SingleRealmResponse);
-  // Delete a realm by id
+  // Delete a realm by id.
   rpc Delete(RealmGetRequest) returns (SingleRealmResponse);
 }
 

@@ -22,6 +22,13 @@ syntax = "proto3";
 
 package kingdom.realm.v1;
 
+option (gogoproto.benchgen_all) = true;
+option (gogoproto.equal_all) = true;
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.populate_all) = true;
+option (gogoproto.sizer_all) = true;
+option (gogoproto.testgen_all) = true;
+option (gogoproto.unmarshaler_all) = true;
 option csharp_namespace = "Kingdom.Realm.V1";
 option go_package = "realmv1";
 option java_multiple_files = true;
@@ -29,6 +36,8 @@ option java_outer_classname = "RealmProto";
 option java_package = "org.zenithar.kingdom.realm.v1";
 option objc_class_prefix = "KRX";
 option php_namespace = "Kingdom\\Realm\\V1";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 
 // Realm is an object group.
 message Realm {

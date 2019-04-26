@@ -2,10 +2,10 @@ package postgresql
 
 import (
 	"context"
-	
-	"go.zenithar.org/pkg/db/adapter/postgresql"
+
 	"go.zenithar.org/kingdom/internal/models"
 	"go.zenithar.org/kingdom/internal/repositories"
+	"go.zenithar.org/pkg/db/adapter/postgresql"
 
 	"github.com/jmoiron/sqlx"
 )
@@ -39,11 +39,11 @@ func (r *pgUserRepository) Get(ctx context.Context, realmID, id string) (*models
 
 	if err := r.adapter.WhereAndFetchOne(ctx, map[string]interface{}{
 		"realm_id": realmID,
-		"user_id": id,
+		"user_id":  id,
 	}, &entity); err != nil {
 		return nil, err
 	}
-	
+
 	return &entity, nil
 }
 
@@ -52,14 +52,14 @@ func (r *pgUserRepository) Update(ctx context.Context, entity *models.User) erro
 		"secret": entity.Secret,
 	}, map[string]interface{}{
 		"realm_id": entity.RealmID,
-		"user_id": entity.ID,
+		"user_id":  entity.ID,
 	})
 }
 
 func (r *pgUserRepository) Delete(ctx context.Context, realmID, id string) error {
 	return r.adapter.RemoveOne(ctx, map[string]interface{}{
 		"realm_id": realmID,
-		"user_id": id,
+		"user_id":  id,
 	})
 }
 
@@ -67,11 +67,11 @@ func (r *pgUserRepository) FindByPrincipal(ctx context.Context, realmID string, 
 	var entity models.User
 
 	if err := r.adapter.WhereAndFetchOne(ctx, map[string]interface{}{
-		"realm_id": realmID,
+		"realm_id":  realmID,
 		"principal": principal,
 	}, &entity); err != nil {
 		return nil, err
 	}
-	
+
 	return &entity, nil
 }

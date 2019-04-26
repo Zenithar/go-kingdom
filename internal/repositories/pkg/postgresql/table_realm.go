@@ -2,10 +2,10 @@ package postgresql
 
 import (
 	"context"
-	
-	"go.zenithar.org/pkg/db/adapter/postgresql"
+
 	"go.zenithar.org/kingdom/internal/models"
 	"go.zenithar.org/kingdom/internal/repositories"
+	"go.zenithar.org/pkg/db/adapter/postgresql"
 
 	"github.com/jmoiron/sqlx"
 )
@@ -42,7 +42,7 @@ func (r *pgRealmRepository) Get(ctx context.Context, id string) (*models.Realm, 
 	}, &entity); err != nil {
 		return nil, err
 	}
-	
+
 	return &entity, nil
 }
 

@@ -59,7 +59,7 @@ func Build() {
 
 	fmt.Println("")
 	color.Red("# Artifacts ----------------------------------------------------------------")
-//	mg.Deps(Bin.Spotigraph)
+	//	mg.Deps(Bin.Spotigraph)
 }
 
 // -----------------------------------------------------------------------------
@@ -156,7 +156,6 @@ func (Go) Test() error {
 func (Go) IntegrationTest() {
 	color.Cyan("## Running integration tests")
 	sh.Run("mkdir", "-p", "test-results/junit")
-
 }
 
 // Tidy add/remove depenedencies.
