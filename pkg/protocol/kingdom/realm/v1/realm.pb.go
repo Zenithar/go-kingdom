@@ -38,9 +38,11 @@ func (*Realm) ProtoMessage()    {}
 func (*Realm) Descriptor() ([]byte, []int) {
 	return fileDescriptor_7296e3842eeef2ba, []int{0}
 }
+
 func (m *Realm) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
+
 func (m *Realm) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
 		return xxx_messageInfo_Realm.Marshal(b, m, deterministic)
@@ -53,12 +55,15 @@ func (m *Realm) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 		return b[:n], nil
 	}
 }
+
 func (m *Realm) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_Realm.Merge(m, src)
 }
+
 func (m *Realm) XXX_Size() int {
 	return m.Size()
 }
+
 func (m *Realm) XXX_DiscardUnknown() {
 	xxx_messageInfo_Realm.DiscardUnknown(m)
 }
@@ -136,6 +141,7 @@ func (this *Realm) Equal(that interface{}) bool {
 	}
 	return true
 }
+
 func (m *Realm) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -178,6 +184,7 @@ func encodeVarintRealm(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return offset + 1
 }
+
 func NewPopulatedRealm(r randyRealm, easy bool) *Realm {
 	this := &Realm{}
 	this.Id = string(randStringRealm(r))
@@ -206,6 +213,7 @@ func randUTF8RuneRealm(r randyRealm) rune {
 	}
 	return rune(ru + 61)
 }
+
 func randStringRealm(r randyRealm) string {
 	v1 := r.Intn(100)
 	tmps := make([]rune, v1)
@@ -214,6 +222,7 @@ func randStringRealm(r randyRealm) string {
 	}
 	return string(tmps)
 }
+
 func randUnrecognizedRealm(r randyRealm, maxFieldNumber int) (dAtA []byte) {
 	l := r.Intn(5)
 	for i := 0; i < l; i++ {
@@ -226,6 +235,7 @@ func randUnrecognizedRealm(r randyRealm, maxFieldNumber int) (dAtA []byte) {
 	}
 	return dAtA
 }
+
 func randFieldRealm(dAtA []byte, r randyRealm, fieldNumber int, wire int) []byte {
 	key := uint32(fieldNumber)<<3 | uint32(wire)
 	switch wire {
@@ -252,6 +262,7 @@ func randFieldRealm(dAtA []byte, r randyRealm, fieldNumber int, wire int) []byte
 	}
 	return dAtA
 }
+
 func encodeVarintPopulateRealm(dAtA []byte, v uint64) []byte {
 	for v >= 1<<7 {
 		dAtA = append(dAtA, uint8(uint64(v)&0x7f|0x80))
@@ -260,6 +271,7 @@ func encodeVarintPopulateRealm(dAtA []byte, v uint64) []byte {
 	dAtA = append(dAtA, uint8(v))
 	return dAtA
 }
+
 func (m *Realm) Size() (n int) {
 	if m == nil {
 		return 0
@@ -290,9 +302,11 @@ func sovRealm(x uint64) (n int) {
 	}
 	return n
 }
+
 func sozRealm(x uint64) (n int) {
 	return sovRealm(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
+
 func (m *Realm) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -411,6 +425,7 @@ func (m *Realm) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
+
 func skipRealm(dAtA []byte) (n int, err error) {
 	l := len(dAtA)
 	iNdEx := 0

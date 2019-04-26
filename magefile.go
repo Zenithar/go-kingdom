@@ -94,7 +94,7 @@ func (Gen) Mocks() {
 	color.Blue("### Mocks")
 
 	mustGoGenerate("Repositories", "go.zenithar.org/kingdom/internal/repositories")
-	mustGoGenerate("Services", "go.zenithar.org/kingdom/internal/services")
+	mustGoGenerate("Services", "go.zenithar.org/kingdom/internal/services/pkg/...")
 }
 
 // Generate mocks for tests

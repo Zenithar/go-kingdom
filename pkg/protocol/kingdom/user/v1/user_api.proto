@@ -22,6 +22,13 @@ syntax = "proto3";
 
 package kingdom.user.v1;
 
+option (gogoproto.benchgen_all) = true;
+option (gogoproto.equal_all) = true;
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.populate_all) = true;
+option (gogoproto.sizer_all) = true;
+option (gogoproto.testgen_all) = true;
+option (gogoproto.unmarshaler_all) = true;
 option csharp_namespace = "Kingdom.User.V1";
 option go_package = "userv1";
 option java_multiple_files = true;

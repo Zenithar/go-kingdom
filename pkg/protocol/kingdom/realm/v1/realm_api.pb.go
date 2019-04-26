@@ -40,9 +40,11 @@ func (*CreateRequest) ProtoMessage()    {}
 func (*CreateRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_f214aa5cc9b6b498, []int{0}
 }
+
 func (m *CreateRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
+
 func (m *CreateRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
 		return xxx_messageInfo_CreateRequest.Marshal(b, m, deterministic)
@@ -55,12 +57,15 @@ func (m *CreateRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error
 		return b[:n], nil
 	}
 }
+
 func (m *CreateRequest) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_CreateRequest.Merge(m, src)
 }
+
 func (m *CreateRequest) XXX_Size() int {
 	return m.Size()
 }
+
 func (m *CreateRequest) XXX_DiscardUnknown() {
 	xxx_messageInfo_CreateRequest.DiscardUnknown(m)
 }
@@ -87,9 +92,11 @@ func (*GetRequest) ProtoMessage()    {}
 func (*GetRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_f214aa5cc9b6b498, []int{1}
 }
+
 func (m *GetRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
+
 func (m *GetRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
 		return xxx_messageInfo_GetRequest.Marshal(b, m, deterministic)
@@ -102,12 +109,15 @@ func (m *GetRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 		return b[:n], nil
 	}
 }
+
 func (m *GetRequest) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_GetRequest.Merge(m, src)
 }
+
 func (m *GetRequest) XXX_Size() int {
 	return m.Size()
 }
+
 func (m *GetRequest) XXX_DiscardUnknown() {
 	xxx_messageInfo_GetRequest.DiscardUnknown(m)
 }
@@ -135,9 +145,11 @@ func (*UpdateRequest) ProtoMessage()    {}
 func (*UpdateRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_f214aa5cc9b6b498, []int{2}
 }
+
 func (m *UpdateRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
+
 func (m *UpdateRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
 		return xxx_messageInfo_UpdateRequest.Marshal(b, m, deterministic)
@@ -150,12 +162,15 @@ func (m *UpdateRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error
 		return b[:n], nil
 	}
 }
+
 func (m *UpdateRequest) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_UpdateRequest.Merge(m, src)
 }
+
 func (m *UpdateRequest) XXX_Size() int {
 	return m.Size()
 }
+
 func (m *UpdateRequest) XXX_DiscardUnknown() {
 	xxx_messageInfo_UpdateRequest.DiscardUnknown(m)
 }
@@ -190,9 +205,11 @@ func (*SearchRequest) ProtoMessage()    {}
 func (*SearchRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_f214aa5cc9b6b498, []int{3}
 }
+
 func (m *SearchRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
+
 func (m *SearchRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
 		return xxx_messageInfo_SearchRequest.Marshal(b, m, deterministic)
@@ -205,12 +222,15 @@ func (m *SearchRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error
 		return b[:n], nil
 	}
 }
+
 func (m *SearchRequest) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_SearchRequest.Merge(m, src)
 }
+
 func (m *SearchRequest) XXX_Size() int {
 	return m.Size()
 }
+
 func (m *SearchRequest) XXX_DiscardUnknown() {
 	xxx_messageInfo_SearchRequest.DiscardUnknown(m)
 }
@@ -244,9 +264,11 @@ func (*SingleResponse) ProtoMessage()    {}
 func (*SingleResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_f214aa5cc9b6b498, []int{4}
 }
+
 func (m *SingleResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
+
 func (m *SingleResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
 		return xxx_messageInfo_SingleResponse.Marshal(b, m, deterministic)
@@ -259,12 +281,15 @@ func (m *SingleResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, erro
 		return b[:n], nil
 	}
 }
+
 func (m *SingleResponse) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_SingleResponse.Merge(m, src)
 }
+
 func (m *SingleResponse) XXX_Size() int {
 	return m.Size()
 }
+
 func (m *SingleResponse) XXX_DiscardUnknown() {
 	xxx_messageInfo_SingleResponse.DiscardUnknown(m)
 }
@@ -291,9 +316,11 @@ func (*PaginatedResponse) ProtoMessage()    {}
 func (*PaginatedResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_f214aa5cc9b6b498, []int{5}
 }
+
 func (m *PaginatedResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
+
 func (m *PaginatedResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
 		return xxx_messageInfo_PaginatedResponse.Marshal(b, m, deterministic)
@@ -306,12 +333,15 @@ func (m *PaginatedResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, e
 		return b[:n], nil
 	}
 }
+
 func (m *PaginatedResponse) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_PaginatedResponse.Merge(m, src)
 }
+
 func (m *PaginatedResponse) XXX_Size() int {
 	return m.Size()
 }
+
 func (m *PaginatedResponse) XXX_DiscardUnknown() {
 	xxx_messageInfo_PaginatedResponse.DiscardUnknown(m)
 }
@@ -401,6 +431,7 @@ func (this *CreateRequest) Equal(that interface{}) bool {
 	}
 	return true
 }
+
 func (this *GetRequest) Equal(that interface{}) bool {
 	if that == nil {
 		return this == nil
@@ -428,6 +459,7 @@ func (this *GetRequest) Equal(that interface{}) bool {
 	}
 	return true
 }
+
 func (this *UpdateRequest) Equal(that interface{}) bool {
 	if that == nil {
 		return this == nil
@@ -458,6 +490,7 @@ func (this *UpdateRequest) Equal(that interface{}) bool {
 	}
 	return true
 }
+
 func (this *SearchRequest) Equal(that interface{}) bool {
 	if that == nil {
 		return this == nil
@@ -488,6 +521,7 @@ func (this *SearchRequest) Equal(that interface{}) bool {
 	}
 	return true
 }
+
 func (this *SingleResponse) Equal(that interface{}) bool {
 	if that == nil {
 		return this == nil
@@ -515,6 +549,7 @@ func (this *SingleResponse) Equal(that interface{}) bool {
 	}
 	return true
 }
+
 func (this *PaginatedResponse) Equal(that interface{}) bool {
 	if that == nil {
 		return this == nil
@@ -967,6 +1002,7 @@ func encodeVarintRealmApi(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return offset + 1
 }
+
 func NewPopulatedCreateRequest(r randyRealmApi, easy bool) *CreateRequest {
 	this := &CreateRequest{}
 	this.Label = string(randStringRealmApi(r))
@@ -1055,6 +1091,7 @@ func randUTF8RuneRealmApi(r randyRealmApi) rune {
 	}
 	return rune(ru + 61)
 }
+
 func randStringRealmApi(r randyRealmApi) string {
 	v2 := r.Intn(100)
 	tmps := make([]rune, v2)
@@ -1063,6 +1100,7 @@ func randStringRealmApi(r randyRealmApi) string {
 	}
 	return string(tmps)
 }
+
 func randUnrecognizedRealmApi(r randyRealmApi, maxFieldNumber int) (dAtA []byte) {
 	l := r.Intn(5)
 	for i := 0; i < l; i++ {
@@ -1075,6 +1113,7 @@ func randUnrecognizedRealmApi(r randyRealmApi, maxFieldNumber int) (dAtA []byte)
 	}
 	return dAtA
 }
+
 func randFieldRealmApi(dAtA []byte, r randyRealmApi, fieldNumber int, wire int) []byte {
 	key := uint32(fieldNumber)<<3 | uint32(wire)
 	switch wire {
@@ -1101,6 +1140,7 @@ func randFieldRealmApi(dAtA []byte, r randyRealmApi, fieldNumber int, wire int) 
 	}
 	return dAtA
 }
+
 func encodeVarintPopulateRealmApi(dAtA []byte, v uint64) []byte {
 	for v >= 1<<7 {
 		dAtA = append(dAtA, uint8(uint64(v)&0x7f|0x80))
@@ -1109,6 +1149,7 @@ func encodeVarintPopulateRealmApi(dAtA []byte, v uint64) []byte {
 	dAtA = append(dAtA, uint8(v))
 	return dAtA
 }
+
 func (m *CreateRequest) Size() (n int) {
 	if m == nil {
 		return 0
@@ -1225,9 +1266,11 @@ func sovRealmApi(x uint64) (n int) {
 	}
 	return n
 }
+
 func sozRealmApi(x uint64) (n int) {
 	return sovRealmApi(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
+
 func (m *CreateRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -1314,6 +1357,7 @@ func (m *CreateRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
+
 func (m *GetRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -1400,6 +1444,7 @@ func (m *GetRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
+
 func (m *UpdateRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -1522,6 +1567,7 @@ func (m *UpdateRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
+
 func (m *SearchRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -1648,6 +1694,7 @@ func (m *SearchRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
+
 func (m *SingleResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -1738,6 +1785,7 @@ func (m *SingleResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
+
 func (m *PaginatedResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -1826,6 +1874,7 @@ func (m *PaginatedResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
+
 func skipRealmApi(dAtA []byte) (n int, err error) {
 	l := len(dAtA)
 	iNdEx := 0

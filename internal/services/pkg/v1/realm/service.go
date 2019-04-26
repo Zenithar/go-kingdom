@@ -25,31 +25,31 @@ func (s *service) Create(ctx context.Context, req *realmv1.CreateRequest) (*real
 	res := &realmv1.SingleResponse{}
 
 	// Return result
-	return &res, nil
+	return res, nil
 }
 
 func (s *service) Get(ctx context.Context, req *realmv1.GetRequest) (*realmv1.SingleResponse, error) {
 	res := &realmv1.SingleResponse{}
 
 	// Return result
-	return &res, nil
+	return res, nil
 }
 
 func (s *service) Update(ctx context.Context, req *realmv1.UpdateRequest) (*realmv1.SingleResponse, error) {
 	res := &realmv1.SingleResponse{}
 
 	// Return result
-	return &res, nil
+	return res, nil
 }
 
 func (s *service) Delete(ctx context.Context, req *realmv1.GetRequest) (*realmv1.SingleResponse, error) {
 	res := &realmv1.SingleResponse{}
 
 	// Return result
-	return &res, nil
+	return res, nil
 }
 
-func (s *service) Search(ctx context.Context, req *realmv1.SearchReq) (*realmv1.PaginatedResponse, error) {
+func (s *service) Search(ctx context.Context, req *realmv1.SearchRequest) (*realmv1.PaginatedResponse, error) {
 	res := &realmv1.PaginatedResponse{}
 
 	// Return results
