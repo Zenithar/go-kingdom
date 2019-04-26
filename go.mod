@@ -24,6 +24,7 @@ require (
 	github.com/spf13/cobra v0.0.3
 	github.com/spf13/pflag v1.0.3
 	github.com/ziutek/mymysql v1.5.4 // indirect
+	go.zenithar.org/pkg/db v0.0.2
 	go.zenithar.org/pkg/db/adapter/postgresql v0.0.2
 	golang.org/x/net v0.0.0-20190424112056-4829fb13d2c6 // indirect
 	golang.org/x/oauth2 v0.0.0-20190226205417-e64efc72b421

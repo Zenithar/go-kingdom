@@ -45,30 +45,41 @@ import "pkg/protocol/kingdom/realm/v1/realm.proto";
 // RealmAPI manage realm objects.
 service RealmAPI {
   // Create a realm.
-  rpc Create(RealmCreateRequest) returns (SingleRealmResponse);
+  rpc Create(CreateRequest) returns (SingleResponse);
   // Get a realm by id.
-  rpc Get(RealmGetRequest) returns (SingleRealmResponse);
+  rpc Get(GetRequest) returns (SingleResponse);
   // Update realm attributes.
-  rpc Update(RealmUpdateRequest) returns (SingleRealmResponse);
+  rpc Update(UpdateRequest) returns (SingleResponse);
   // Delete a realm by id.
-  rpc Delete(RealmGetRequest) returns (SingleRealmResponse);
+  rpc Delete(GetRequest) returns (SingleResponse);
+  // Search for realms.
+  rpc Search(SearchRequest) returns (PaginatedResponse);
 }
 
 // -----------------------------------------------------------------------------
 
-message RealmCreateRequest {
+message CreateRequest {
   string label = 1;
 }
 
-message RealmGetRequest {
+message GetRequest {
   string id = 1;
 }
 
-message RealmUpdateRequest {
+message UpdateRequest {
   string id = 1;
   google.protobuf.StringValue label = 2;
 }
 
-message SingleRealmResponse {
+message SearchRequest {
+  google.protobuf.StringValue id = 1;
+  google.protobuf.StringValue label = 2;
+}
+
+message SingleResponse {
   Realm entity = 1;
+}
+
+message PaginatedResponse {
+  repeated Realm members = 2;
 }

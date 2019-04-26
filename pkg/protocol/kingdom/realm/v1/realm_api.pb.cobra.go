@@ -70,6 +70,7 @@ func (o *ClientCommandConfig) AddFlags(fs *pflag.FlagSet) {
 // -----------------------------------------------------------------------------
 
 func dial(cfg *ClientCommandConfig) (*grpc.ClientConn, error) {
+
 	// Default client connection options
 	opts := []grpc.DialOption{
 		grpc.WithBlock(),
@@ -116,7 +117,7 @@ func dial(cfg *ClientCommandConfig) (*grpc.ClientConn, error) {
 			tlsConfig.ServerName = addr
 		}
 
-		// tlsConfig.BuildNameToCertificate()
+		//tlsConfig.BuildNameToCertificate()
 		cred := credentials.NewTLS(tlsConfig)
 		opts = append(opts, grpc.WithTransportCredentials(cred))
 	} else {
@@ -212,7 +213,7 @@ Authenticate using the Authorization header (requires transport security):
 	export SERVER_ADDR=api.example.com:443
 	echo '{json}' | create --tls`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		var req RealmCreateRequest
+		var req CreateRequest
 
 		// Get a connection
 		conn, err := dial(DefaultClientCommandConfig)
@@ -264,7 +265,7 @@ Authenticate using the Authorization header (requires transport security):
 	export SERVER_ADDR=api.example.com:443
 	echo '{json}' | get --tls`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		var req RealmGetRequest
+		var req GetRequest
 
 		// Get a connection
 		conn, err := dial(DefaultClientCommandConfig)
@@ -316,7 +317,7 @@ Authenticate using the Authorization header (requires transport security):
 	export SERVER_ADDR=api.example.com:443
 	echo '{json}' | update --tls`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		var req RealmUpdateRequest
+		var req UpdateRequest
 
 		// Get a connection
 		conn, err := dial(DefaultClientCommandConfig)
@@ -368,7 +369,7 @@ Authenticate using the Authorization header (requires transport security):
 	export SERVER_ADDR=api.example.com:443
 	echo '{json}' | delete --tls`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		var req RealmGetRequest
+		var req GetRequest
 
 		// Get a connection
 		conn, err := dial(DefaultClientCommandConfig)
@@ -405,4 +406,56 @@ Authenticate using the Authorization header (requires transport security):
 func init() {
 	RealmAPIClientCommand.AddCommand(realmAPI_DeleteClientCommand)
 	DefaultClientCommandConfig.AddFlags(realmAPI_DeleteClientCommand.Flags())
+}
+
+var realmAPI_SearchClientCommand = &cobra.Command{
+	Use:  "search",
+	Long: "Search client\n\nYou can use environment variables with the same name of the command flags.\nAll caps and s/-/_, e.g. SERVER_ADDR.",
+	Example: `
+Save a sample request to a file (or refer to your protobuf descriptor to create one):
+	search -p > req.json
+Submit request using file:
+	search -f req.json
+Authenticate using the Authorization header (requires transport security):
+	export AUTH_TOKEN=your_access_token
+	export SERVER_ADDR=api.example.com:443
+	echo '{json}' | search --tls`,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		var req SearchRequest
+
+		// Get a connection
+		conn, err := dial(DefaultClientCommandConfig)
+		if err != nil {
+			return err
+		}
+		defer conn.Close()
+
+		// Initialize client wrapper
+		grpcClient := NewRealmAPIClient(conn)
+
+		// Unmarshal request
+		if err := jsonpb.Unmarshal(bufio.NewReader(os.Stdin), &req); err != nil {
+			return err
+		}
+
+		// Prepare context
+		ctx := context.Background()
+
+		// Do the call
+		res, err := grpcClient.Search(ctx, &req)
+		if err != nil {
+			return err
+		}
+
+		// Beautify result
+		beautify(res)
+
+		// no error
+		return nil
+	},
+}
+
+func init() {
+	RealmAPIClientCommand.AddCommand(realmAPI_SearchClientCommand)
+	DefaultClientCommandConfig.AddFlags(realmAPI_SearchClientCommand.Flags())
 }

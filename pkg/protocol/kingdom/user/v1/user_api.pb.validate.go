@@ -33,22 +33,24 @@ var (
 	_ = types.DynamicAny{}
 )
 
-// Validate checks the field values on UserCreateRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
-func (m *UserCreateRequest) Validate() error {
+// Validate checks the field values on CreateRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *CreateRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
 
-	// no validation rules for Label
+	// no validation rules for RealmId
+
+	// no validation rules for Principal
 
 	return nil
 }
 
-// UserCreateRequestValidationError is the validation error returned by
-// UserCreateRequest.Validate if the designated constraints aren't met.
-type UserCreateRequestValidationError struct {
+// CreateRequestValidationError is the validation error returned by
+// CreateRequest.Validate if the designated constraints aren't met.
+type CreateRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -56,24 +58,22 @@ type UserCreateRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e UserCreateRequestValidationError) Field() string { return e.field }
+func (e CreateRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e UserCreateRequestValidationError) Reason() string { return e.reason }
+func (e CreateRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e UserCreateRequestValidationError) Cause() error { return e.cause }
+func (e CreateRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e UserCreateRequestValidationError) Key() bool { return e.key }
+func (e CreateRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e UserCreateRequestValidationError) ErrorName() string {
-	return "UserCreateRequestValidationError"
-}
+func (e CreateRequestValidationError) ErrorName() string { return "CreateRequestValidationError" }
 
 // Error satisfies the builtin error interface
-func (e UserCreateRequestValidationError) Error() string {
+func (e CreateRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -85,14 +85,14 @@ func (e UserCreateRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sUserCreateRequest.%s: %s%s",
+		"invalid %sCreateRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = UserCreateRequestValidationError{}
+var _ error = CreateRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -100,19 +100,261 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = UserCreateRequestValidationError{}
+} = CreateRequestValidationError{}
 
-// Validate checks the field values on SingleUserResponse with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *SingleUserResponse) Validate() error {
+// Validate checks the field values on GetRequest with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *GetRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for RealmId
+
+	// no validation rules for UserId
+
+	return nil
+}
+
+// GetRequestValidationError is the validation error returned by
+// GetRequest.Validate if the designated constraints aren't met.
+type GetRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetRequestValidationError) ErrorName() string { return "GetRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e GetRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetRequestValidationError{}
+
+// Validate checks the field values on UpdateRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *UpdateRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for RealmId
+
+	// no validation rules for UserId
+
+	if v, ok := interface{}(m.GetSecret()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdateRequestValidationError{
+				field:  "Secret",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// UpdateRequestValidationError is the validation error returned by
+// UpdateRequest.Validate if the designated constraints aren't met.
+type UpdateRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateRequestValidationError) ErrorName() string { return "UpdateRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e UpdateRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateRequestValidationError{}
+
+// Validate checks the field values on SearchRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *SearchRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetRealmId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SearchRequestValidationError{
+				field:  "RealmId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetUserId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SearchRequestValidationError{
+				field:  "UserId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetPrincipal()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SearchRequestValidationError{
+				field:  "Principal",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// SearchRequestValidationError is the validation error returned by
+// SearchRequest.Validate if the designated constraints aren't met.
+type SearchRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SearchRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SearchRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SearchRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SearchRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SearchRequestValidationError) ErrorName() string { return "SearchRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SearchRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSearchRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SearchRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SearchRequestValidationError{}
+
+// Validate checks the field values on SingleResponse with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *SingleResponse) Validate() error {
 	if m == nil {
 		return nil
 	}
 
 	if v, ok := interface{}(m.GetEntity()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return SingleUserResponseValidationError{
+			return SingleResponseValidationError{
 				field:  "Entity",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -123,9 +365,9 @@ func (m *SingleUserResponse) Validate() error {
 	return nil
 }
 
-// SingleUserResponseValidationError is the validation error returned by
-// SingleUserResponse.Validate if the designated constraints aren't met.
-type SingleUserResponseValidationError struct {
+// SingleResponseValidationError is the validation error returned by
+// SingleResponse.Validate if the designated constraints aren't met.
+type SingleResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -133,24 +375,22 @@ type SingleUserResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e SingleUserResponseValidationError) Field() string { return e.field }
+func (e SingleResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e SingleUserResponseValidationError) Reason() string { return e.reason }
+func (e SingleResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e SingleUserResponseValidationError) Cause() error { return e.cause }
+func (e SingleResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e SingleUserResponseValidationError) Key() bool { return e.key }
+func (e SingleResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e SingleUserResponseValidationError) ErrorName() string {
-	return "SingleUserResponseValidationError"
-}
+func (e SingleResponseValidationError) ErrorName() string { return "SingleResponseValidationError" }
 
 // Error satisfies the builtin error interface
-func (e SingleUserResponseValidationError) Error() string {
+func (e SingleResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -162,14 +402,14 @@ func (e SingleUserResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sSingleUserResponse.%s: %s%s",
+		"invalid %sSingleResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = SingleUserResponseValidationError{}
+var _ error = SingleResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -177,4 +417,86 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = SingleUserResponseValidationError{}
+} = SingleResponseValidationError{}
+
+// Validate checks the field values on PaginatedResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *PaginatedResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	for idx, item := range m.GetMembers() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return PaginatedResponseValidationError{
+					field:  fmt.Sprintf("Members[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// PaginatedResponseValidationError is the validation error returned by
+// PaginatedResponse.Validate if the designated constraints aren't met.
+type PaginatedResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PaginatedResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PaginatedResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PaginatedResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PaginatedResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PaginatedResponseValidationError) ErrorName() string {
+	return "PaginatedResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PaginatedResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPaginatedResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PaginatedResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PaginatedResponseValidationError{}

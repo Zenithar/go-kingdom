@@ -40,9 +40,11 @@ func (m *User) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Id
+	// no validation rules for RealmId
 
-	// no validation rules for Label
+	// no validation rules for UserId
+
+	// no validation rules for Principal
 
 	return nil
 }

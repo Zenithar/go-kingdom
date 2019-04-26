@@ -12,8 +12,44 @@ import (
 type MockUserAPIServer struct{}
 
 // Create is mock implementation of the method Create
-func (MockUserAPIServer) Create(context.Context, *UserCreateRequest) (*SingleUserResponse, error) {
-	var res SingleUserResponse
+func (MockUserAPIServer) Create(context.Context, *CreateRequest) (*SingleResponse, error) {
+	var res SingleResponse
+	if err := faker.FakeData(&res); err != nil {
+		return nil, err
+	}
+	return &res, nil
+}
+
+// Get is mock implementation of the method Get
+func (MockUserAPIServer) Get(context.Context, *GetRequest) (*SingleResponse, error) {
+	var res SingleResponse
+	if err := faker.FakeData(&res); err != nil {
+		return nil, err
+	}
+	return &res, nil
+}
+
+// Update is mock implementation of the method Update
+func (MockUserAPIServer) Update(context.Context, *UpdateRequest) (*SingleResponse, error) {
+	var res SingleResponse
+	if err := faker.FakeData(&res); err != nil {
+		return nil, err
+	}
+	return &res, nil
+}
+
+// Delete is mock implementation of the method Delete
+func (MockUserAPIServer) Delete(context.Context, *GetRequest) (*SingleResponse, error) {
+	var res SingleResponse
+	if err := faker.FakeData(&res); err != nil {
+		return nil, err
+	}
+	return &res, nil
+}
+
+// Search is mock implementation of the method Search
+func (MockUserAPIServer) Search(context.Context, *SearchRequest) (*PaginatedResponse, error) {
+	var res PaginatedResponse
 	if err := faker.FakeData(&res); err != nil {
 		return nil, err
 	}

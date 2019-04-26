@@ -33,10 +33,10 @@ var (
 	_ = types.DynamicAny{}
 )
 
-// Validate checks the field values on RealmCreateRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *RealmCreateRequest) Validate() error {
+// Validate checks the field values on CreateRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *CreateRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -46,9 +46,9 @@ func (m *RealmCreateRequest) Validate() error {
 	return nil
 }
 
-// RealmCreateRequestValidationError is the validation error returned by
-// RealmCreateRequest.Validate if the designated constraints aren't met.
-type RealmCreateRequestValidationError struct {
+// CreateRequestValidationError is the validation error returned by
+// CreateRequest.Validate if the designated constraints aren't met.
+type CreateRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -56,24 +56,22 @@ type RealmCreateRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e RealmCreateRequestValidationError) Field() string { return e.field }
+func (e CreateRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e RealmCreateRequestValidationError) Reason() string { return e.reason }
+func (e CreateRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e RealmCreateRequestValidationError) Cause() error { return e.cause }
+func (e CreateRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e RealmCreateRequestValidationError) Key() bool { return e.key }
+func (e CreateRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e RealmCreateRequestValidationError) ErrorName() string {
-	return "RealmCreateRequestValidationError"
-}
+func (e CreateRequestValidationError) ErrorName() string { return "CreateRequestValidationError" }
 
 // Error satisfies the builtin error interface
-func (e RealmCreateRequestValidationError) Error() string {
+func (e CreateRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -85,14 +83,14 @@ func (e RealmCreateRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sRealmCreateRequest.%s: %s%s",
+		"invalid %sCreateRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = RealmCreateRequestValidationError{}
+var _ error = CreateRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -100,12 +98,11 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = RealmCreateRequestValidationError{}
+} = CreateRequestValidationError{}
 
-// Validate checks the field values on RealmGetRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
-func (m *RealmGetRequest) Validate() error {
+// Validate checks the field values on GetRequest with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *GetRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -115,9 +112,9 @@ func (m *RealmGetRequest) Validate() error {
 	return nil
 }
 
-// RealmGetRequestValidationError is the validation error returned by
-// RealmGetRequest.Validate if the designated constraints aren't met.
-type RealmGetRequestValidationError struct {
+// GetRequestValidationError is the validation error returned by
+// GetRequest.Validate if the designated constraints aren't met.
+type GetRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -125,22 +122,22 @@ type RealmGetRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e RealmGetRequestValidationError) Field() string { return e.field }
+func (e GetRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e RealmGetRequestValidationError) Reason() string { return e.reason }
+func (e GetRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e RealmGetRequestValidationError) Cause() error { return e.cause }
+func (e GetRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e RealmGetRequestValidationError) Key() bool { return e.key }
+func (e GetRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e RealmGetRequestValidationError) ErrorName() string { return "RealmGetRequestValidationError" }
+func (e GetRequestValidationError) ErrorName() string { return "GetRequestValidationError" }
 
 // Error satisfies the builtin error interface
-func (e RealmGetRequestValidationError) Error() string {
+func (e GetRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -152,14 +149,14 @@ func (e RealmGetRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sRealmGetRequest.%s: %s%s",
+		"invalid %sGetRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = RealmGetRequestValidationError{}
+var _ error = GetRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -167,12 +164,12 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = RealmGetRequestValidationError{}
+} = GetRequestValidationError{}
 
-// Validate checks the field values on RealmUpdateRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *RealmUpdateRequest) Validate() error {
+// Validate checks the field values on UpdateRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *UpdateRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -181,7 +178,7 @@ func (m *RealmUpdateRequest) Validate() error {
 
 	if v, ok := interface{}(m.GetLabel()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return RealmUpdateRequestValidationError{
+			return UpdateRequestValidationError{
 				field:  "Label",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -192,9 +189,9 @@ func (m *RealmUpdateRequest) Validate() error {
 	return nil
 }
 
-// RealmUpdateRequestValidationError is the validation error returned by
-// RealmUpdateRequest.Validate if the designated constraints aren't met.
-type RealmUpdateRequestValidationError struct {
+// UpdateRequestValidationError is the validation error returned by
+// UpdateRequest.Validate if the designated constraints aren't met.
+type UpdateRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -202,24 +199,22 @@ type RealmUpdateRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e RealmUpdateRequestValidationError) Field() string { return e.field }
+func (e UpdateRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e RealmUpdateRequestValidationError) Reason() string { return e.reason }
+func (e UpdateRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e RealmUpdateRequestValidationError) Cause() error { return e.cause }
+func (e UpdateRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e RealmUpdateRequestValidationError) Key() bool { return e.key }
+func (e UpdateRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e RealmUpdateRequestValidationError) ErrorName() string {
-	return "RealmUpdateRequestValidationError"
-}
+func (e UpdateRequestValidationError) ErrorName() string { return "UpdateRequestValidationError" }
 
 // Error satisfies the builtin error interface
-func (e RealmUpdateRequestValidationError) Error() string {
+func (e UpdateRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -231,14 +226,14 @@ func (e RealmUpdateRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sRealmUpdateRequest.%s: %s%s",
+		"invalid %sUpdateRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = RealmUpdateRequestValidationError{}
+var _ error = UpdateRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -246,19 +241,104 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = RealmUpdateRequestValidationError{}
+} = UpdateRequestValidationError{}
 
-// Validate checks the field values on SingleRealmResponse with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *SingleRealmResponse) Validate() error {
+// Validate checks the field values on SearchRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *SearchRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SearchRequestValidationError{
+				field:  "Id",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetLabel()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SearchRequestValidationError{
+				field:  "Label",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// SearchRequestValidationError is the validation error returned by
+// SearchRequest.Validate if the designated constraints aren't met.
+type SearchRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SearchRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SearchRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SearchRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SearchRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SearchRequestValidationError) ErrorName() string { return "SearchRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SearchRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSearchRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SearchRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SearchRequestValidationError{}
+
+// Validate checks the field values on SingleResponse with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *SingleResponse) Validate() error {
 	if m == nil {
 		return nil
 	}
 
 	if v, ok := interface{}(m.GetEntity()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return SingleRealmResponseValidationError{
+			return SingleResponseValidationError{
 				field:  "Entity",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -269,9 +349,9 @@ func (m *SingleRealmResponse) Validate() error {
 	return nil
 }
 
-// SingleRealmResponseValidationError is the validation error returned by
-// SingleRealmResponse.Validate if the designated constraints aren't met.
-type SingleRealmResponseValidationError struct {
+// SingleResponseValidationError is the validation error returned by
+// SingleResponse.Validate if the designated constraints aren't met.
+type SingleResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -279,24 +359,22 @@ type SingleRealmResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e SingleRealmResponseValidationError) Field() string { return e.field }
+func (e SingleResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e SingleRealmResponseValidationError) Reason() string { return e.reason }
+func (e SingleResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e SingleRealmResponseValidationError) Cause() error { return e.cause }
+func (e SingleResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e SingleRealmResponseValidationError) Key() bool { return e.key }
+func (e SingleResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e SingleRealmResponseValidationError) ErrorName() string {
-	return "SingleRealmResponseValidationError"
-}
+func (e SingleResponseValidationError) ErrorName() string { return "SingleResponseValidationError" }
 
 // Error satisfies the builtin error interface
-func (e SingleRealmResponseValidationError) Error() string {
+func (e SingleResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -308,14 +386,14 @@ func (e SingleRealmResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sSingleRealmResponse.%s: %s%s",
+		"invalid %sSingleResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = SingleRealmResponseValidationError{}
+var _ error = SingleResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -323,4 +401,86 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = SingleRealmResponseValidationError{}
+} = SingleResponseValidationError{}
+
+// Validate checks the field values on PaginatedResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *PaginatedResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	for idx, item := range m.GetMembers() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return PaginatedResponseValidationError{
+					field:  fmt.Sprintf("Members[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// PaginatedResponseValidationError is the validation error returned by
+// PaginatedResponse.Validate if the designated constraints aren't met.
+type PaginatedResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PaginatedResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PaginatedResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PaginatedResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PaginatedResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PaginatedResponseValidationError) ErrorName() string {
+	return "PaginatedResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PaginatedResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPaginatedResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PaginatedResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PaginatedResponseValidationError{}

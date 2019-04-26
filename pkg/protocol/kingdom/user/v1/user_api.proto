@@ -30,20 +30,53 @@ option java_package = "org.zenithar.kingdom.user.v1";
 option objc_class_prefix = "KUX";
 option php_namespace = "Kingdom\\User\\V1";
 
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "github.com/lyft/protoc-gen-validate/validate/validate.proto";
+import "google/protobuf/wrappers.proto";
 import "pkg/protocol/kingdom/user/v1/user.proto";
 
 // UserAPI manage user objects.
 service UserAPI {
-  // Create a user.
-  rpc Create(UserCreateRequest) returns (SingleUserResponse);
+  // Create an user identity.
+  rpc Create(CreateRequest) returns (SingleResponse);
+  // Get an user by id.
+  rpc Get(GetRequest) returns (SingleResponse);
+  // Update user attributes.
+  rpc Update(UpdateRequest) returns (SingleResponse);
+  // Delete an user by id.
+  rpc Delete(GetRequest) returns (SingleResponse);
+  // Search for user identity.
+  rpc Search(SearchRequest) returns (PaginatedResponse);
 }
 
 // -----------------------------------------------------------------------------
 
-message UserCreateRequest {
-  string label = 1;
+message CreateRequest {
+  string realm_id = 1;
+  string principal = 2;
 }
 
-message SingleUserResponse {
+message GetRequest {
+  string realm_id = 1;
+  string user_id = 2;
+}
+
+message UpdateRequest {
+  string realm_id = 1;
+  string user_id = 2;
+  google.protobuf.StringValue secret = 3;
+}
+
+message SearchRequest {
+  google.protobuf.StringValue realm_id = 1;
+  google.protobuf.StringValue user_id = 2;
+  google.protobuf.StringValue principal = 3;
+}
+
+message SingleResponse {
   User entity = 1;
+}
+
+message PaginatedResponse {
+  repeated User members = 1;
 }

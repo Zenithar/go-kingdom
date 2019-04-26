@@ -70,6 +70,7 @@ func (o *ClientCommandConfig) AddFlags(fs *pflag.FlagSet) {
 // -----------------------------------------------------------------------------
 
 func dial(cfg *ClientCommandConfig) (*grpc.ClientConn, error) {
+
 	// Default client connection options
 	opts := []grpc.DialOption{
 		grpc.WithBlock(),
@@ -116,7 +117,7 @@ func dial(cfg *ClientCommandConfig) (*grpc.ClientConn, error) {
 			tlsConfig.ServerName = addr
 		}
 
-		// tlsConfig.BuildNameToCertificate()
+		//tlsConfig.BuildNameToCertificate()
 		cred := credentials.NewTLS(tlsConfig)
 		opts = append(opts, grpc.WithTransportCredentials(cred))
 	} else {
@@ -212,7 +213,7 @@ Authenticate using the Authorization header (requires transport security):
 	export SERVER_ADDR=api.example.com:443
 	echo '{json}' | create --tls`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		var req UserCreateRequest
+		var req CreateRequest
 
 		// Get a connection
 		conn, err := dial(DefaultClientCommandConfig)
@@ -249,4 +250,212 @@ Authenticate using the Authorization header (requires transport security):
 func init() {
 	UserAPIClientCommand.AddCommand(userAPI_CreateClientCommand)
 	DefaultClientCommandConfig.AddFlags(userAPI_CreateClientCommand.Flags())
+}
+
+var userAPI_GetClientCommand = &cobra.Command{
+	Use:  "get",
+	Long: "Get client\n\nYou can use environment variables with the same name of the command flags.\nAll caps and s/-/_, e.g. SERVER_ADDR.",
+	Example: `
+Save a sample request to a file (or refer to your protobuf descriptor to create one):
+	get -p > req.json
+Submit request using file:
+	get -f req.json
+Authenticate using the Authorization header (requires transport security):
+	export AUTH_TOKEN=your_access_token
+	export SERVER_ADDR=api.example.com:443
+	echo '{json}' | get --tls`,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		var req GetRequest
+
+		// Get a connection
+		conn, err := dial(DefaultClientCommandConfig)
+		if err != nil {
+			return err
+		}
+		defer conn.Close()
+
+		// Initialize client wrapper
+		grpcClient := NewUserAPIClient(conn)
+
+		// Unmarshal request
+		if err := jsonpb.Unmarshal(bufio.NewReader(os.Stdin), &req); err != nil {
+			return err
+		}
+
+		// Prepare context
+		ctx := context.Background()
+
+		// Do the call
+		res, err := grpcClient.Get(ctx, &req)
+		if err != nil {
+			return err
+		}
+
+		// Beautify result
+		beautify(res)
+
+		// no error
+		return nil
+	},
+}
+
+func init() {
+	UserAPIClientCommand.AddCommand(userAPI_GetClientCommand)
+	DefaultClientCommandConfig.AddFlags(userAPI_GetClientCommand.Flags())
+}
+
+var userAPI_UpdateClientCommand = &cobra.Command{
+	Use:  "update",
+	Long: "Update client\n\nYou can use environment variables with the same name of the command flags.\nAll caps and s/-/_, e.g. SERVER_ADDR.",
+	Example: `
+Save a sample request to a file (or refer to your protobuf descriptor to create one):
+	update -p > req.json
+Submit request using file:
+	update -f req.json
+Authenticate using the Authorization header (requires transport security):
+	export AUTH_TOKEN=your_access_token
+	export SERVER_ADDR=api.example.com:443
+	echo '{json}' | update --tls`,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		var req UpdateRequest
+
+		// Get a connection
+		conn, err := dial(DefaultClientCommandConfig)
+		if err != nil {
+			return err
+		}
+		defer conn.Close()
+
+		// Initialize client wrapper
+		grpcClient := NewUserAPIClient(conn)
+
+		// Unmarshal request
+		if err := jsonpb.Unmarshal(bufio.NewReader(os.Stdin), &req); err != nil {
+			return err
+		}
+
+		// Prepare context
+		ctx := context.Background()
+
+		// Do the call
+		res, err := grpcClient.Update(ctx, &req)
+		if err != nil {
+			return err
+		}
+
+		// Beautify result
+		beautify(res)
+
+		// no error
+		return nil
+	},
+}
+
+func init() {
+	UserAPIClientCommand.AddCommand(userAPI_UpdateClientCommand)
+	DefaultClientCommandConfig.AddFlags(userAPI_UpdateClientCommand.Flags())
+}
+
+var userAPI_DeleteClientCommand = &cobra.Command{
+	Use:  "delete",
+	Long: "Delete client\n\nYou can use environment variables with the same name of the command flags.\nAll caps and s/-/_, e.g. SERVER_ADDR.",
+	Example: `
+Save a sample request to a file (or refer to your protobuf descriptor to create one):
+	delete -p > req.json
+Submit request using file:
+	delete -f req.json
+Authenticate using the Authorization header (requires transport security):
+	export AUTH_TOKEN=your_access_token
+	export SERVER_ADDR=api.example.com:443
+	echo '{json}' | delete --tls`,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		var req GetRequest
+
+		// Get a connection
+		conn, err := dial(DefaultClientCommandConfig)
+		if err != nil {
+			return err
+		}
+		defer conn.Close()
+
+		// Initialize client wrapper
+		grpcClient := NewUserAPIClient(conn)
+
+		// Unmarshal request
+		if err := jsonpb.Unmarshal(bufio.NewReader(os.Stdin), &req); err != nil {
+			return err
+		}
+
+		// Prepare context
+		ctx := context.Background()
+
+		// Do the call
+		res, err := grpcClient.Delete(ctx, &req)
+		if err != nil {
+			return err
+		}
+
+		// Beautify result
+		beautify(res)
+
+		// no error
+		return nil
+	},
+}
+
+func init() {
+	UserAPIClientCommand.AddCommand(userAPI_DeleteClientCommand)
+	DefaultClientCommandConfig.AddFlags(userAPI_DeleteClientCommand.Flags())
+}
+
+var userAPI_SearchClientCommand = &cobra.Command{
+	Use:  "search",
+	Long: "Search client\n\nYou can use environment variables with the same name of the command flags.\nAll caps and s/-/_, e.g. SERVER_ADDR.",
+	Example: `
+Save a sample request to a file (or refer to your protobuf descriptor to create one):
+	search -p > req.json
+Submit request using file:
+	search -f req.json
+Authenticate using the Authorization header (requires transport security):
+	export AUTH_TOKEN=your_access_token
+	export SERVER_ADDR=api.example.com:443
+	echo '{json}' | search --tls`,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		var req SearchRequest
+
+		// Get a connection
+		conn, err := dial(DefaultClientCommandConfig)
+		if err != nil {
+			return err
+		}
+		defer conn.Close()
+
+		// Initialize client wrapper
+		grpcClient := NewUserAPIClient(conn)
+
+		// Unmarshal request
+		if err := jsonpb.Unmarshal(bufio.NewReader(os.Stdin), &req); err != nil {
+			return err
+		}
+
+		// Prepare context
+		ctx := context.Background()
+
+		// Do the call
+		res, err := grpcClient.Search(ctx, &req)
+		if err != nil {
+			return err
+		}
+
+		// Beautify result
+		beautify(res)
+
+		// no error
+		return nil
+	},
+}
+
+func init() {
+	UserAPIClientCommand.AddCommand(userAPI_SearchClientCommand)
+	DefaultClientCommandConfig.AddFlags(userAPI_SearchClientCommand.Flags())
 }

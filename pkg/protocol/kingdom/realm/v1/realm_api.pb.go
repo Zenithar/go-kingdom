@@ -27,27 +27,25 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion2 // please upgrade the proto package
 
-type RealmCreateRequest struct {
+type CreateRequest struct {
 	Label                string   `protobuf:"bytes,1,opt,name=label,proto3" json:"label,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *RealmCreateRequest) Reset()         { *m = RealmCreateRequest{} }
-func (m *RealmCreateRequest) String() string { return proto.CompactTextString(m) }
-func (*RealmCreateRequest) ProtoMessage()    {}
-func (*RealmCreateRequest) Descriptor() ([]byte, []int) {
+func (m *CreateRequest) Reset()         { *m = CreateRequest{} }
+func (m *CreateRequest) String() string { return proto.CompactTextString(m) }
+func (*CreateRequest) ProtoMessage()    {}
+func (*CreateRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_f214aa5cc9b6b498, []int{0}
 }
-
-func (m *RealmCreateRequest) XXX_Unmarshal(b []byte) error {
+func (m *CreateRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-
-func (m *RealmCreateRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *CreateRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_RealmCreateRequest.Marshal(b, m, deterministic)
+		return xxx_messageInfo_CreateRequest.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalTo(b)
@@ -57,49 +55,44 @@ func (m *RealmCreateRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, 
 		return b[:n], nil
 	}
 }
-
-func (m *RealmCreateRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RealmCreateRequest.Merge(m, src)
+func (m *CreateRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateRequest.Merge(m, src)
 }
-
-func (m *RealmCreateRequest) XXX_Size() int {
+func (m *CreateRequest) XXX_Size() int {
 	return m.Size()
 }
-
-func (m *RealmCreateRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_RealmCreateRequest.DiscardUnknown(m)
+func (m *CreateRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_RealmCreateRequest proto.InternalMessageInfo
+var xxx_messageInfo_CreateRequest proto.InternalMessageInfo
 
-func (m *RealmCreateRequest) GetLabel() string {
+func (m *CreateRequest) GetLabel() string {
 	if m != nil {
 		return m.Label
 	}
 	return ""
 }
 
-type RealmGetRequest struct {
+type GetRequest struct {
 	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *RealmGetRequest) Reset()         { *m = RealmGetRequest{} }
-func (m *RealmGetRequest) String() string { return proto.CompactTextString(m) }
-func (*RealmGetRequest) ProtoMessage()    {}
-func (*RealmGetRequest) Descriptor() ([]byte, []int) {
+func (m *GetRequest) Reset()         { *m = GetRequest{} }
+func (m *GetRequest) String() string { return proto.CompactTextString(m) }
+func (*GetRequest) ProtoMessage()    {}
+func (*GetRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_f214aa5cc9b6b498, []int{1}
 }
-
-func (m *RealmGetRequest) XXX_Unmarshal(b []byte) error {
+func (m *GetRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-
-func (m *RealmGetRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *GetRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_RealmGetRequest.Marshal(b, m, deterministic)
+		return xxx_messageInfo_GetRequest.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalTo(b)
@@ -109,29 +102,26 @@ func (m *RealmGetRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, err
 		return b[:n], nil
 	}
 }
-
-func (m *RealmGetRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RealmGetRequest.Merge(m, src)
+func (m *GetRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetRequest.Merge(m, src)
 }
-
-func (m *RealmGetRequest) XXX_Size() int {
+func (m *GetRequest) XXX_Size() int {
 	return m.Size()
 }
-
-func (m *RealmGetRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_RealmGetRequest.DiscardUnknown(m)
+func (m *GetRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_RealmGetRequest proto.InternalMessageInfo
+var xxx_messageInfo_GetRequest proto.InternalMessageInfo
 
-func (m *RealmGetRequest) GetId() string {
+func (m *GetRequest) GetId() string {
 	if m != nil {
 		return m.Id
 	}
 	return ""
 }
 
-type RealmUpdateRequest struct {
+type UpdateRequest struct {
 	Id                   string             `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	Label                *types.StringValue `protobuf:"bytes,2,opt,name=label,proto3" json:"label,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
@@ -139,20 +129,18 @@ type RealmUpdateRequest struct {
 	XXX_sizecache        int32              `json:"-"`
 }
 
-func (m *RealmUpdateRequest) Reset()         { *m = RealmUpdateRequest{} }
-func (m *RealmUpdateRequest) String() string { return proto.CompactTextString(m) }
-func (*RealmUpdateRequest) ProtoMessage()    {}
-func (*RealmUpdateRequest) Descriptor() ([]byte, []int) {
+func (m *UpdateRequest) Reset()         { *m = UpdateRequest{} }
+func (m *UpdateRequest) String() string { return proto.CompactTextString(m) }
+func (*UpdateRequest) ProtoMessage()    {}
+func (*UpdateRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_f214aa5cc9b6b498, []int{2}
 }
-
-func (m *RealmUpdateRequest) XXX_Unmarshal(b []byte) error {
+func (m *UpdateRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-
-func (m *RealmUpdateRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *UpdateRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_RealmUpdateRequest.Marshal(b, m, deterministic)
+		return xxx_messageInfo_UpdateRequest.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalTo(b)
@@ -162,56 +150,52 @@ func (m *RealmUpdateRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, 
 		return b[:n], nil
 	}
 }
-
-func (m *RealmUpdateRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RealmUpdateRequest.Merge(m, src)
+func (m *UpdateRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UpdateRequest.Merge(m, src)
 }
-
-func (m *RealmUpdateRequest) XXX_Size() int {
+func (m *UpdateRequest) XXX_Size() int {
 	return m.Size()
 }
-
-func (m *RealmUpdateRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_RealmUpdateRequest.DiscardUnknown(m)
+func (m *UpdateRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_UpdateRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_RealmUpdateRequest proto.InternalMessageInfo
+var xxx_messageInfo_UpdateRequest proto.InternalMessageInfo
 
-func (m *RealmUpdateRequest) GetId() string {
+func (m *UpdateRequest) GetId() string {
 	if m != nil {
 		return m.Id
 	}
 	return ""
 }
 
-func (m *RealmUpdateRequest) GetLabel() *types.StringValue {
+func (m *UpdateRequest) GetLabel() *types.StringValue {
 	if m != nil {
 		return m.Label
 	}
 	return nil
 }
 
-type SingleRealmResponse struct {
-	Entity               *Realm   `protobuf:"bytes,1,opt,name=entity,proto3" json:"entity,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+type SearchRequest struct {
+	Id                   *types.StringValue `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Label                *types.StringValue `protobuf:"bytes,2,opt,name=label,proto3" json:"label,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
+	XXX_unrecognized     []byte             `json:"-"`
+	XXX_sizecache        int32              `json:"-"`
 }
 
-func (m *SingleRealmResponse) Reset()         { *m = SingleRealmResponse{} }
-func (m *SingleRealmResponse) String() string { return proto.CompactTextString(m) }
-func (*SingleRealmResponse) ProtoMessage()    {}
-func (*SingleRealmResponse) Descriptor() ([]byte, []int) {
+func (m *SearchRequest) Reset()         { *m = SearchRequest{} }
+func (m *SearchRequest) String() string { return proto.CompactTextString(m) }
+func (*SearchRequest) ProtoMessage()    {}
+func (*SearchRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_f214aa5cc9b6b498, []int{3}
 }
-
-func (m *SingleRealmResponse) XXX_Unmarshal(b []byte) error {
+func (m *SearchRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-
-func (m *SingleRealmResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *SearchRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_SingleRealmResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_SearchRequest.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalTo(b)
@@ -221,33 +205,133 @@ func (m *SingleRealmResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte,
 		return b[:n], nil
 	}
 }
-
-func (m *SingleRealmResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SingleRealmResponse.Merge(m, src)
+func (m *SearchRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SearchRequest.Merge(m, src)
 }
-
-func (m *SingleRealmResponse) XXX_Size() int {
+func (m *SearchRequest) XXX_Size() int {
 	return m.Size()
 }
-
-func (m *SingleRealmResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_SingleRealmResponse.DiscardUnknown(m)
+func (m *SearchRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_SearchRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_SingleRealmResponse proto.InternalMessageInfo
+var xxx_messageInfo_SearchRequest proto.InternalMessageInfo
 
-func (m *SingleRealmResponse) GetEntity() *Realm {
+func (m *SearchRequest) GetId() *types.StringValue {
+	if m != nil {
+		return m.Id
+	}
+	return nil
+}
+
+func (m *SearchRequest) GetLabel() *types.StringValue {
+	if m != nil {
+		return m.Label
+	}
+	return nil
+}
+
+type SingleResponse struct {
+	Entity               *Realm   `protobuf:"bytes,1,opt,name=entity,proto3" json:"entity,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *SingleResponse) Reset()         { *m = SingleResponse{} }
+func (m *SingleResponse) String() string { return proto.CompactTextString(m) }
+func (*SingleResponse) ProtoMessage()    {}
+func (*SingleResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_f214aa5cc9b6b498, []int{4}
+}
+func (m *SingleResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *SingleResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_SingleResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalTo(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *SingleResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SingleResponse.Merge(m, src)
+}
+func (m *SingleResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *SingleResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_SingleResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SingleResponse proto.InternalMessageInfo
+
+func (m *SingleResponse) GetEntity() *Realm {
 	if m != nil {
 		return m.Entity
 	}
 	return nil
 }
 
+type PaginatedResponse struct {
+	Members              []*Realm `protobuf:"bytes,2,rep,name=members,proto3" json:"members,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *PaginatedResponse) Reset()         { *m = PaginatedResponse{} }
+func (m *PaginatedResponse) String() string { return proto.CompactTextString(m) }
+func (*PaginatedResponse) ProtoMessage()    {}
+func (*PaginatedResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_f214aa5cc9b6b498, []int{5}
+}
+func (m *PaginatedResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *PaginatedResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_PaginatedResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalTo(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *PaginatedResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_PaginatedResponse.Merge(m, src)
+}
+func (m *PaginatedResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *PaginatedResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_PaginatedResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_PaginatedResponse proto.InternalMessageInfo
+
+func (m *PaginatedResponse) GetMembers() []*Realm {
+	if m != nil {
+		return m.Members
+	}
+	return nil
+}
+
 func init() {
-	proto.RegisterType((*RealmCreateRequest)(nil), "kingdom.realm.v1.RealmCreateRequest")
-	proto.RegisterType((*RealmGetRequest)(nil), "kingdom.realm.v1.RealmGetRequest")
-	proto.RegisterType((*RealmUpdateRequest)(nil), "kingdom.realm.v1.RealmUpdateRequest")
-	proto.RegisterType((*SingleRealmResponse)(nil), "kingdom.realm.v1.SingleRealmResponse")
+	proto.RegisterType((*CreateRequest)(nil), "kingdom.realm.v1.CreateRequest")
+	proto.RegisterType((*GetRequest)(nil), "kingdom.realm.v1.GetRequest")
+	proto.RegisterType((*UpdateRequest)(nil), "kingdom.realm.v1.UpdateRequest")
+	proto.RegisterType((*SearchRequest)(nil), "kingdom.realm.v1.SearchRequest")
+	proto.RegisterType((*SingleResponse)(nil), "kingdom.realm.v1.SingleResponse")
+	proto.RegisterType((*PaginatedResponse)(nil), "kingdom.realm.v1.PaginatedResponse")
 }
 
 func init() {
@@ -255,46 +339,49 @@ func init() {
 }
 
 var fileDescriptor_f214aa5cc9b6b498 = []byte{
-	// 455 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x92, 0x4d, 0x6b, 0x14, 0x31,
-	0x18, 0xc7, 0xc9, 0x14, 0x47, 0x4d, 0x51, 0x4b, 0x14, 0x94, 0x45, 0x43, 0xbb, 0x28, 0x54, 0x61,
-	0x33, 0xcc, 0x7a, 0xf4, 0x64, 0x15, 0x8b, 0xf4, 0xe0, 0x32, 0x65, 0x97, 0x22, 0x05, 0xc9, 0x76,
-	0x9e, 0xa6, 0xa1, 0xd9, 0x49, 0xcc, 0x66, 0x57, 0xea, 0xcd, 0xaf, 0xe2, 0x49, 0xfc, 0x04, 0x1e,
-	0x3d, 0x8a, 0x27, 0xbf, 0x80, 0xa0, 0xf3, 0x29, 0x3c, 0x4a, 0x93, 0x8c, 0x7d, 0x59, 0x17, 0xf6,
-	0xd0, 0xdb, 0xf3, 0xf2, 0x7f, 0x7e, 0xcf, 0x4b, 0x82, 0x3b, 0xe6, 0x50, 0x64, 0xc6, 0x6a, 0xa7,
-	0xf7, 0xb4, 0xca, 0x0e, 0x65, 0x25, 0x4a, 0x3d, 0xca, 0x2c, 0x70, 0x35, 0xca, 0xa6, 0x79, 0x30,
-	0xde, 0x70, 0x23, 0x99, 0xd7, 0x90, 0x95, 0xa8, 0x60, 0x3e, 0xc1, 0xa6, 0x79, 0xab, 0x23, 0xa4,
-	0x3b, 0x98, 0x0c, 0xd9, 0x9e, 0x1e, 0x65, 0x42, 0x0b, 0x1d, 0x60, 0xc3, 0xc9, 0xbe, 0xf7, 0xbc,
-	0xe3, 0xad, 0x00, 0x68, 0x3d, 0x39, 0x25, 0x57, 0x47, 0xfb, 0x2e, 0xf6, 0xee, 0x08, 0xa8, 0x3a,
-	0x53, 0xae, 0x64, 0xc9, 0x1d, 0x64, 0x33, 0x46, 0x2c, 0xa6, 0x42, 0x6b, 0xa1, 0xe0, 0xa4, 0xc5,
-	0x3b, 0xcb, 0x8d, 0x01, 0x3b, 0x8e, 0xf9, 0x87, 0x0b, 0x2c, 0x13, 0xa4, 0xed, 0x47, 0x98, 0x14,
-	0xc7, 0xee, 0x33, 0x0b, 0xdc, 0x41, 0x01, 0x6f, 0x27, 0x30, 0x76, 0xe4, 0x16, 0xbe, 0xa4, 0xf8,
-	0x10, 0xd4, 0x1d, 0xb4, 0x8a, 0xd6, 0xaf, 0x16, 0xc1, 0x69, 0xaf, 0xe1, 0x1b, 0x5e, 0xbb, 0x09,
-	0xae, 0x11, 0x5e, 0xc7, 0x89, 0x2c, 0xa3, 0x2a, 0x91, 0x65, 0x7b, 0x27, 0xe2, 0xfa, 0xa6, 0x3c,
-	0x85, 0x3b, 0xa7, 0x22, 0xdd, 0x06, 0x9f, 0xac, 0xa2, 0xf5, 0xe5, 0xee, 0x5d, 0x16, 0xf6, 0x61,
-	0xcd, 0x3e, 0x6c, 0xdb, 0x59, 0x59, 0x89, 0x01, 0x57, 0x13, 0x68, 0x9a, 0xbf, 0xc0, 0x37, 0xb7,
-	0x65, 0x25, 0x14, 0x78, 0x7e, 0x01, 0x63, 0xa3, 0xab, 0x31, 0x90, 0x0c, 0xa7, 0x50, 0x39, 0xe9,
-	0x8e, 0x3c, 0x7e, 0xb9, 0x7b, 0x9b, 0x9d, 0x7f, 0x19, 0x16, 0x0a, 0xa2, 0xac, 0xfb, 0x33, 0xc1,
-	0x57, 0x7c, 0xe4, 0x69, 0xef, 0x25, 0xe9, 0xe3, 0x34, 0x2c, 0x4e, 0xee, 0xcf, 0xa9, 0x3b, 0x73,
-	0x97, 0xd6, 0x83, 0x59, 0xd5, 0xff, 0x86, 0x7a, 0x85, 0x97, 0x36, 0xc1, 0x91, 0xb5, 0x39, 0xcc,
-	0x93, 0xfb, 0x2d, 0x0a, 0xec, 0xe3, 0x34, 0x5c, 0x74, 0xee, 0x9c, 0x67, 0x0e, 0xbe, 0x28, 0xb6,
-	0xc0, 0xe9, 0x73, 0x50, 0xe0, 0xe0, 0xe2, 0x46, 0xdd, 0xf8, 0x80, 0xfe, 0xfc, 0xa6, 0xe8, 0x53,
-	0x4d, 0xd1, 0x97, 0x9a, 0xa2, 0xaf, 0x35, 0x45, 0xdf, 0x6a, 0x8a, 0x7e, 0xd4, 0x14, 0xfd, 0xaa,
-	0x29, 0xc2, 0xf7, 0xb4, 0x15, 0xec, 0x3d, 0x54, 0xd2, 0x1d, 0x70, 0x3b, 0x43, 0xdc, 0xb8, 0x16,
-	0x9e, 0xc6, 0xc8, 0xde, 0xf1, 0x57, 0xe8, 0xa1, 0xd7, 0x97, 0x7d, 0x6a, 0x9a, 0x7f, 0x4c, 0x96,
-	0xb6, 0x8a, 0x9d, 0xcf, 0xc9, 0xca, 0x56, 0x2c, 0xf1, 0x42, 0x36, 0xc8, 0xbf, 0xff, 0x0b, 0xed,
-	0xfa, 0xd0, 0xee, 0x20, 0x1f, 0xa6, 0xfe, 0x23, 0x3d, 0xfe, 0x1b, 0x00, 0x00, 0xff, 0xff, 0xf3,
-	0xcc, 0xca, 0x9f, 0xd5, 0x03, 0x00, 0x00,
+	// 509 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x92, 0xcf, 0x8a, 0x13, 0x41,
+	0x10, 0xc6, 0xe9, 0x09, 0xce, 0x6a, 0x4b, 0x96, 0x75, 0x10, 0x5c, 0x42, 0x1c, 0x43, 0x44, 0x58,
+	0xc1, 0xf4, 0x30, 0xf1, 0xe8, 0x69, 0xd7, 0x3f, 0xab, 0x04, 0x24, 0x4c, 0x30, 0x88, 0x2c, 0x48,
+	0x27, 0x53, 0xdb, 0x69, 0xb6, 0x33, 0x3d, 0xdb, 0xd3, 0x89, 0xac, 0x37, 0x0f, 0xbe, 0x88, 0x27,
+	0xf1, 0x09, 0x3c, 0x7a, 0x14, 0x4f, 0x3e, 0x82, 0xce, 0x53, 0x78, 0x94, 0xed, 0x9e, 0xc9, 0x6e,
+	0x32, 0x8b, 0x06, 0xbd, 0x55, 0x77, 0xfd, 0xea, 0xab, 0x2a, 0xbe, 0xc2, 0x9d, 0xf4, 0x88, 0x05,
+	0xa9, 0x92, 0x5a, 0x8e, 0xa5, 0x08, 0x8e, 0x78, 0xc2, 0x62, 0x39, 0x0d, 0x14, 0x50, 0x31, 0x0d,
+	0xe6, 0xa1, 0x0d, 0x5e, 0xd3, 0x94, 0x13, 0xc3, 0x78, 0x5b, 0x05, 0x41, 0x4c, 0x82, 0xcc, 0xc3,
+	0x46, 0x87, 0x71, 0x3d, 0x99, 0x8d, 0xc8, 0x58, 0x4e, 0x03, 0x26, 0x99, 0xb4, 0x62, 0xa3, 0xd9,
+	0xa1, 0x79, 0x99, 0x87, 0x89, 0xac, 0x40, 0xe3, 0xc1, 0x39, 0x5c, 0x9c, 0x1c, 0xea, 0xa2, 0x77,
+	0x87, 0x41, 0xd2, 0x99, 0x53, 0xc1, 0x63, 0xaa, 0x21, 0xa8, 0x04, 0x45, 0xb1, 0xcf, 0xa4, 0x64,
+	0x02, 0xce, 0x5a, 0xbc, 0x51, 0x34, 0x4d, 0x41, 0x65, 0x45, 0xfe, 0xee, 0x1a, 0xcb, 0x58, 0xb4,
+	0x7d, 0x07, 0xd7, 0x1f, 0x2a, 0xa0, 0x1a, 0x22, 0x38, 0x9e, 0x41, 0xa6, 0xbd, 0xeb, 0xf8, 0x92,
+	0xa0, 0x23, 0x10, 0xdb, 0xa8, 0x85, 0x76, 0xae, 0x44, 0xf6, 0xd1, 0x6e, 0x62, 0xbc, 0x0f, 0xba,
+	0x64, 0x36, 0xb1, 0xc3, 0xe3, 0x02, 0x70, 0x78, 0xdc, 0x1e, 0xe0, 0xfa, 0x8b, 0x34, 0x3e, 0x27,
+	0xb2, 0x02, 0x78, 0xdd, 0x52, 0xd4, 0x69, 0xa1, 0x9d, 0xab, 0xdd, 0x26, 0xb1, 0x0b, 0x90, 0x72,
+	0x01, 0x32, 0xd0, 0x8a, 0x27, 0x6c, 0x48, 0xc5, 0x0c, 0xca, 0x96, 0xc7, 0xb8, 0x3e, 0x00, 0xaa,
+	0xc6, 0x93, 0x52, 0xf4, 0xde, 0x42, 0xf4, 0x6f, 0x0a, 0xff, 0xda, 0x72, 0x17, 0x6f, 0x0e, 0x78,
+	0xc2, 0x04, 0x44, 0x90, 0xa5, 0x32, 0xc9, 0xc0, 0x0b, 0xb0, 0x0b, 0x89, 0xe6, 0xfa, 0xa4, 0xe8,
+	0x7b, 0x83, 0xac, 0x1a, 0x4f, 0xa2, 0xd3, 0x20, 0x2a, 0xb0, 0xf6, 0x13, 0x7c, 0xad, 0x4f, 0x19,
+	0x4f, 0xa8, 0x86, 0x78, 0xa1, 0x12, 0xe2, 0x8d, 0x29, 0x4c, 0x47, 0xa0, 0xb2, 0x6d, 0xa7, 0x55,
+	0xfb, 0x93, 0x4c, 0xc9, 0x75, 0xdf, 0xd7, 0xf0, 0x65, 0xf3, 0xb5, 0xdb, 0x7f, 0xe6, 0xf5, 0xb0,
+	0x6b, 0x4d, 0xf2, 0x6e, 0x55, 0x0b, 0x97, 0xec, 0x6b, 0xb4, 0xaa, 0xc0, 0xca, 0x4a, 0x8f, 0x71,
+	0x6d, 0x1f, 0xb4, 0xd7, 0xac, 0x82, 0x67, 0x0e, 0xaf, 0x21, 0xd3, 0xc3, 0xae, 0xf5, 0xfc, 0xa2,
+	0x99, 0x96, 0xae, 0x61, 0x0d, 0xb1, 0xa7, 0xd8, 0x7d, 0x04, 0x02, 0x34, 0xfc, 0xf7, 0x58, 0xcf,
+	0xb1, 0x6b, 0xaf, 0xe6, 0xa2, 0xb1, 0x96, 0xee, 0xa9, 0x71, 0xbb, 0x0a, 0x54, 0xac, 0xdb, 0x7b,
+	0x87, 0x7e, 0xfd, 0xf4, 0xd1, 0xc7, 0xdc, 0x47, 0x9f, 0x73, 0x1f, 0x7d, 0xc9, 0x7d, 0xf4, 0x35,
+	0xf7, 0xd1, 0xf7, 0xdc, 0x47, 0x3f, 0x72, 0x1f, 0xe1, 0x9b, 0x52, 0x31, 0xf2, 0x16, 0x12, 0xae,
+	0x27, 0x54, 0x55, 0xf4, 0xf6, 0xea, 0xd6, 0xc2, 0x94, 0xf7, 0x4f, 0xaf, 0xae, 0x8f, 0x5e, 0x6d,
+	0x98, 0xd4, 0x3c, 0xfc, 0xe0, 0xd4, 0x7a, 0xd1, 0xcb, 0x4f, 0xce, 0x56, 0xaf, 0x28, 0x31, 0x20,
+	0x19, 0x86, 0xdf, 0x16, 0x5f, 0x07, 0xe6, 0xeb, 0x60, 0x18, 0x8e, 0x5c, 0x73, 0xb3, 0xf7, 0x7f,
+	0x07, 0x00, 0x00, 0xff, 0xff, 0x76, 0x22, 0xda, 0x21, 0xa4, 0x04, 0x00, 0x00,
 }
 
-func (this *RealmCreateRequest) Equal(that interface{}) bool {
+func (this *CreateRequest) Equal(that interface{}) bool {
 	if that == nil {
 		return this == nil
 	}
 
-	that1, ok := that.(*RealmCreateRequest)
+	that1, ok := that.(*CreateRequest)
 	if !ok {
-		that2, ok := that.(RealmCreateRequest)
+		that2, ok := that.(CreateRequest)
 		if ok {
 			that1 = &that2
 		} else {
@@ -314,15 +401,14 @@ func (this *RealmCreateRequest) Equal(that interface{}) bool {
 	}
 	return true
 }
-
-func (this *RealmGetRequest) Equal(that interface{}) bool {
+func (this *GetRequest) Equal(that interface{}) bool {
 	if that == nil {
 		return this == nil
 	}
 
-	that1, ok := that.(*RealmGetRequest)
+	that1, ok := that.(*GetRequest)
 	if !ok {
-		that2, ok := that.(RealmGetRequest)
+		that2, ok := that.(GetRequest)
 		if ok {
 			that1 = &that2
 		} else {
@@ -342,15 +428,14 @@ func (this *RealmGetRequest) Equal(that interface{}) bool {
 	}
 	return true
 }
-
-func (this *RealmUpdateRequest) Equal(that interface{}) bool {
+func (this *UpdateRequest) Equal(that interface{}) bool {
 	if that == nil {
 		return this == nil
 	}
 
-	that1, ok := that.(*RealmUpdateRequest)
+	that1, ok := that.(*UpdateRequest)
 	if !ok {
-		that2, ok := that.(RealmUpdateRequest)
+		that2, ok := that.(UpdateRequest)
 		if ok {
 			that1 = &that2
 		} else {
@@ -373,15 +458,44 @@ func (this *RealmUpdateRequest) Equal(that interface{}) bool {
 	}
 	return true
 }
-
-func (this *SingleRealmResponse) Equal(that interface{}) bool {
+func (this *SearchRequest) Equal(that interface{}) bool {
 	if that == nil {
 		return this == nil
 	}
 
-	that1, ok := that.(*SingleRealmResponse)
+	that1, ok := that.(*SearchRequest)
 	if !ok {
-		that2, ok := that.(SingleRealmResponse)
+		that2, ok := that.(SearchRequest)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if !this.Id.Equal(that1.Id) {
+		return false
+	}
+	if !this.Label.Equal(that1.Label) {
+		return false
+	}
+	if !bytes.Equal(this.XXX_unrecognized, that1.XXX_unrecognized) {
+		return false
+	}
+	return true
+}
+func (this *SingleResponse) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*SingleResponse)
+	if !ok {
+		that2, ok := that.(SingleResponse)
 		if ok {
 			that1 = &that2
 		} else {
@@ -395,6 +509,38 @@ func (this *SingleRealmResponse) Equal(that interface{}) bool {
 	}
 	if !this.Entity.Equal(that1.Entity) {
 		return false
+	}
+	if !bytes.Equal(this.XXX_unrecognized, that1.XXX_unrecognized) {
+		return false
+	}
+	return true
+}
+func (this *PaginatedResponse) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*PaginatedResponse)
+	if !ok {
+		that2, ok := that.(PaginatedResponse)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if len(this.Members) != len(that1.Members) {
+		return false
+	}
+	for i := range this.Members {
+		if !this.Members[i].Equal(that1.Members[i]) {
+			return false
+		}
 	}
 	if !bytes.Equal(this.XXX_unrecognized, that1.XXX_unrecognized) {
 		return false
@@ -415,13 +561,15 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type RealmAPIClient interface {
 	// Create a realm.
-	Create(ctx context.Context, in *RealmCreateRequest, opts ...grpc.CallOption) (*SingleRealmResponse, error)
+	Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*SingleResponse, error)
 	// Get a realm by id.
-	Get(ctx context.Context, in *RealmGetRequest, opts ...grpc.CallOption) (*SingleRealmResponse, error)
+	Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*SingleResponse, error)
 	// Update realm attributes.
-	Update(ctx context.Context, in *RealmUpdateRequest, opts ...grpc.CallOption) (*SingleRealmResponse, error)
+	Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*SingleResponse, error)
 	// Delete a realm by id.
-	Delete(ctx context.Context, in *RealmGetRequest, opts ...grpc.CallOption) (*SingleRealmResponse, error)
+	Delete(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*SingleResponse, error)
+	// Search for realms.
+	Search(ctx context.Context, in *SearchRequest, opts ...grpc.CallOption) (*PaginatedResponse, error)
 }
 
 type realmAPIClient struct {
@@ -432,8 +580,8 @@ func NewRealmAPIClient(cc *grpc.ClientConn) RealmAPIClient {
 	return &realmAPIClient{cc}
 }
 
-func (c *realmAPIClient) Create(ctx context.Context, in *RealmCreateRequest, opts ...grpc.CallOption) (*SingleRealmResponse, error) {
-	out := new(SingleRealmResponse)
+func (c *realmAPIClient) Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*SingleResponse, error) {
+	out := new(SingleResponse)
 	err := c.cc.Invoke(ctx, "/kingdom.realm.v1.RealmAPI/Create", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -441,8 +589,8 @@ func (c *realmAPIClient) Create(ctx context.Context, in *RealmCreateRequest, opt
 	return out, nil
 }
 
-func (c *realmAPIClient) Get(ctx context.Context, in *RealmGetRequest, opts ...grpc.CallOption) (*SingleRealmResponse, error) {
-	out := new(SingleRealmResponse)
+func (c *realmAPIClient) Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*SingleResponse, error) {
+	out := new(SingleResponse)
 	err := c.cc.Invoke(ctx, "/kingdom.realm.v1.RealmAPI/Get", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -450,8 +598,8 @@ func (c *realmAPIClient) Get(ctx context.Context, in *RealmGetRequest, opts ...g
 	return out, nil
 }
 
-func (c *realmAPIClient) Update(ctx context.Context, in *RealmUpdateRequest, opts ...grpc.CallOption) (*SingleRealmResponse, error) {
-	out := new(SingleRealmResponse)
+func (c *realmAPIClient) Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*SingleResponse, error) {
+	out := new(SingleResponse)
 	err := c.cc.Invoke(ctx, "/kingdom.realm.v1.RealmAPI/Update", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -459,9 +607,18 @@ func (c *realmAPIClient) Update(ctx context.Context, in *RealmUpdateRequest, opt
 	return out, nil
 }
 
-func (c *realmAPIClient) Delete(ctx context.Context, in *RealmGetRequest, opts ...grpc.CallOption) (*SingleRealmResponse, error) {
-	out := new(SingleRealmResponse)
+func (c *realmAPIClient) Delete(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*SingleResponse, error) {
+	out := new(SingleResponse)
 	err := c.cc.Invoke(ctx, "/kingdom.realm.v1.RealmAPI/Delete", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *realmAPIClient) Search(ctx context.Context, in *SearchRequest, opts ...grpc.CallOption) (*PaginatedResponse, error) {
+	out := new(PaginatedResponse)
+	err := c.cc.Invoke(ctx, "/kingdom.realm.v1.RealmAPI/Search", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -471,13 +628,15 @@ func (c *realmAPIClient) Delete(ctx context.Context, in *RealmGetRequest, opts .
 // RealmAPIServer is the server API for RealmAPI service.
 type RealmAPIServer interface {
 	// Create a realm.
-	Create(context.Context, *RealmCreateRequest) (*SingleRealmResponse, error)
+	Create(context.Context, *CreateRequest) (*SingleResponse, error)
 	// Get a realm by id.
-	Get(context.Context, *RealmGetRequest) (*SingleRealmResponse, error)
+	Get(context.Context, *GetRequest) (*SingleResponse, error)
 	// Update realm attributes.
-	Update(context.Context, *RealmUpdateRequest) (*SingleRealmResponse, error)
+	Update(context.Context, *UpdateRequest) (*SingleResponse, error)
 	// Delete a realm by id.
-	Delete(context.Context, *RealmGetRequest) (*SingleRealmResponse, error)
+	Delete(context.Context, *GetRequest) (*SingleResponse, error)
+	// Search for realms.
+	Search(context.Context, *SearchRequest) (*PaginatedResponse, error)
 }
 
 func RegisterRealmAPIServer(s *grpc.Server, srv RealmAPIServer) {
@@ -485,7 +644,7 @@ func RegisterRealmAPIServer(s *grpc.Server, srv RealmAPIServer) {
 }
 
 func _RealmAPI_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RealmCreateRequest)
+	in := new(CreateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -497,13 +656,13 @@ func _RealmAPI_Create_Handler(srv interface{}, ctx context.Context, dec func(int
 		FullMethod: "/kingdom.realm.v1.RealmAPI/Create",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RealmAPIServer).Create(ctx, req.(*RealmCreateRequest))
+		return srv.(RealmAPIServer).Create(ctx, req.(*CreateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _RealmAPI_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RealmGetRequest)
+	in := new(GetRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -515,13 +674,13 @@ func _RealmAPI_Get_Handler(srv interface{}, ctx context.Context, dec func(interf
 		FullMethod: "/kingdom.realm.v1.RealmAPI/Get",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RealmAPIServer).Get(ctx, req.(*RealmGetRequest))
+		return srv.(RealmAPIServer).Get(ctx, req.(*GetRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _RealmAPI_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RealmUpdateRequest)
+	in := new(UpdateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -533,13 +692,13 @@ func _RealmAPI_Update_Handler(srv interface{}, ctx context.Context, dec func(int
 		FullMethod: "/kingdom.realm.v1.RealmAPI/Update",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RealmAPIServer).Update(ctx, req.(*RealmUpdateRequest))
+		return srv.(RealmAPIServer).Update(ctx, req.(*UpdateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _RealmAPI_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RealmGetRequest)
+	in := new(GetRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -551,7 +710,25 @@ func _RealmAPI_Delete_Handler(srv interface{}, ctx context.Context, dec func(int
 		FullMethod: "/kingdom.realm.v1.RealmAPI/Delete",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RealmAPIServer).Delete(ctx, req.(*RealmGetRequest))
+		return srv.(RealmAPIServer).Delete(ctx, req.(*GetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _RealmAPI_Search_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RealmAPIServer).Search(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/kingdom.realm.v1.RealmAPI/Search",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RealmAPIServer).Search(ctx, req.(*SearchRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -576,12 +753,16 @@ var _RealmAPI_serviceDesc = grpc.ServiceDesc{
 			MethodName: "Delete",
 			Handler:    _RealmAPI_Delete_Handler,
 		},
+		{
+			MethodName: "Search",
+			Handler:    _RealmAPI_Search_Handler,
+		},
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "pkg/protocol/kingdom/realm/v1/realm_api.proto",
 }
 
-func (m *RealmCreateRequest) Marshal() (dAtA []byte, err error) {
+func (m *CreateRequest) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -591,7 +772,7 @@ func (m *RealmCreateRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *RealmCreateRequest) MarshalTo(dAtA []byte) (int, error) {
+func (m *CreateRequest) MarshalTo(dAtA []byte) (int, error) {
 	var i int
 	_ = i
 	var l int
@@ -608,7 +789,7 @@ func (m *RealmCreateRequest) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 
-func (m *RealmGetRequest) Marshal() (dAtA []byte, err error) {
+func (m *GetRequest) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -618,7 +799,7 @@ func (m *RealmGetRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *RealmGetRequest) MarshalTo(dAtA []byte) (int, error) {
+func (m *GetRequest) MarshalTo(dAtA []byte) (int, error) {
 	var i int
 	_ = i
 	var l int
@@ -635,7 +816,7 @@ func (m *RealmGetRequest) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 
-func (m *RealmUpdateRequest) Marshal() (dAtA []byte, err error) {
+func (m *UpdateRequest) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -645,7 +826,7 @@ func (m *RealmUpdateRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *RealmUpdateRequest) MarshalTo(dAtA []byte) (int, error) {
+func (m *UpdateRequest) MarshalTo(dAtA []byte) (int, error) {
 	var i int
 	_ = i
 	var l int
@@ -672,7 +853,7 @@ func (m *RealmUpdateRequest) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 
-func (m *SingleRealmResponse) Marshal() (dAtA []byte, err error) {
+func (m *SearchRequest) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -682,7 +863,48 @@ func (m *SingleRealmResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *SingleRealmResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *SearchRequest) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.Id != nil {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintRealmApi(dAtA, i, uint64(m.Id.Size()))
+		n2, err := m.Id.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n2
+	}
+	if m.Label != nil {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintRealmApi(dAtA, i, uint64(m.Label.Size()))
+		n3, err := m.Label.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n3
+	}
+	if m.XXX_unrecognized != nil {
+		i += copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	return i, nil
+}
+
+func (m *SingleResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *SingleResponse) MarshalTo(dAtA []byte) (int, error) {
 	var i int
 	_ = i
 	var l int
@@ -691,11 +913,44 @@ func (m *SingleRealmResponse) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0xa
 		i++
 		i = encodeVarintRealmApi(dAtA, i, uint64(m.Entity.Size()))
-		n2, err := m.Entity.MarshalTo(dAtA[i:])
+		n4, err := m.Entity.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n2
+		i += n4
+	}
+	if m.XXX_unrecognized != nil {
+		i += copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	return i, nil
+}
+
+func (m *PaginatedResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *PaginatedResponse) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Members) > 0 {
+		for _, msg := range m.Members {
+			dAtA[i] = 0x12
+			i++
+			i = encodeVarintRealmApi(dAtA, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(dAtA[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
+		}
 	}
 	if m.XXX_unrecognized != nil {
 		i += copy(dAtA[i:], m.XXX_unrecognized)
@@ -712,9 +967,8 @@ func encodeVarintRealmApi(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return offset + 1
 }
-
-func NewPopulatedRealmCreateRequest(r randyRealmApi, easy bool) *RealmCreateRequest {
-	this := &RealmCreateRequest{}
+func NewPopulatedCreateRequest(r randyRealmApi, easy bool) *CreateRequest {
+	this := &CreateRequest{}
 	this.Label = string(randStringRealmApi(r))
 	if !easy && r.Intn(10) != 0 {
 		this.XXX_unrecognized = randUnrecognizedRealmApi(r, 2)
@@ -722,8 +976,8 @@ func NewPopulatedRealmCreateRequest(r randyRealmApi, easy bool) *RealmCreateRequ
 	return this
 }
 
-func NewPopulatedRealmGetRequest(r randyRealmApi, easy bool) *RealmGetRequest {
-	this := &RealmGetRequest{}
+func NewPopulatedGetRequest(r randyRealmApi, easy bool) *GetRequest {
+	this := &GetRequest{}
 	this.Id = string(randStringRealmApi(r))
 	if !easy && r.Intn(10) != 0 {
 		this.XXX_unrecognized = randUnrecognizedRealmApi(r, 2)
@@ -731,8 +985,8 @@ func NewPopulatedRealmGetRequest(r randyRealmApi, easy bool) *RealmGetRequest {
 	return this
 }
 
-func NewPopulatedRealmUpdateRequest(r randyRealmApi, easy bool) *RealmUpdateRequest {
-	this := &RealmUpdateRequest{}
+func NewPopulatedUpdateRequest(r randyRealmApi, easy bool) *UpdateRequest {
+	this := &UpdateRequest{}
 	this.Id = string(randStringRealmApi(r))
 	if r.Intn(10) != 0 {
 		this.Label = types.NewPopulatedStringValue(r, easy)
@@ -743,13 +997,42 @@ func NewPopulatedRealmUpdateRequest(r randyRealmApi, easy bool) *RealmUpdateRequ
 	return this
 }
 
-func NewPopulatedSingleRealmResponse(r randyRealmApi, easy bool) *SingleRealmResponse {
-	this := &SingleRealmResponse{}
+func NewPopulatedSearchRequest(r randyRealmApi, easy bool) *SearchRequest {
+	this := &SearchRequest{}
+	if r.Intn(10) != 0 {
+		this.Id = types.NewPopulatedStringValue(r, easy)
+	}
+	if r.Intn(10) != 0 {
+		this.Label = types.NewPopulatedStringValue(r, easy)
+	}
+	if !easy && r.Intn(10) != 0 {
+		this.XXX_unrecognized = randUnrecognizedRealmApi(r, 3)
+	}
+	return this
+}
+
+func NewPopulatedSingleResponse(r randyRealmApi, easy bool) *SingleResponse {
+	this := &SingleResponse{}
 	if r.Intn(10) != 0 {
 		this.Entity = NewPopulatedRealm(r, easy)
 	}
 	if !easy && r.Intn(10) != 0 {
 		this.XXX_unrecognized = randUnrecognizedRealmApi(r, 2)
+	}
+	return this
+}
+
+func NewPopulatedPaginatedResponse(r randyRealmApi, easy bool) *PaginatedResponse {
+	this := &PaginatedResponse{}
+	if r.Intn(10) != 0 {
+		v1 := r.Intn(5)
+		this.Members = make([]*Realm, v1)
+		for i := 0; i < v1; i++ {
+			this.Members[i] = NewPopulatedRealm(r, easy)
+		}
+	}
+	if !easy && r.Intn(10) != 0 {
+		this.XXX_unrecognized = randUnrecognizedRealmApi(r, 3)
 	}
 	return this
 }
@@ -772,16 +1055,14 @@ func randUTF8RuneRealmApi(r randyRealmApi) rune {
 	}
 	return rune(ru + 61)
 }
-
 func randStringRealmApi(r randyRealmApi) string {
-	v1 := r.Intn(100)
-	tmps := make([]rune, v1)
-	for i := 0; i < v1; i++ {
+	v2 := r.Intn(100)
+	tmps := make([]rune, v2)
+	for i := 0; i < v2; i++ {
 		tmps[i] = randUTF8RuneRealmApi(r)
 	}
 	return string(tmps)
 }
-
 func randUnrecognizedRealmApi(r randyRealmApi, maxFieldNumber int) (dAtA []byte) {
 	l := r.Intn(5)
 	for i := 0; i < l; i++ {
@@ -794,17 +1075,16 @@ func randUnrecognizedRealmApi(r randyRealmApi, maxFieldNumber int) (dAtA []byte)
 	}
 	return dAtA
 }
-
 func randFieldRealmApi(dAtA []byte, r randyRealmApi, fieldNumber int, wire int) []byte {
 	key := uint32(fieldNumber)<<3 | uint32(wire)
 	switch wire {
 	case 0:
 		dAtA = encodeVarintPopulateRealmApi(dAtA, uint64(key))
-		v2 := r.Int63()
+		v3 := r.Int63()
 		if r.Intn(2) == 0 {
-			v2 *= -1
+			v3 *= -1
 		}
-		dAtA = encodeVarintPopulateRealmApi(dAtA, uint64(v2))
+		dAtA = encodeVarintPopulateRealmApi(dAtA, uint64(v3))
 	case 1:
 		dAtA = encodeVarintPopulateRealmApi(dAtA, uint64(key))
 		dAtA = append(dAtA, byte(r.Intn(256)), byte(r.Intn(256)), byte(r.Intn(256)), byte(r.Intn(256)), byte(r.Intn(256)), byte(r.Intn(256)), byte(r.Intn(256)), byte(r.Intn(256)))
@@ -821,7 +1101,6 @@ func randFieldRealmApi(dAtA []byte, r randyRealmApi, fieldNumber int, wire int) 
 	}
 	return dAtA
 }
-
 func encodeVarintPopulateRealmApi(dAtA []byte, v uint64) []byte {
 	for v >= 1<<7 {
 		dAtA = append(dAtA, uint8(uint64(v)&0x7f|0x80))
@@ -830,8 +1109,7 @@ func encodeVarintPopulateRealmApi(dAtA []byte, v uint64) []byte {
 	dAtA = append(dAtA, uint8(v))
 	return dAtA
 }
-
-func (m *RealmCreateRequest) Size() (n int) {
+func (m *CreateRequest) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -847,7 +1125,7 @@ func (m *RealmCreateRequest) Size() (n int) {
 	return n
 }
 
-func (m *RealmGetRequest) Size() (n int) {
+func (m *GetRequest) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -863,7 +1141,7 @@ func (m *RealmGetRequest) Size() (n int) {
 	return n
 }
 
-func (m *RealmUpdateRequest) Size() (n int) {
+func (m *UpdateRequest) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -883,7 +1161,27 @@ func (m *RealmUpdateRequest) Size() (n int) {
 	return n
 }
 
-func (m *SingleRealmResponse) Size() (n int) {
+func (m *SearchRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Id != nil {
+		l = m.Id.Size()
+		n += 1 + l + sovRealmApi(uint64(l))
+	}
+	if m.Label != nil {
+		l = m.Label.Size()
+		n += 1 + l + sovRealmApi(uint64(l))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *SingleResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -892,6 +1190,24 @@ func (m *SingleRealmResponse) Size() (n int) {
 	if m.Entity != nil {
 		l = m.Entity.Size()
 		n += 1 + l + sovRealmApi(uint64(l))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *PaginatedResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.Members) > 0 {
+		for _, e := range m.Members {
+			l = e.Size()
+			n += 1 + l + sovRealmApi(uint64(l))
+		}
 	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
@@ -909,12 +1225,10 @@ func sovRealmApi(x uint64) (n int) {
 	}
 	return n
 }
-
 func sozRealmApi(x uint64) (n int) {
 	return sovRealmApi(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
-
-func (m *RealmCreateRequest) Unmarshal(dAtA []byte) error {
+func (m *CreateRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -937,10 +1251,10 @@ func (m *RealmCreateRequest) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: RealmCreateRequest: wiretype end group for non-group")
+			return fmt.Errorf("proto: CreateRequest: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: RealmCreateRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: CreateRequest: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -1000,8 +1314,7 @@ func (m *RealmCreateRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-
-func (m *RealmGetRequest) Unmarshal(dAtA []byte) error {
+func (m *GetRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1024,10 +1337,10 @@ func (m *RealmGetRequest) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: RealmGetRequest: wiretype end group for non-group")
+			return fmt.Errorf("proto: GetRequest: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: RealmGetRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: GetRequest: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -1087,8 +1400,7 @@ func (m *RealmGetRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-
-func (m *RealmUpdateRequest) Unmarshal(dAtA []byte) error {
+func (m *UpdateRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1111,10 +1423,10 @@ func (m *RealmUpdateRequest) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: RealmUpdateRequest: wiretype end group for non-group")
+			return fmt.Errorf("proto: UpdateRequest: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: RealmUpdateRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: UpdateRequest: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -1210,8 +1522,7 @@ func (m *RealmUpdateRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-
-func (m *SingleRealmResponse) Unmarshal(dAtA []byte) error {
+func (m *SearchRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1234,10 +1545,136 @@ func (m *SingleRealmResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: SingleRealmResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: SearchRequest: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: SingleRealmResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: SearchRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowRealmApi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthRealmApi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthRealmApi
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Id == nil {
+				m.Id = &types.StringValue{}
+			}
+			if err := m.Id.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Label", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowRealmApi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthRealmApi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthRealmApi
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Label == nil {
+				m.Label = &types.StringValue{}
+			}
+			if err := m.Label.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipRealmApi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthRealmApi
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthRealmApi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *SingleResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowRealmApi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: SingleResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: SingleResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -1301,7 +1738,94 @@ func (m *SingleRealmResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
+func (m *PaginatedResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowRealmApi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: PaginatedResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: PaginatedResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Members", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowRealmApi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthRealmApi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthRealmApi
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Members = append(m.Members, &Realm{})
+			if err := m.Members[len(m.Members)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipRealmApi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthRealmApi
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthRealmApi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
 
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
 func skipRealmApi(dAtA []byte) (n int, err error) {
 	l := len(dAtA)
 	iNdEx := 0

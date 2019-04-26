@@ -30,8 +30,9 @@ option java_package = "org.zenithar.kingdom.user.v1";
 option objc_class_prefix = "KUX";
 option php_namespace = "Kingdom\\User\\V1";
 
-// User is an object group.
+// User is an user identity member of a realm.
 message User {
-  string id = 1;
-  string label = 2;
+  string realm_id = 1;
+  string user_id = 2;
+  string principal = 3;
 }

@@ -12,8 +12,8 @@ import (
 type MockRealmAPIServer struct{}
 
 // Create is mock implementation of the method Create
-func (MockRealmAPIServer) Create(context.Context, *RealmCreateRequest) (*SingleRealmResponse, error) {
-	var res SingleRealmResponse
+func (MockRealmAPIServer) Create(context.Context, *CreateRequest) (*SingleResponse, error) {
+	var res SingleResponse
 	if err := faker.FakeData(&res); err != nil {
 		return nil, err
 	}
@@ -21,8 +21,8 @@ func (MockRealmAPIServer) Create(context.Context, *RealmCreateRequest) (*SingleR
 }
 
 // Get is mock implementation of the method Get
-func (MockRealmAPIServer) Get(context.Context, *RealmGetRequest) (*SingleRealmResponse, error) {
-	var res SingleRealmResponse
+func (MockRealmAPIServer) Get(context.Context, *GetRequest) (*SingleResponse, error) {
+	var res SingleResponse
 	if err := faker.FakeData(&res); err != nil {
 		return nil, err
 	}
@@ -30,8 +30,8 @@ func (MockRealmAPIServer) Get(context.Context, *RealmGetRequest) (*SingleRealmRe
 }
 
 // Update is mock implementation of the method Update
-func (MockRealmAPIServer) Update(context.Context, *RealmUpdateRequest) (*SingleRealmResponse, error) {
-	var res SingleRealmResponse
+func (MockRealmAPIServer) Update(context.Context, *UpdateRequest) (*SingleResponse, error) {
+	var res SingleResponse
 	if err := faker.FakeData(&res); err != nil {
 		return nil, err
 	}
@@ -39,8 +39,17 @@ func (MockRealmAPIServer) Update(context.Context, *RealmUpdateRequest) (*SingleR
 }
 
 // Delete is mock implementation of the method Delete
-func (MockRealmAPIServer) Delete(context.Context, *RealmGetRequest) (*SingleRealmResponse, error) {
-	var res SingleRealmResponse
+func (MockRealmAPIServer) Delete(context.Context, *GetRequest) (*SingleResponse, error) {
+	var res SingleResponse
+	if err := faker.FakeData(&res); err != nil {
+		return nil, err
+	}
+	return &res, nil
+}
+
+// Search is mock implementation of the method Search
+func (MockRealmAPIServer) Search(context.Context, *SearchRequest) (*PaginatedResponse, error) {
+	var res PaginatedResponse
 	if err := faker.FakeData(&res); err != nil {
 		return nil, err
 	}
