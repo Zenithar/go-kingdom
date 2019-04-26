@@ -257,6 +257,10 @@ func (m *SearchRequest) Validate() error {
 		return nil
 	}
 
+	// no validation rules for Page
+
+	// no validation rules for PerPage
+
 	if v, ok := interface{}(m.GetRealmId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return SearchRequestValidationError{
@@ -352,6 +356,16 @@ func (m *SingleResponse) Validate() error {
 		return nil
 	}
 
+	if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SingleResponseValidationError{
+				field:  "Error",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if v, ok := interface{}(m.GetEntity()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return SingleResponseValidationError{
@@ -425,6 +439,16 @@ var _ interface {
 func (m *PaginatedResponse) Validate() error {
 	if m == nil {
 		return nil
+	}
+
+	if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PaginatedResponseValidationError{
+				field:  "Error",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	for idx, item := range m.GetMembers() {

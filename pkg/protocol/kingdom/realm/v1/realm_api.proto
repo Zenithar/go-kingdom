@@ -41,6 +41,7 @@ import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 import "github.com/lyft/protoc-gen-validate/validate/validate.proto";
 import "google/protobuf/wrappers.proto";
 import "pkg/protocol/kingdom/realm/v1/realm.proto";
+import "pkg/protocol/kingdom/system/v1/system.proto";
 
 // RealmAPI manage realm objects.
 service RealmAPI {
@@ -63,23 +64,49 @@ message CreateRequest {
 }
 
 message GetRequest {
-  string id = 1;
+  string id = 1 [
+    (validate.rules).string = {
+      pattern: "^[0-9A-Za-z]+$"
+      len: 32
+    }
+  ];
 }
 
 message UpdateRequest {
-  string id = 1;
+  string id = 1 [
+    (validate.rules).string = {
+      pattern: "^[0-9A-Za-z]+$"
+      len: 32
+    }
+  ];
   google.protobuf.StringValue label = 2;
 }
 
 message SearchRequest {
-  google.protobuf.StringValue id = 1;
-  google.protobuf.StringValue label = 2;
+  uint32 page = 1;
+  uint32 per_page = 2;
+  repeated string sorts = 3;
+  google.protobuf.StringValue cursor = 4;
+  google.protobuf.StringValue id = 5 [
+    (validate.rules).string = {
+      pattern: "^[0-9A-Za-z]+$"
+      len: 32
+    }
+  ];
+  google.protobuf.StringValue label = 6;
 }
 
 message SingleResponse {
-  Realm entity = 1;
+  .kingdom.system.v1.Error error = 1;
+  Realm entity = 2;
 }
 
 message PaginatedResponse {
-  repeated Realm members = 2;
+  .kingdom.system.v1.Error error = 1;
+  uint32 total = 2;
+  uint32 per_page = 3;
+  uint32 count = 4;
+  uint32 current_page = 5;
+  string next_cursor = 6;
+  repeated Realm members = 7;
 }

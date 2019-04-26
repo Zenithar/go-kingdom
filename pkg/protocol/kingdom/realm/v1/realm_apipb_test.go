@@ -16,6 +16,7 @@ import (
 	proto "github.com/gogo/protobuf/proto"
 	_ "github.com/gogo/protobuf/types"
 	_ "github.com/lyft/protoc-gen-validate/validate"
+	_ "go.zenithar.org/kingdom/pkg/protocol/kingdom/system/v1"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.

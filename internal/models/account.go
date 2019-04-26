@@ -38,3 +38,8 @@ func (u *User) Validate() error {
 		validation.Field(&u.Secret, validation.Required, is.PrintableASCII),
 	)
 }
+
+// SetPrincipal is used to update principal hash
+func (u *User) SetPrincipal(principal string) {
+	u.Principal = helpers.PrincipalHashFunc(principal)
+}

@@ -107,7 +107,19 @@ func (m *GetRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Id
+	if utf8.RuneCountInString(m.GetId()) != 32 {
+		return GetRequestValidationError{
+			field:  "Id",
+			reason: "value length must be 32 runes",
+		}
+	}
+
+	if !_GetRequest_Id_Pattern.MatchString(m.GetId()) {
+		return GetRequestValidationError{
+			field:  "Id",
+			reason: "value does not match regex pattern \"^[0-9A-Za-z]+$\"",
+		}
+	}
 
 	return nil
 }
@@ -166,6 +178,8 @@ var _ interface {
 	ErrorName() string
 } = GetRequestValidationError{}
 
+var _GetRequest_Id_Pattern = regexp.MustCompile("^[0-9A-Za-z]+$")
+
 // Validate checks the field values on UpdateRequest with the rules defined in
 // the proto definition for this message. If any rules are violated, an error
 // is returned.
@@ -174,7 +188,19 @@ func (m *UpdateRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Id
+	if utf8.RuneCountInString(m.GetId()) != 32 {
+		return UpdateRequestValidationError{
+			field:  "Id",
+			reason: "value length must be 32 runes",
+		}
+	}
+
+	if !_UpdateRequest_Id_Pattern.MatchString(m.GetId()) {
+		return UpdateRequestValidationError{
+			field:  "Id",
+			reason: "value does not match regex pattern \"^[0-9A-Za-z]+$\"",
+		}
+	}
 
 	if v, ok := interface{}(m.GetLabel()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
@@ -243,6 +269,8 @@ var _ interface {
 	ErrorName() string
 } = UpdateRequestValidationError{}
 
+var _UpdateRequest_Id_Pattern = regexp.MustCompile("^[0-9A-Za-z]+$")
+
 // Validate checks the field values on SearchRequest with the rules defined in
 // the proto definition for this message. If any rules are violated, an error
 // is returned.
@@ -251,14 +279,36 @@ func (m *SearchRequest) Validate() error {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetId()).(interface{ Validate() error }); ok {
+	// no validation rules for Page
+
+	// no validation rules for PerPage
+
+	if v, ok := interface{}(m.GetCursor()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return SearchRequestValidationError{
-				field:  "Id",
+				field:  "Cursor",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
 		}
+	}
+
+	if wrapper := m.GetId(); wrapper != nil {
+
+		if utf8.RuneCountInString(wrapper.GetValue()) != 32 {
+			return SearchRequestValidationError{
+				field:  "Id",
+				reason: "value length must be 32 runes",
+			}
+		}
+
+		if !_SearchRequest_Id_Pattern.MatchString(wrapper.GetValue()) {
+			return SearchRequestValidationError{
+				field:  "Id",
+				reason: "value does not match regex pattern \"^[0-9A-Za-z]+$\"",
+			}
+		}
+
 	}
 
 	if v, ok := interface{}(m.GetLabel()).(interface{ Validate() error }); ok {
@@ -328,12 +378,24 @@ var _ interface {
 	ErrorName() string
 } = SearchRequestValidationError{}
 
+var _SearchRequest_Id_Pattern = regexp.MustCompile("^[0-9A-Za-z]+$")
+
 // Validate checks the field values on SingleResponse with the rules defined in
 // the proto definition for this message. If any rules are violated, an error
 // is returned.
 func (m *SingleResponse) Validate() error {
 	if m == nil {
 		return nil
+	}
+
+	if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SingleResponseValidationError{
+				field:  "Error",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	if v, ok := interface{}(m.GetEntity()).(interface{ Validate() error }); ok {
@@ -410,6 +472,26 @@ func (m *PaginatedResponse) Validate() error {
 	if m == nil {
 		return nil
 	}
+
+	if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PaginatedResponseValidationError{
+				field:  "Error",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Total
+
+	// no validation rules for PerPage
+
+	// no validation rules for Count
+
+	// no validation rules for CurrentPage
+
+	// no validation rules for NextCursor
 
 	for idx, item := range m.GetMembers() {
 		_, _ = idx, item

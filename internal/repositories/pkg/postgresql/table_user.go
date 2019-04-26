@@ -2,11 +2,14 @@ package postgresql
 
 import (
 	"context"
+	"strings"
 
 	"go.zenithar.org/kingdom/internal/models"
 	"go.zenithar.org/kingdom/internal/repositories"
+	"go.zenithar.org/pkg/db"
 	"go.zenithar.org/pkg/db/adapter/postgresql"
 
+	sq "github.com/Masterminds/squirrel"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -63,6 +66,22 @@ func (r *pgUserRepository) Delete(ctx context.Context, realmID, id string) error
 	})
 }
 
+func (r *pgUserRepository) Search(ctx context.Context, filter *repositories.UserSearchFilter, pagination *db.Pagination, sortParams *db.SortParameters) ([]*models.User, int, error) {
+	var results []*models.User
+
+	count, err := r.adapter.Search(ctx, r.buildFilter(filter), pagination, sortParams, &results)
+	if err != nil {
+		return nil, count, err
+	}
+
+	if len(results) == 0 {
+		return results, count, db.ErrNoResult
+	}
+
+	// Return results and total count
+	return results, count, nil
+}
+
 func (r *pgUserRepository) FindByPrincipal(ctx context.Context, realmID string, principal string) (*models.User, error) {
 	var entity models.User
 
@@ -74,4 +93,28 @@ func (r *pgUserRepository) FindByPrincipal(ctx context.Context, realmID string, 
 	}
 
 	return &entity, nil
+}
+
+// -----------------------------------------------------------------------------
+
+func (r *pgUserRepository) buildFilter(filter *repositories.UserSearchFilter) interface{} {
+	if filter != nil {
+		clauses := sq.Eq{
+			"1": "1",
+		}
+
+		if len(strings.TrimSpace(filter.RealmID)) > 0 {
+			clauses["realm_id"] = filter.RealmID
+		}
+		if len(strings.TrimSpace(filter.UserID)) > 0 {
+			clauses["user_id"] = filter.UserID
+		}
+		if len(strings.TrimSpace(filter.Principal)) > 0 {
+			clauses["principal"] = filter.Principal
+		}
+
+		return clauses
+	}
+
+	return nil
 }

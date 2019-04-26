@@ -40,6 +40,7 @@ option php_namespace = "Kingdom\\User\\V1";
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 import "github.com/lyft/protoc-gen-validate/validate/validate.proto";
 import "google/protobuf/wrappers.proto";
+import "pkg/protocol/kingdom/system/v1/system.proto";
 import "pkg/protocol/kingdom/user/v1/user.proto";
 
 // UserAPI manage user objects.
@@ -75,15 +76,20 @@ message UpdateRequest {
 }
 
 message SearchRequest {
-  google.protobuf.StringValue realm_id = 1;
-  google.protobuf.StringValue user_id = 2;
-  google.protobuf.StringValue principal = 3;
+  uint32 page = 1;
+  uint32 per_page = 2;
+  repeated string sorts = 3;
+  google.protobuf.StringValue realm_id = 4;
+  google.protobuf.StringValue user_id = 5;
+  google.protobuf.StringValue principal = 6;
 }
 
 message SingleResponse {
-  User entity = 1;
+  .kingdom.system.v1.Error error = 1;
+  User entity = 2;
 }
 
 message PaginatedResponse {
-  repeated User members = 1;
+  .kingdom.system.v1.Error error = 1;
+  repeated User members = 2;
 }
