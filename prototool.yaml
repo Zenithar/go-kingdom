@@ -1,0 +1,35 @@
+excludes:
+    - ./vendor
+    
+protoc:
+  version: 3.7.1
+  
+  includes:
+    - ./vendor
+lint:
+  group: uber2
+  rules:
+    remove:
+      - REQUEST_RESPONSE_NAMES_MATCH_RPC
+      - REQUEST_RESPONSE_TYPES_UNIQUE
+  file_header:
+    path: LICENSE
+  java_package_prefix: org.zenithar
+generate:
+  go_options:
+    import_path: go.zenithar.org/kingdom
+  plugins:
+    - name: gogo
+      type: gogo
+      flags: plugins=grpc
+      output: pkg/protocol/gen/go
+    - name: validate
+      type: gogo
+      flags: lang=gogo
+      output: pkg/protocol/gen/go
+    - name: cobra
+      type: gogo
+      output: pkg/protocol/gen/go
+    - name: mock
+      type: gogo
+      output: pkg/protocol/gen/go
