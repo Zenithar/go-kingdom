@@ -59,7 +59,7 @@ func Build() {
 
 	fmt.Println("")
 	color.Red("# Artifacts ----------------------------------------------------------------")
-	//	mg.Deps(Bin.Spotigraph)
+	mg.Deps(Bin.Kingdom)
 }
 
 // -----------------------------------------------------------------------------
@@ -87,6 +87,8 @@ type Gen mg.Namespace
 // Generate initializers
 func (Gen) Wire() {
 	color.Blue("### Wiring dispatchers")
+
+	mustGoGenerate("gRPC", "go.zenithar.org/kingdom/cli/kingdom/dispatchers/grpc")
 }
 
 // Generate mocks for tests
@@ -194,6 +196,13 @@ func (Go) Lint() error {
 }
 
 // -----------------------------------------------------------------------------
+
+type Bin mg.Namespace
+
+// Build kingdom microservice
+func (Bin) Kingdom() error {
+	return goBuild("go.zenithar.org/kingdom/cli/kingdom", "kingdom")
+}
 
 func goBuild(packageName, out string) error {
 	fmt.Printf(" > Building %s [%s]\n", out, packageName)

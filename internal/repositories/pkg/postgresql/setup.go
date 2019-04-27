@@ -2,9 +2,12 @@ package postgresql
 
 import (
 	"github.com/gobuffalo/packr"
+	"github.com/google/wire"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
 	migrate "github.com/rubenv/sql-migrate"
+
+	db "go.zenithar.org/pkg/db/adapter/postgresql"
 )
 
 const (
@@ -15,6 +18,13 @@ const (
 )
 
 // ----------------------------------------------------------
+
+// RepositorySet exposes Google Wire providers
+var RepositorySet = wire.NewSet(
+	db.Connection,
+	NewUserRepository,
+	NewRealmRepository,
+)
 
 //go:generate packr
 

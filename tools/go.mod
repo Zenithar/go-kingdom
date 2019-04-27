@@ -6,6 +6,7 @@ require (
 	github.com/CircleCI-Public/circleci-cli v0.1.5546
 	github.com/cloudfoundry-incubator/candiedyaml v0.0.0-20170901234223-a41693b7b7af // indirect
 	github.com/envoyproxy/protoc-gen-validate v0.0.14
+	github.com/fatih/color v1.7.0
 	github.com/frapposelli/wwhrd v0.2.1
 	github.com/gobuffalo/packr v1.25.0
 	github.com/gogo/protobuf v1.2.1

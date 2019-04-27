@@ -13,6 +13,7 @@ type Realm interface {
 	Get(ctx context.Context, req *realmv1.GetRequest) (res *realmv1.SingleResponse, err error)
 	Update(ctx context.Context, req *realmv1.UpdateRequest) (res *realmv1.SingleResponse, err error)
 	Delete(ctx context.Context, req *realmv1.GetRequest) (res *realmv1.SingleResponse, err error)
+	Search(ctx context.Context, req *realmv1.SearchRequest) (res *realmv1.PaginatedResponse, err error)
 }
 
 // User management service contract
@@ -21,4 +22,5 @@ type User interface {
 	Get(ctx context.Context, req *userv1.GetRequest) (res *userv1.SingleResponse, err error)
 	Update(ctx context.Context, req *userv1.UpdateRequest) (res *userv1.SingleResponse, err error)
 	Delete(ctx context.Context, req *userv1.GetRequest) (res *userv1.SingleResponse, err error)
+	Search(ctx context.Context, req *userv1.SearchRequest) (res *userv1.PaginatedResponse, err error)
 }

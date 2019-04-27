@@ -7,7 +7,7 @@ Realm and user management microservice
 Install all tools first.
 
 ```sh
-$ go run mage.go -d tools go:tools
+$ go run mage.go -d tools
 ```
 
 Compile service
