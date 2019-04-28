@@ -56,7 +56,7 @@ require (
 	go.zenithar.org/pkg/db/adapter/rethinkdb v0.0.1 // indirect
 	go.zenithar.org/pkg/flags v0.0.1
 	go.zenithar.org/pkg/log v0.0.1
-	go.zenithar.org/pkg/platform v0.0.5
+	go.zenithar.org/pkg/platform v0.0.6
 	go.zenithar.org/pkg/tlsconfig v0.0.1
 	go.zenithar.org/protoc-gen-cobra v0.0.3 // indirect
 	golang.org/x/crypto v0.0.0-20190418165655-df01cb2cc480
