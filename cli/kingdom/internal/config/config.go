@@ -1,6 +1,7 @@
 package config
 
 import (
+	"go.zenithar.org/pkg/platform/diagnostic"
 	"go.zenithar.org/pkg/platform/jaeger"
 	"go.zenithar.org/pkg/platform/prometheus"
 )
@@ -15,8 +16,8 @@ type Configuration struct {
 		Network    string `toml:"network" default:"tcp" comment:"Network class used for listen (tcp, tcp4, tcp6, unixsocket)"`
 		Listen     string `toml:"listen" default:":5556" comment:"Listen address for instrumentation server"`
 		Diagnostic struct {
-			Enabled   bool   `toml:"enabled" default:"true" comment:"Enable diagnostic handlers"`
-			RemoteURL string `toml:"remoteDebugURL" comment:"start a gops agent on specified URL. Ex: localhost:9999"`
+			Enabled bool              `toml:"enabled" default:"true" comment:"Enable diagnostic handlers"`
+			Config  diagnostic.Config `toml:"Config" comment:"Diagnostic settings"`
 		} `toml:"Diagnostic" comment:"###############################\n Diagnotic Settings \n##############################"`
 		Logs struct {
 			Level     string `toml:"level" default:"warn" comment:"Log level: debug, info, warn, error, dpanic, panic, and fatal"`

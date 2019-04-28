@@ -21,7 +21,6 @@ require (
 	github.com/golang/mock v1.2.0
 	github.com/golang/protobuf v1.3.1
 	github.com/golangci/golangci-lint v1.16.0 // indirect
-	github.com/google/gops v0.3.6
 	github.com/google/wire v0.2.1
 	github.com/grpc-ecosystem/go-grpc-middleware v1.0.0
 	github.com/hexdigest/gowrap v1.1.4 // indirect
@@ -37,6 +36,7 @@ require (
 	github.com/mcuadros/go-defaults v1.1.0
 	github.com/oklog/run v1.0.0
 	github.com/onsi/gomega v1.4.3
+	github.com/openzipkin/zipkin-go v0.1.6 // indirect
 	github.com/pelletier/go-toml v1.2.0
 	github.com/pkg/errors v0.8.1
 	github.com/rubenv/sql-migrate v0.0.0-20190327083759-54bad0a9b051
@@ -48,7 +48,7 @@ require (
 	github.com/srikrsna/protoc-gen-mock v0.0.0-20190420084455-3bcb9cec43b1 // indirect
 	github.com/uber/prototool v1.6.0 // indirect
 	github.com/ziutek/mymysql v1.5.4 // indirect
-	go.opencensus.io v0.20.2
+	go.opencensus.io v0.21.0
 	go.uber.org/zap v1.9.1
 	go.zenithar.org/pkg/db v0.0.2
 	go.zenithar.org/pkg/db/adapter/mongodb v0.0.1 // indirect
@@ -56,7 +56,7 @@ require (
 	go.zenithar.org/pkg/db/adapter/rethinkdb v0.0.1 // indirect
 	go.zenithar.org/pkg/flags v0.0.1
 	go.zenithar.org/pkg/log v0.0.1
-	go.zenithar.org/pkg/platform v0.0.1
+	go.zenithar.org/pkg/platform v0.0.3
 	go.zenithar.org/pkg/tlsconfig v0.0.1
 	go.zenithar.org/protoc-gen-cobra v0.0.3 // indirect
 	golang.org/x/crypto v0.0.0-20190418165655-df01cb2cc480
