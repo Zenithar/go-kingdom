@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/cloudflare/tableflip"
 	"github.com/dchest/uniuri"
@@ -14,9 +13,6 @@ import (
 	"go.zenithar.org/kingdom/internal/version"
 	"go.zenithar.org/pkg/log"
 	"go.zenithar.org/pkg/platform"
-	"go.zenithar.org/pkg/platform/diagnostic"
-	"go.zenithar.org/pkg/platform/jaeger"
-	"go.zenithar.org/pkg/platform/prometheus"
 )
 
 // -----------------------------------------------------------------------------
@@ -48,28 +44,8 @@ var serverCmd = &cobra.Command{
 		// Starting banner
 		log.For(ctx).Info("Starting kingdom gRPC server ...")
 
-		// Preparing instrumentation
-		instrumentationRouter := http.NewServeMux()
-
-		// Register common features
-		if conf.Instrumentation.Diagnostic.Enabled {
-			if err := diagnostic.Register(ctx, conf.Instrumentation.Diagnostic.Config, instrumentationRouter); err != nil {
-				log.For(ctx).Fatal("Unable to register diagnostic instrumentation", zap.Error(err))
-			}
-		}
-		if conf.Instrumentation.Prometheus.Enabled {
-			if err := prometheus.RegisterExporter(ctx, conf.Instrumentation.Prometheus.Config, instrumentationRouter); err != nil {
-				log.For(ctx).Fatal("Unable to register prometheus instrumentation", zap.Error(err))
-			}
-		}
-		if conf.Instrumentation.Jaeger.Enabled {
-			if err := jaeger.RegisterExporter(ctx, conf.Debug.Enable, conf.Instrumentation.Jaeger.Config); err != nil {
-				log.For(ctx).Fatal("Unable to register jaeger instrumentation", zap.Error(err))
-			}
-		}
-
 		// Start goroutine group
-		err := platform.Run(ctx, conf.Instrumentation.Network, conf.Instrumentation.Listen, instrumentationRouter, func(upg *tableflip.Upgrader, group run.Group) {
+		err := platform.Run(ctx, conf.Debug.Enable, conf.Instrumentation, func(upg *tableflip.Upgrader, group run.Group) {
 			ln, err := upg.Fds.Listen(conf.Server.Network, conf.Server.Listen)
 			if err != nil {
 				log.For(ctx).Fatal("Unable to start GRPC server", zap.Error(err))

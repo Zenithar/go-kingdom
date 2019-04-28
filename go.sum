@@ -737,6 +737,10 @@ go.zenithar.org/pkg/platform v0.0.2 h1:Z/gYM2u7P3PNZIDIBmNlSV/vwNRc9viRjBSrD+nh+
 go.zenithar.org/pkg/platform v0.0.2/go.mod h1:GgLD2aOF4hh0E2A1HHcmz43idbOA7K5qsnKJTTHAVcs=
 go.zenithar.org/pkg/platform v0.0.3 h1:/keuPf7CRHQ5pUKPQ29M7OGmUcLWk49c4Dfa/dC6eAc=
 go.zenithar.org/pkg/platform v0.0.3/go.mod h1:di5cPHh0dy1evguj9u0DNHPPNL5A4IFFxv9aE5L+5vg=
+go.zenithar.org/pkg/platform v0.0.4 h1:44wzJq+0sZ7HQ6ULjoN7wv9rdphaNuSJOBFuGFx8zQA=
+go.zenithar.org/pkg/platform v0.0.4/go.mod h1:di5cPHh0dy1evguj9u0DNHPPNL5A4IFFxv9aE5L+5vg=
+go.zenithar.org/pkg/platform v0.0.5 h1:0PWx4dVOUpnchoMI+HIaJZ6TN58I5W6ymPctlRQVRmw=
+go.zenithar.org/pkg/platform v0.0.5/go.mod h1:di5cPHh0dy1evguj9u0DNHPPNL5A4IFFxv9aE5L+5vg=
 go.zenithar.org/pkg/tlsconfig v0.0.1 h1:mhhaljOfJyfS4Cgj7c4EDj4WtTQmVURUXV53r8olu9Y=
 go.zenithar.org/pkg/tlsconfig v0.0.1/go.mod h1:FjT05Qtjxr3DHt/5VxmtwWpWvfz7erECANT73cfgldY=
 go.zenithar.org/protoc-gen-cobra v0.0.3 h1:zkqkLzJPad4N9mH828n+3ToDCrK65i3EBOJNVCVw3B0=
