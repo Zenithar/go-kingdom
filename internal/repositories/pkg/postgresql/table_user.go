@@ -34,6 +34,10 @@ func NewUserRepository(session *sqlx.DB) repositories.User {
 // -----------------------------------------------------------------------------
 
 func (r *pgUserRepository) Create(ctx context.Context, entity *models.User) error {
+	if err := entity.Validate(); err != nil {
+		return err
+	}
+
 	return r.adapter.Create(ctx, entity)
 }
 

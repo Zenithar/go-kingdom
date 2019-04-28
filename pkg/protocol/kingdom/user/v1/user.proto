@@ -44,5 +44,4 @@ import "github.com/lyft/protoc-gen-validate/validate/validate.proto";
 message User {
   string realm_id = 1;
   string user_id = 2;
-  string principal = 3;
 }

@@ -491,7 +491,15 @@ func (m *PaginatedResponse) Validate() error {
 
 	// no validation rules for CurrentPage
 
-	// no validation rules for NextCursor
+	if v, ok := interface{}(m.GetNextCursor()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PaginatedResponseValidationError{
+				field:  "NextCursor",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	for idx, item := range m.GetMembers() {
 		_, _ = idx, item

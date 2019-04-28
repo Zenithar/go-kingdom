@@ -44,8 +44,6 @@ func (m *User) Validate() error {
 
 	// no validation rules for UserId
 
-	// no validation rules for Principal
-
 	return nil
 }
 

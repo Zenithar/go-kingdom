@@ -34,6 +34,10 @@ func NewRealmRepository(session *sqlx.DB) repositories.Realm {
 // -----------------------------------------------------------------------------
 
 func (r *pgRealmRepository) Create(ctx context.Context, entity *models.Realm) error {
+	if err := entity.Validate(); err != nil {
+		return err
+	}
+
 	return r.adapter.Create(ctx, entity)
 }
 

@@ -38,6 +38,7 @@ require (
 	github.com/ziutek/mymysql v1.5.4 // indirect
 	go.opencensus.io v0.21.0
 	go.uber.org/zap v1.9.1
+	go.zenithar.org/butcher v0.0.3
 	go.zenithar.org/pkg/db v0.0.2
 	go.zenithar.org/pkg/db/adapter/postgresql v0.0.4
 	go.zenithar.org/pkg/flags v0.0.1

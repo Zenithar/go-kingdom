@@ -55,3 +55,12 @@ func (MockUserAPIServer) Search(context.Context, *SearchRequest) (*PaginatedResp
 	}
 	return &res, nil
 }
+
+// Authenticate is mock implementation of the method Authenticate
+func (MockUserAPIServer) Authenticate(context.Context, *AuthenticateRequest) (*SingleResponse, error) {
+	var res SingleResponse
+	if err := faker.FakeData(&res); err != nil {
+		return nil, err
+	}
+	return &res, nil
+}

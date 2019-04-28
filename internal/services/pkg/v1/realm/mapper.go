@@ -8,6 +8,7 @@ import (
 // FromEntity converts entity object to service object
 func FromEntity(entity *models.Realm) *realmv1.Realm {
 	return &realmv1.Realm{
+		Id:    entity.ID,
 		Label: entity.Label,
 	}
 }

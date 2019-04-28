@@ -41,9 +41,33 @@ func (m *CreateRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for RealmId
+	if utf8.RuneCountInString(m.GetRealmId()) != 32 {
+		return CreateRequestValidationError{
+			field:  "RealmId",
+			reason: "value length must be 32 runes",
+		}
+	}
 
-	// no validation rules for Principal
+	if !_CreateRequest_RealmId_Pattern.MatchString(m.GetRealmId()) {
+		return CreateRequestValidationError{
+			field:  "RealmId",
+			reason: "value does not match regex pattern \"^[0-9A-Za-z]+$\"",
+		}
+	}
+
+	if !_CreateRequest_Principal_Pattern.MatchString(m.GetPrincipal()) {
+		return CreateRequestValidationError{
+			field:  "Principal",
+			reason: "value does not match regex pattern \"^[\\x00-\\u007f]+$\"",
+		}
+	}
+
+	if !_CreateRequest_Secret_Pattern.MatchString(m.GetSecret()) {
+		return CreateRequestValidationError{
+			field:  "Secret",
+			reason: "value does not match regex pattern \"^[\\x00-\\u007f]+$\"",
+		}
+	}
 
 	return nil
 }
@@ -102,6 +126,12 @@ var _ interface {
 	ErrorName() string
 } = CreateRequestValidationError{}
 
+var _CreateRequest_RealmId_Pattern = regexp.MustCompile("^[0-9A-Za-z]+$")
+
+var _CreateRequest_Principal_Pattern = regexp.MustCompile("^[\x00-\u007f]+$")
+
+var _CreateRequest_Secret_Pattern = regexp.MustCompile("^[\x00-\u007f]+$")
+
 // Validate checks the field values on GetRequest with the rules defined in the
 // proto definition for this message. If any rules are violated, an error is returned.
 func (m *GetRequest) Validate() error {
@@ -109,9 +139,33 @@ func (m *GetRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for RealmId
+	if utf8.RuneCountInString(m.GetRealmId()) != 32 {
+		return GetRequestValidationError{
+			field:  "RealmId",
+			reason: "value length must be 32 runes",
+		}
+	}
 
-	// no validation rules for UserId
+	if !_GetRequest_RealmId_Pattern.MatchString(m.GetRealmId()) {
+		return GetRequestValidationError{
+			field:  "RealmId",
+			reason: "value does not match regex pattern \"^[0-9A-Za-z]+$\"",
+		}
+	}
+
+	if utf8.RuneCountInString(m.GetUserId()) != 32 {
+		return GetRequestValidationError{
+			field:  "UserId",
+			reason: "value length must be 32 runes",
+		}
+	}
+
+	if !_GetRequest_UserId_Pattern.MatchString(m.GetUserId()) {
+		return GetRequestValidationError{
+			field:  "UserId",
+			reason: "value does not match regex pattern \"^[0-9A-Za-z]+$\"",
+		}
+	}
 
 	return nil
 }
@@ -170,6 +224,10 @@ var _ interface {
 	ErrorName() string
 } = GetRequestValidationError{}
 
+var _GetRequest_RealmId_Pattern = regexp.MustCompile("^[0-9A-Za-z]+$")
+
+var _GetRequest_UserId_Pattern = regexp.MustCompile("^[0-9A-Za-z]+$")
+
 // Validate checks the field values on UpdateRequest with the rules defined in
 // the proto definition for this message. If any rules are violated, an error
 // is returned.
@@ -178,9 +236,33 @@ func (m *UpdateRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for RealmId
+	if utf8.RuneCountInString(m.GetRealmId()) != 32 {
+		return UpdateRequestValidationError{
+			field:  "RealmId",
+			reason: "value length must be 32 runes",
+		}
+	}
 
-	// no validation rules for UserId
+	if !_UpdateRequest_RealmId_Pattern.MatchString(m.GetRealmId()) {
+		return UpdateRequestValidationError{
+			field:  "RealmId",
+			reason: "value does not match regex pattern \"^[0-9A-Za-z]+$\"",
+		}
+	}
+
+	if utf8.RuneCountInString(m.GetUserId()) != 32 {
+		return UpdateRequestValidationError{
+			field:  "UserId",
+			reason: "value length must be 32 runes",
+		}
+	}
+
+	if !_UpdateRequest_UserId_Pattern.MatchString(m.GetUserId()) {
+		return UpdateRequestValidationError{
+			field:  "UserId",
+			reason: "value does not match regex pattern \"^[0-9A-Za-z]+$\"",
+		}
+	}
 
 	if v, ok := interface{}(m.GetSecret()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
@@ -249,6 +331,10 @@ var _ interface {
 	ErrorName() string
 } = UpdateRequestValidationError{}
 
+var _UpdateRequest_RealmId_Pattern = regexp.MustCompile("^[0-9A-Za-z]+$")
+
+var _UpdateRequest_UserId_Pattern = regexp.MustCompile("^[0-9A-Za-z]+$")
+
 // Validate checks the field values on SearchRequest with the rules defined in
 // the proto definition for this message. If any rules are violated, an error
 // is returned.
@@ -261,24 +347,50 @@ func (m *SearchRequest) Validate() error {
 
 	// no validation rules for PerPage
 
-	if v, ok := interface{}(m.GetRealmId()).(interface{ Validate() error }); ok {
+	if v, ok := interface{}(m.GetCursor()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return SearchRequestValidationError{
-				field:  "RealmId",
+				field:  "Cursor",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
 		}
 	}
 
-	if v, ok := interface{}(m.GetUserId()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
+	if wrapper := m.GetRealmId(); wrapper != nil {
+
+		if utf8.RuneCountInString(wrapper.GetValue()) != 32 {
 			return SearchRequestValidationError{
-				field:  "UserId",
-				reason: "embedded message failed validation",
-				cause:  err,
+				field:  "RealmId",
+				reason: "value length must be 32 runes",
 			}
 		}
+
+		if !_SearchRequest_RealmId_Pattern.MatchString(wrapper.GetValue()) {
+			return SearchRequestValidationError{
+				field:  "RealmId",
+				reason: "value does not match regex pattern \"^[0-9A-Za-z]+$\"",
+			}
+		}
+
+	}
+
+	if wrapper := m.GetUserId(); wrapper != nil {
+
+		if utf8.RuneCountInString(wrapper.GetValue()) != 32 {
+			return SearchRequestValidationError{
+				field:  "UserId",
+				reason: "value length must be 32 runes",
+			}
+		}
+
+		if !_SearchRequest_UserId_Pattern.MatchString(wrapper.GetValue()) {
+			return SearchRequestValidationError{
+				field:  "UserId",
+				reason: "value does not match regex pattern \"^[0-9A-Za-z]+$\"",
+			}
+		}
+
 	}
 
 	if v, ok := interface{}(m.GetPrincipal()).(interface{ Validate() error }); ok {
@@ -347,6 +459,83 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = SearchRequestValidationError{}
+
+var _SearchRequest_RealmId_Pattern = regexp.MustCompile("^[0-9A-Za-z]+$")
+
+var _SearchRequest_UserId_Pattern = regexp.MustCompile("^[0-9A-Za-z]+$")
+
+// Validate checks the field values on AuthenticateRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *AuthenticateRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for RealmId
+
+	// no validation rules for Principal
+
+	// no validation rules for Secret
+
+	return nil
+}
+
+// AuthenticateRequestValidationError is the validation error returned by
+// AuthenticateRequest.Validate if the designated constraints aren't met.
+type AuthenticateRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AuthenticateRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AuthenticateRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AuthenticateRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AuthenticateRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AuthenticateRequestValidationError) ErrorName() string {
+	return "AuthenticateRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AuthenticateRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAuthenticateRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AuthenticateRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AuthenticateRequestValidationError{}
 
 // Validate checks the field values on SingleResponse with the rules defined in
 // the proto definition for this message. If any rules are violated, an error
@@ -445,6 +634,24 @@ func (m *PaginatedResponse) Validate() error {
 		if err := v.Validate(); err != nil {
 			return PaginatedResponseValidationError{
 				field:  "Error",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Total
+
+	// no validation rules for PerPage
+
+	// no validation rules for Count
+
+	// no validation rules for CurrentPage
+
+	if v, ok := interface{}(m.GetNextCursor()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PaginatedResponseValidationError{
+				field:  "NextCursor",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}

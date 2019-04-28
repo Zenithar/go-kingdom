@@ -31,6 +31,7 @@ const _ = proto.GoGoProtoPackageIsVersion2 // please upgrade the proto package
 type CreateRequest struct {
 	RealmId              string   `protobuf:"bytes,1,opt,name=realm_id,json=realmId,proto3" json:"realm_id,omitempty"`
 	Principal            string   `protobuf:"bytes,2,opt,name=principal,proto3" json:"principal,omitempty"`
+	Secret               string   `protobuf:"bytes,3,opt,name=secret,proto3" json:"secret,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -84,6 +85,13 @@ func (m *CreateRequest) GetRealmId() string {
 func (m *CreateRequest) GetPrincipal() string {
 	if m != nil {
 		return m.Principal
+	}
+	return ""
+}
+
+func (m *CreateRequest) GetSecret() string {
+	if m != nil {
+		return m.Secret
 	}
 	return ""
 }
@@ -220,9 +228,10 @@ type SearchRequest struct {
 	Page                 uint32             `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
 	PerPage              uint32             `protobuf:"varint,2,opt,name=per_page,json=perPage,proto3" json:"per_page,omitempty"`
 	Sorts                []string           `protobuf:"bytes,3,rep,name=sorts,proto3" json:"sorts,omitempty"`
-	RealmId              *types.StringValue `protobuf:"bytes,4,opt,name=realm_id,json=realmId,proto3" json:"realm_id,omitempty"`
-	UserId               *types.StringValue `protobuf:"bytes,5,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Principal            *types.StringValue `protobuf:"bytes,6,opt,name=principal,proto3" json:"principal,omitempty"`
+	Cursor               *types.StringValue `protobuf:"bytes,4,opt,name=cursor,proto3" json:"cursor,omitempty"`
+	RealmId              *types.StringValue `protobuf:"bytes,5,opt,name=realm_id,json=realmId,proto3" json:"realm_id,omitempty"`
+	UserId               *types.StringValue `protobuf:"bytes,6,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Principal            *types.StringValue `protobuf:"bytes,7,opt,name=principal,proto3" json:"principal,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
 	XXX_unrecognized     []byte             `json:"-"`
 	XXX_sizecache        int32              `json:"-"`
@@ -287,6 +296,13 @@ func (m *SearchRequest) GetSorts() []string {
 	return nil
 }
 
+func (m *SearchRequest) GetCursor() *types.StringValue {
+	if m != nil {
+		return m.Cursor
+	}
+	return nil
+}
+
 func (m *SearchRequest) GetRealmId() *types.StringValue {
 	if m != nil {
 		return m.RealmId
@@ -308,6 +324,74 @@ func (m *SearchRequest) GetPrincipal() *types.StringValue {
 	return nil
 }
 
+type AuthenticateRequest struct {
+	RealmId              string   `protobuf:"bytes,1,opt,name=realm_id,json=realmId,proto3" json:"realm_id,omitempty"`
+	Principal            string   `protobuf:"bytes,2,opt,name=principal,proto3" json:"principal,omitempty"`
+	Secret               string   `protobuf:"bytes,3,opt,name=secret,proto3" json:"secret,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AuthenticateRequest) Reset()         { *m = AuthenticateRequest{} }
+func (m *AuthenticateRequest) String() string { return proto.CompactTextString(m) }
+func (*AuthenticateRequest) ProtoMessage()    {}
+func (*AuthenticateRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_67b5744c76a08e3b, []int{4}
+}
+
+func (m *AuthenticateRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+
+func (m *AuthenticateRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_AuthenticateRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalTo(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+
+func (m *AuthenticateRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AuthenticateRequest.Merge(m, src)
+}
+
+func (m *AuthenticateRequest) XXX_Size() int {
+	return m.Size()
+}
+
+func (m *AuthenticateRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_AuthenticateRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AuthenticateRequest proto.InternalMessageInfo
+
+func (m *AuthenticateRequest) GetRealmId() string {
+	if m != nil {
+		return m.RealmId
+	}
+	return ""
+}
+
+func (m *AuthenticateRequest) GetPrincipal() string {
+	if m != nil {
+		return m.Principal
+	}
+	return ""
+}
+
+func (m *AuthenticateRequest) GetSecret() string {
+	if m != nil {
+		return m.Secret
+	}
+	return ""
+}
+
 type SingleResponse struct {
 	Error                *v1.Error `protobuf:"bytes,1,opt,name=error,proto3" json:"error,omitempty"`
 	Entity               *User     `protobuf:"bytes,2,opt,name=entity,proto3" json:"entity,omitempty"`
@@ -320,7 +404,7 @@ func (m *SingleResponse) Reset()         { *m = SingleResponse{} }
 func (m *SingleResponse) String() string { return proto.CompactTextString(m) }
 func (*SingleResponse) ProtoMessage()    {}
 func (*SingleResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_67b5744c76a08e3b, []int{4}
+	return fileDescriptor_67b5744c76a08e3b, []int{5}
 }
 
 func (m *SingleResponse) XXX_Unmarshal(b []byte) error {
@@ -369,18 +453,23 @@ func (m *SingleResponse) GetEntity() *User {
 }
 
 type PaginatedResponse struct {
-	Error                *v1.Error `protobuf:"bytes,1,opt,name=error,proto3" json:"error,omitempty"`
-	Members              []*User   `protobuf:"bytes,2,rep,name=members,proto3" json:"members,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
-	XXX_unrecognized     []byte    `json:"-"`
-	XXX_sizecache        int32     `json:"-"`
+	Error                *v1.Error          `protobuf:"bytes,1,opt,name=error,proto3" json:"error,omitempty"`
+	Total                uint32             `protobuf:"varint,2,opt,name=total,proto3" json:"total,omitempty"`
+	PerPage              uint32             `protobuf:"varint,3,opt,name=per_page,json=perPage,proto3" json:"per_page,omitempty"`
+	Count                uint32             `protobuf:"varint,4,opt,name=count,proto3" json:"count,omitempty"`
+	CurrentPage          uint32             `protobuf:"varint,5,opt,name=current_page,json=currentPage,proto3" json:"current_page,omitempty"`
+	NextCursor           *types.StringValue `protobuf:"bytes,6,opt,name=next_cursor,json=nextCursor,proto3" json:"next_cursor,omitempty"`
+	Members              []*User            `protobuf:"bytes,7,rep,name=members,proto3" json:"members,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
+	XXX_unrecognized     []byte             `json:"-"`
+	XXX_sizecache        int32              `json:"-"`
 }
 
 func (m *PaginatedResponse) Reset()         { *m = PaginatedResponse{} }
 func (m *PaginatedResponse) String() string { return proto.CompactTextString(m) }
 func (*PaginatedResponse) ProtoMessage()    {}
 func (*PaginatedResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_67b5744c76a08e3b, []int{5}
+	return fileDescriptor_67b5744c76a08e3b, []int{6}
 }
 
 func (m *PaginatedResponse) XXX_Unmarshal(b []byte) error {
@@ -421,6 +510,41 @@ func (m *PaginatedResponse) GetError() *v1.Error {
 	return nil
 }
 
+func (m *PaginatedResponse) GetTotal() uint32 {
+	if m != nil {
+		return m.Total
+	}
+	return 0
+}
+
+func (m *PaginatedResponse) GetPerPage() uint32 {
+	if m != nil {
+		return m.PerPage
+	}
+	return 0
+}
+
+func (m *PaginatedResponse) GetCount() uint32 {
+	if m != nil {
+		return m.Count
+	}
+	return 0
+}
+
+func (m *PaginatedResponse) GetCurrentPage() uint32 {
+	if m != nil {
+		return m.CurrentPage
+	}
+	return 0
+}
+
+func (m *PaginatedResponse) GetNextCursor() *types.StringValue {
+	if m != nil {
+		return m.NextCursor
+	}
+	return nil
+}
+
 func (m *PaginatedResponse) GetMembers() []*User {
 	if m != nil {
 		return m.Members
@@ -433,6 +557,7 @@ func init() {
 	proto.RegisterType((*GetRequest)(nil), "kingdom.user.v1.GetRequest")
 	proto.RegisterType((*UpdateRequest)(nil), "kingdom.user.v1.UpdateRequest")
 	proto.RegisterType((*SearchRequest)(nil), "kingdom.user.v1.SearchRequest")
+	proto.RegisterType((*AuthenticateRequest)(nil), "kingdom.user.v1.AuthenticateRequest")
 	proto.RegisterType((*SingleResponse)(nil), "kingdom.user.v1.SingleResponse")
 	proto.RegisterType((*PaginatedResponse)(nil), "kingdom.user.v1.PaginatedResponse")
 }
@@ -442,48 +567,59 @@ func init() {
 }
 
 var fileDescriptor_67b5744c76a08e3b = []byte{
-	// 643 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x53, 0xc1, 0x6e, 0xd3, 0x4c,
-	0x10, 0x96, 0x9d, 0xd6, 0xf9, 0x3b, 0xfd, 0x43, 0x85, 0x05, 0x22, 0x84, 0xca, 0x44, 0xb9, 0x50,
-	0x09, 0x65, 0xad, 0x04, 0x10, 0x12, 0x5c, 0xa0, 0x05, 0x4a, 0x54, 0x0e, 0x91, 0xab, 0x56, 0x08,
-	0x55, 0xaa, 0x36, 0xf1, 0x74, 0xbb, 0xaa, 0xe3, 0x5d, 0xd6, 0x9b, 0xa0, 0x20, 0x0e, 0x3c, 0x0b,
-	0x27, 0xc4, 0x13, 0x70, 0xe4, 0x88, 0x38, 0xf1, 0x08, 0x90, 0xa7, 0x40, 0x9c, 0x90, 0xd7, 0x4e,
-	0x93, 0x36, 0xad, 0x1a, 0xc1, 0x69, 0x77, 0x66, 0xbe, 0x9d, 0x99, 0x6f, 0x76, 0x3e, 0xb8, 0x2d,
-	0x8f, 0x98, 0x2f, 0x95, 0xd0, 0xa2, 0x2b, 0x22, 0xff, 0x88, 0xc7, 0x2c, 0x14, 0x3d, 0xbf, 0x9f,
-	0xa0, 0xf2, 0x07, 0x0d, 0x73, 0xee, 0x53, 0xc9, 0x89, 0x41, 0xb8, 0x2b, 0x79, 0x9c, 0xa4, 0x7e,
-	0x32, 0x68, 0x54, 0xea, 0x8c, 0xeb, 0xc3, 0x7e, 0x87, 0x74, 0x45, 0xcf, 0x67, 0x82, 0x89, 0x2c,
-	0x53, 0xa7, 0x7f, 0x60, 0x2c, 0x63, 0x98, 0x5b, 0xf6, 0xbe, 0xf2, 0x70, 0x0a, 0x1e, 0x0d, 0x0f,
-	0x74, 0x5e, 0xb8, 0xce, 0x30, 0xae, 0x0f, 0x68, 0xc4, 0x43, 0xaa, 0xd1, 0x9f, 0xb9, 0xe4, 0x8f,
-	0x3d, 0x26, 0x04, 0x8b, 0x70, 0x52, 0xe2, 0x8d, 0xa2, 0x52, 0xa2, 0x4a, 0xf2, 0xf8, 0xd9, 0x4c,
-	0x92, 0x61, 0xa2, 0xb1, 0x97, 0x72, 0xc9, 0x6e, 0x39, 0xf8, 0xd6, 0x85, 0xb4, 0x33, 0x60, 0xed,
-	0x39, 0x94, 0x36, 0x14, 0x52, 0x8d, 0x01, 0xbe, 0xee, 0x63, 0xa2, 0xdd, 0xeb, 0xf0, 0x9f, 0x42,
-	0x1a, 0xf5, 0xf6, 0x79, 0x58, 0xb6, 0xaa, 0xd6, 0xda, 0x52, 0x50, 0x34, 0x76, 0x2b, 0x74, 0x57,
-	0x61, 0x49, 0x2a, 0x1e, 0x77, 0xb9, 0xa4, 0x51, 0xd9, 0x36, 0xb1, 0x89, 0xa3, 0xf6, 0x08, 0x60,
-	0x13, 0xf5, 0x1c, 0x69, 0xae, 0x41, 0xd1, 0xcc, 0x9d, 0x87, 0x79, 0x12, 0x27, 0x35, 0x5b, 0x61,
-	0x6d, 0x08, 0xa5, 0x1d, 0x19, 0xce, 0xd7, 0xcb, 0x79, 0x49, 0xdc, 0xbb, 0xe0, 0x24, 0xd8, 0x55,
-	0xa8, 0xcb, 0x85, 0xaa, 0xb5, 0xb6, 0xdc, 0x5c, 0x25, 0xd9, 0x5c, 0xc9, 0x78, 0xae, 0x64, 0x5b,
-	0x2b, 0x1e, 0xb3, 0x5d, 0x1a, 0xf5, 0x31, 0xc8, 0xb1, 0xb5, 0xf7, 0x36, 0x94, 0xb6, 0x91, 0xaa,
-	0xee, 0xe1, 0xb8, 0xb6, 0x0b, 0x0b, 0x92, 0x32, 0x34, 0x75, 0x4b, 0x81, 0xb9, 0xa7, 0xfd, 0x48,
-	0x54, 0xfb, 0xc6, 0x6f, 0x1b, 0x7f, 0x51, 0xa2, 0x6a, 0xa7, 0xa1, 0x2b, 0xb0, 0x98, 0x08, 0xa5,
-	0x93, 0x72, 0xa1, 0x5a, 0x58, 0x5b, 0x0a, 0x32, 0xc3, 0xbd, 0x3f, 0x45, 0x60, 0x61, 0x8e, 0x76,
-	0x8e, 0xe9, 0xdd, 0x9b, 0xd0, 0x5b, 0x9c, 0x87, 0x46, 0x4e, 0xfe, 0xc1, 0xf4, 0x0f, 0x39, 0x73,
-	0x3c, 0x9c, 0xfa, 0x3f, 0x01, 0x97, 0xb6, 0x79, 0xcc, 0x22, 0x0c, 0x30, 0x91, 0x22, 0x4e, 0xd0,
-	0x25, 0xb0, 0x88, 0x4a, 0x09, 0x65, 0x66, 0xb0, 0xdc, 0x2c, 0x93, 0xb1, 0x3c, 0xf2, 0x55, 0x1b,
-	0x34, 0xc8, 0xd3, 0x34, 0x1e, 0x64, 0x30, 0xb7, 0x0e, 0x0e, 0xc6, 0x9a, 0xeb, 0xa1, 0x19, 0xce,
-	0x72, 0xf3, 0x2a, 0x39, 0xa5, 0x27, 0xb2, 0x93, 0xa0, 0x0a, 0x72, 0x50, 0x4d, 0xc3, 0xe5, 0x36,
-	0x65, 0x3c, 0xa6, 0x1a, 0xc3, 0xbf, 0xae, 0xe9, 0x43, 0xb1, 0x87, 0xbd, 0x0e, 0xaa, 0xa4, 0x6c,
-	0x57, 0x0b, 0xe7, 0x17, 0x1d, 0xa3, 0x9a, 0xbf, 0x6d, 0x28, 0xa6, 0x9e, 0xc7, 0xed, 0x96, 0xdb,
-	0x02, 0x27, 0x5b, 0x7e, 0xd7, 0x9b, 0x79, 0x75, 0x42, 0x15, 0x95, 0x9b, 0x33, 0xf1, 0x53, 0xb3,
-	0xda, 0x80, 0xc2, 0x26, 0x6a, 0xf7, 0xc6, 0x0c, 0x6e, 0xa2, 0x89, 0x8b, 0x93, 0xb4, 0xc0, 0xc9,
-	0x04, 0x70, 0x46, 0x3f, 0x27, 0x94, 0x71, 0x71, 0xaa, 0x67, 0xe0, 0x3c, 0xc1, 0x08, 0x35, 0xfe,
-	0x63, 0x4b, 0x2f, 0xc0, 0xc9, 0x74, 0x71, 0x46, 0x4b, 0x27, 0x04, 0x53, 0xa9, 0xcd, 0xc4, 0x67,
-	0x7e, 0x77, 0xfd, 0xdd, 0xaf, 0x9f, 0x9e, 0xf5, 0x71, 0xe4, 0x59, 0x9f, 0x47, 0x9e, 0xf5, 0x65,
-	0xe4, 0x59, 0x5f, 0x47, 0x9e, 0xf5, 0x7d, 0xe4, 0x59, 0x3f, 0x46, 0x9e, 0x05, 0xab, 0x42, 0x31,
-	0xf2, 0x16, 0x63, 0xae, 0x0f, 0xa9, 0x3a, 0x9d, 0x6d, 0xfd, 0x7f, 0xf3, 0x6b, 0x92, 0xb7, 0xd3,
-	0x3d, 0x6e, 0x5b, 0xaf, 0xcc, 0xce, 0x0f, 0x1a, 0x1f, 0xec, 0xc2, 0xd6, 0xce, 0xcb, 0x4f, 0xf6,
-	0xca, 0x56, 0x8e, 0x4f, 0x61, 0x64, 0xb7, 0xf1, 0xed, 0xd8, 0xb3, 0x97, 0x7a, 0xf6, 0x76, 0x1b,
-	0x1d, 0xc7, 0x48, 0xe0, 0xce, 0x9f, 0x00, 0x00, 0x00, 0xff, 0xff, 0x76, 0xf2, 0x81, 0x37, 0x14,
-	0x06, 0x00, 0x00,
+	// 828 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x54, 0xcf, 0x6f, 0xe3, 0x44,
+	0x14, 0xc6, 0xf1, 0xc6, 0x69, 0x5f, 0x92, 0x5d, 0xad, 0x77, 0x17, 0x65, 0x43, 0x65, 0x42, 0x54,
+	0x89, 0x45, 0x95, 0x6d, 0x92, 0x85, 0x03, 0x20, 0x0e, 0x6d, 0x81, 0x55, 0xb4, 0x1c, 0x82, 0xa3,
+	0x54, 0x68, 0x7f, 0x45, 0x8e, 0xfd, 0xea, 0x58, 0x75, 0x3c, 0x66, 0x3c, 0x0e, 0x6d, 0x85, 0xc4,
+	0xbf, 0xc1, 0x85, 0x4b, 0x4f, 0x88, 0x1b, 0x37, 0xc4, 0xa9, 0x47, 0xc4, 0x09, 0xfe, 0x03, 0xc8,
+	0x8d, 0x0b, 0x67, 0x8e, 0xc8, 0x63, 0xa7, 0xf9, 0xe1, 0x94, 0x44, 0xcd, 0xc9, 0x33, 0xef, 0x7d,
+	0x6f, 0xe6, 0x7b, 0xcf, 0xdf, 0x7c, 0xb0, 0x17, 0x9c, 0x38, 0x7a, 0x40, 0x09, 0x23, 0x16, 0xf1,
+	0xf4, 0x13, 0xd7, 0x77, 0x6c, 0x32, 0xd4, 0xa3, 0x10, 0xa9, 0x3e, 0x6a, 0xf0, 0x6f, 0xcf, 0x0c,
+	0x5c, 0x8d, 0x23, 0xe4, 0x3b, 0x69, 0x5e, 0x8b, 0xe3, 0xda, 0xa8, 0x51, 0x55, 0x1d, 0x97, 0x0d,
+	0xa2, 0xbe, 0x66, 0x91, 0xa1, 0xee, 0x10, 0x87, 0x24, 0x27, 0xf5, 0xa3, 0x63, 0xbe, 0xe3, 0x1b,
+	0xbe, 0x4a, 0xea, 0xab, 0x1f, 0xcd, 0xc0, 0xbd, 0xb3, 0x63, 0x96, 0x5e, 0xac, 0x3a, 0xe8, 0xab,
+	0x23, 0xd3, 0x73, 0x6d, 0x93, 0xa1, 0x9e, 0x59, 0xa4, 0xc5, 0x8a, 0x43, 0x88, 0xe3, 0xe1, 0xf4,
+	0x8a, 0xaf, 0xa9, 0x19, 0x04, 0x48, 0xc3, 0x34, 0xbf, 0xbc, 0x93, 0xf0, 0x2c, 0x64, 0x38, 0x8c,
+	0x7b, 0x49, 0x56, 0x29, 0xf8, 0xed, 0x95, 0x6d, 0x27, 0xc0, 0xfa, 0x85, 0x00, 0xe5, 0x43, 0x8a,
+	0x26, 0x43, 0x03, 0xbf, 0x8a, 0x30, 0x64, 0xf2, 0xfb, 0xb0, 0x45, 0xd1, 0xf4, 0x86, 0x3d, 0xd7,
+	0xae, 0x08, 0x35, 0xe1, 0xd1, 0xf6, 0x41, 0xf5, 0x97, 0xbf, 0x2f, 0xc5, 0x07, 0xf4, 0x5e, 0xf3,
+	0xf6, 0xab, 0xe7, 0xef, 0xaa, 0x1f, 0xec, 0xab, 0xcf, 0x4c, 0xf5, 0xfc, 0xe5, 0xde, 0xee, 0x77,
+	0x42, 0xcd, 0x28, 0x70, 0x6c, 0xcb, 0x96, 0x75, 0xd8, 0x0e, 0xa8, 0xeb, 0x5b, 0x6e, 0x60, 0x7a,
+	0x95, 0x1c, 0xaf, 0xbb, 0x1b, 0xd7, 0x95, 0x28, 0x34, 0xb7, 0x5e, 0x3d, 0x7f, 0x4d, 0xfd, 0xf6,
+	0xe5, 0xde, 0xae, 0x31, 0xc5, 0xc8, 0xef, 0x80, 0x14, 0xa2, 0x45, 0x91, 0x55, 0xc4, 0xeb, 0xd0,
+	0x29, 0xa0, 0x7e, 0x0a, 0xf0, 0x04, 0xd9, 0x86, 0x04, 0x1f, 0x43, 0x81, 0xff, 0x6e, 0xd7, 0x4e,
+	0xe9, 0xfd, 0x5f, 0x95, 0x14, 0x43, 0x5b, 0x76, 0xfd, 0x27, 0x01, 0xca, 0xdd, 0xc0, 0xde, 0x7c,
+	0x3c, 0x37, 0xb9, 0x5d, 0x7e, 0x6f, 0x6e, 0x44, 0xc5, 0xe6, 0x8e, 0x96, 0x68, 0x44, 0x9b, 0x68,
+	0x44, 0xeb, 0x30, 0xea, 0xfa, 0xce, 0x91, 0xe9, 0x45, 0x78, 0x35, 0xad, 0x7f, 0x72, 0x50, 0xee,
+	0xa0, 0x49, 0xad, 0xc1, 0x84, 0xb3, 0x0c, 0xb7, 0x02, 0xd3, 0x41, 0xce, 0xb7, 0x6c, 0xf0, 0xb5,
+	0xfc, 0x10, 0xb6, 0x02, 0xa4, 0x3d, 0x1e, 0xcf, 0xf1, 0x78, 0x21, 0x40, 0xda, 0x8e, 0x53, 0xf7,
+	0x21, 0x1f, 0x12, 0xca, 0xc2, 0x8a, 0x58, 0x13, 0x1f, 0x6d, 0x1b, 0xc9, 0x26, 0x26, 0x63, 0x45,
+	0x34, 0x24, 0xb4, 0x72, 0x6b, 0x1d, 0x32, 0x09, 0x56, 0xee, 0xcc, 0x8c, 0x2b, 0xbf, 0xba, 0x6e,
+	0xbd, 0x61, 0x7e, 0x31, 0x1d, 0xa6, 0xb4, 0xe1, 0x99, 0x93, 0x51, 0x7f, 0x38, 0x2b, 0xdf, 0xc2,
+	0x1a, 0x0d, 0x4e, 0xe1, 0xf5, 0x63, 0xb8, 0xb7, 0x1f, 0xb1, 0x01, 0xfa, 0xcc, 0xb5, 0x66, 0x94,
+	0xf2, 0x70, 0x51, 0x29, 0xd3, 0x06, 0x76, 0x32, 0x8f, 0x65, 0xf6, 0x65, 0xbc, 0x3e, 0xff, 0x32,
+	0xae, 0x7e, 0x2c, 0x81, 0xdb, 0x1d, 0xd7, 0x77, 0x3c, 0x34, 0x30, 0x0c, 0x88, 0x1f, 0xa2, 0xac,
+	0x41, 0x1e, 0x29, 0x25, 0x94, 0x9f, 0x5f, 0x6c, 0x56, 0xb4, 0x89, 0x81, 0xa5, 0x66, 0x30, 0x6a,
+	0x68, 0x9f, 0xc6, 0x79, 0x23, 0x81, 0xc9, 0x2a, 0x48, 0x31, 0x4b, 0x76, 0xc6, 0x2f, 0x2d, 0x36,
+	0x1f, 0x68, 0x0b, 0x8e, 0xa7, 0x75, 0x43, 0xa4, 0x46, 0x0a, 0xaa, 0x7f, 0x9f, 0x83, 0xbb, 0x6d,
+	0xd3, 0x71, 0x7d, 0x93, 0xa1, 0x7d, 0xe3, 0x4b, 0xef, 0x43, 0x9e, 0x11, 0x96, 0x36, 0x5a, 0x36,
+	0x92, 0xcd, 0x9c, 0xfe, 0xc4, 0x8c, 0xfe, 0x2c, 0x12, 0xf9, 0x8c, 0x0b, 0xad, 0x6c, 0x24, 0x1b,
+	0xf9, 0x2d, 0x28, 0x59, 0x11, 0xa5, 0xe8, 0xb3, 0xa4, 0x28, 0xcf, 0x93, 0xc5, 0x34, 0xc6, 0x0b,
+	0x3f, 0x86, 0xa2, 0x8f, 0xa7, 0xac, 0x97, 0xea, 0x74, 0x0d, 0x6d, 0x18, 0x10, 0x17, 0x1c, 0x26,
+	0x5a, 0xd5, 0xa1, 0x30, 0xc4, 0x61, 0x1f, 0x69, 0x58, 0x29, 0xd4, 0xc4, 0xeb, 0xc7, 0x33, 0x41,
+	0x35, 0xff, 0x10, 0xa1, 0x10, 0x47, 0xf6, 0xdb, 0x2d, 0xb9, 0x05, 0x52, 0xe2, 0xa3, 0xb2, 0x92,
+	0xa9, 0x9a, 0x33, 0xd8, 0xea, 0x9b, 0x99, 0xfc, 0xc2, 0x5f, 0x3d, 0x04, 0xf1, 0x09, 0x32, 0xf9,
+	0x8d, 0x0c, 0x6e, 0x6a, 0x82, 0xab, 0x0f, 0x69, 0x81, 0x94, 0x18, 0xd7, 0x12, 0x3e, 0x73, 0x8e,
+	0xb6, 0xfa, 0xa8, 0xcf, 0x40, 0xfa, 0x04, 0x3d, 0x64, 0xb8, 0x21, 0xa5, 0xcf, 0x41, 0x4a, 0x7c,
+	0x69, 0x09, 0xa5, 0x39, 0xc3, 0xaa, 0xd6, 0x33, 0xf9, 0xac, 0x0c, 0xbb, 0x50, 0x9a, 0x7d, 0x75,
+	0xf2, 0x6e, 0xa6, 0x66, 0xc9, 0xa3, 0x5c, 0x49, 0xf2, 0xe0, 0x9b, 0x7f, 0xff, 0x52, 0x84, 0x1f,
+	0xc6, 0x8a, 0xf0, 0xf3, 0x58, 0x11, 0x2e, 0xc7, 0x8a, 0xf0, 0xeb, 0x58, 0x11, 0x7e, 0x1f, 0x2b,
+	0xc2, 0x9f, 0x63, 0x45, 0x80, 0x1d, 0x42, 0x1d, 0xed, 0x1c, 0x7d, 0x97, 0x0d, 0x4c, 0xba, 0x78,
+	0xd4, 0x41, 0x89, 0x8b, 0x21, 0x70, 0xdb, 0xb1, 0xd2, 0xda, 0xc2, 0x33, 0x6e, 0x2e, 0xa3, 0xc6,
+	0x45, 0x4e, 0x7c, 0xda, 0xfd, 0xf2, 0xc7, 0xdc, 0x9d, 0xa7, 0x29, 0x3e, 0x86, 0x69, 0x47, 0x8d,
+	0xdf, 0xae, 0x22, 0x2f, 0xe2, 0xc8, 0x8b, 0xa3, 0x46, 0x5f, 0xe2, 0x22, 0x7d, 0xfc, 0x5f, 0x00,
+	0x00, 0x00, 0xff, 0xff, 0x6b, 0x52, 0x3d, 0xb7, 0xb7, 0x08, 0x00, 0x00,
 }
 
 func (this *CreateRequest) Equal(that interface{}) bool {
@@ -509,6 +645,9 @@ func (this *CreateRequest) Equal(that interface{}) bool {
 		return false
 	}
 	if this.Principal != that1.Principal {
+		return false
+	}
+	if this.Secret != that1.Secret {
 		return false
 	}
 	if !bytes.Equal(this.XXX_unrecognized, that1.XXX_unrecognized) {
@@ -615,6 +754,9 @@ func (this *SearchRequest) Equal(that interface{}) bool {
 			return false
 		}
 	}
+	if !this.Cursor.Equal(that1.Cursor) {
+		return false
+	}
 	if !this.RealmId.Equal(that1.RealmId) {
 		return false
 	}
@@ -622,6 +764,40 @@ func (this *SearchRequest) Equal(that interface{}) bool {
 		return false
 	}
 	if !this.Principal.Equal(that1.Principal) {
+		return false
+	}
+	if !bytes.Equal(this.XXX_unrecognized, that1.XXX_unrecognized) {
+		return false
+	}
+	return true
+}
+
+func (this *AuthenticateRequest) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*AuthenticateRequest)
+	if !ok {
+		that2, ok := that.(AuthenticateRequest)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if this.RealmId != that1.RealmId {
+		return false
+	}
+	if this.Principal != that1.Principal {
+		return false
+	}
+	if this.Secret != that1.Secret {
 		return false
 	}
 	if !bytes.Equal(this.XXX_unrecognized, that1.XXX_unrecognized) {
@@ -683,6 +859,21 @@ func (this *PaginatedResponse) Equal(that interface{}) bool {
 	if !this.Error.Equal(that1.Error) {
 		return false
 	}
+	if this.Total != that1.Total {
+		return false
+	}
+	if this.PerPage != that1.PerPage {
+		return false
+	}
+	if this.Count != that1.Count {
+		return false
+	}
+	if this.CurrentPage != that1.CurrentPage {
+		return false
+	}
+	if !this.NextCursor.Equal(that1.NextCursor) {
+		return false
+	}
 	if len(this.Members) != len(that1.Members) {
 		return false
 	}
@@ -719,6 +910,8 @@ type UserAPIClient interface {
 	Delete(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*SingleResponse, error)
 	// Search for user identity.
 	Search(ctx context.Context, in *SearchRequest, opts ...grpc.CallOption) (*PaginatedResponse, error)
+	// Authenticate user identity.
+	Authenticate(ctx context.Context, in *AuthenticateRequest, opts ...grpc.CallOption) (*SingleResponse, error)
 }
 
 type userAPIClient struct {
@@ -774,6 +967,15 @@ func (c *userAPIClient) Search(ctx context.Context, in *SearchRequest, opts ...g
 	return out, nil
 }
 
+func (c *userAPIClient) Authenticate(ctx context.Context, in *AuthenticateRequest, opts ...grpc.CallOption) (*SingleResponse, error) {
+	out := new(SingleResponse)
+	err := c.cc.Invoke(ctx, "/kingdom.user.v1.UserAPI/Authenticate", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserAPIServer is the server API for UserAPI service.
 type UserAPIServer interface {
 	// Create an user identity.
@@ -786,6 +988,8 @@ type UserAPIServer interface {
 	Delete(context.Context, *GetRequest) (*SingleResponse, error)
 	// Search for user identity.
 	Search(context.Context, *SearchRequest) (*PaginatedResponse, error)
+	// Authenticate user identity.
+	Authenticate(context.Context, *AuthenticateRequest) (*SingleResponse, error)
 }
 
 func RegisterUserAPIServer(s *grpc.Server, srv UserAPIServer) {
@@ -882,6 +1086,24 @@ func _UserAPI_Search_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserAPI_Authenticate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AuthenticateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserAPIServer).Authenticate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/kingdom.user.v1.UserAPI/Authenticate",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserAPIServer).Authenticate(ctx, req.(*AuthenticateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _UserAPI_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "kingdom.user.v1.UserAPI",
 	HandlerType: (*UserAPIServer)(nil),
@@ -905,6 +1127,10 @@ var _UserAPI_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Search",
 			Handler:    _UserAPI_Search_Handler,
+		},
+		{
+			MethodName: "Authenticate",
+			Handler:    _UserAPI_Authenticate_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -937,6 +1163,12 @@ func (m *CreateRequest) MarshalTo(dAtA []byte) (int, error) {
 		i++
 		i = encodeVarintUserApi(dAtA, i, uint64(len(m.Principal)))
 		i += copy(dAtA[i:], m.Principal)
+	}
+	if len(m.Secret) > 0 {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintUserApi(dAtA, i, uint64(len(m.Secret)))
+		i += copy(dAtA[i:], m.Secret)
 	}
 	if m.XXX_unrecognized != nil {
 		i += copy(dAtA[i:], m.XXX_unrecognized)
@@ -1060,35 +1292,84 @@ func (m *SearchRequest) MarshalTo(dAtA []byte) (int, error) {
 			i += copy(dAtA[i:], s)
 		}
 	}
-	if m.RealmId != nil {
+	if m.Cursor != nil {
 		dAtA[i] = 0x22
 		i++
-		i = encodeVarintUserApi(dAtA, i, uint64(m.RealmId.Size()))
-		n2, err := m.RealmId.MarshalTo(dAtA[i:])
+		i = encodeVarintUserApi(dAtA, i, uint64(m.Cursor.Size()))
+		n2, err := m.Cursor.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
 		i += n2
 	}
-	if m.UserId != nil {
+	if m.RealmId != nil {
 		dAtA[i] = 0x2a
 		i++
-		i = encodeVarintUserApi(dAtA, i, uint64(m.UserId.Size()))
-		n3, err := m.UserId.MarshalTo(dAtA[i:])
+		i = encodeVarintUserApi(dAtA, i, uint64(m.RealmId.Size()))
+		n3, err := m.RealmId.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
 		i += n3
 	}
-	if m.Principal != nil {
+	if m.UserId != nil {
 		dAtA[i] = 0x32
 		i++
-		i = encodeVarintUserApi(dAtA, i, uint64(m.Principal.Size()))
-		n4, err := m.Principal.MarshalTo(dAtA[i:])
+		i = encodeVarintUserApi(dAtA, i, uint64(m.UserId.Size()))
+		n4, err := m.UserId.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
 		i += n4
+	}
+	if m.Principal != nil {
+		dAtA[i] = 0x3a
+		i++
+		i = encodeVarintUserApi(dAtA, i, uint64(m.Principal.Size()))
+		n5, err := m.Principal.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n5
+	}
+	if m.XXX_unrecognized != nil {
+		i += copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	return i, nil
+}
+
+func (m *AuthenticateRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *AuthenticateRequest) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.RealmId) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintUserApi(dAtA, i, uint64(len(m.RealmId)))
+		i += copy(dAtA[i:], m.RealmId)
+	}
+	if len(m.Principal) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintUserApi(dAtA, i, uint64(len(m.Principal)))
+		i += copy(dAtA[i:], m.Principal)
+	}
+	if len(m.Secret) > 0 {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintUserApi(dAtA, i, uint64(len(m.Secret)))
+		i += copy(dAtA[i:], m.Secret)
 	}
 	if m.XXX_unrecognized != nil {
 		i += copy(dAtA[i:], m.XXX_unrecognized)
@@ -1115,21 +1396,21 @@ func (m *SingleResponse) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0xa
 		i++
 		i = encodeVarintUserApi(dAtA, i, uint64(m.Error.Size()))
-		n5, err := m.Error.MarshalTo(dAtA[i:])
+		n6, err := m.Error.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n5
+		i += n6
 	}
 	if m.Entity != nil {
 		dAtA[i] = 0x12
 		i++
 		i = encodeVarintUserApi(dAtA, i, uint64(m.Entity.Size()))
-		n6, err := m.Entity.MarshalTo(dAtA[i:])
+		n7, err := m.Entity.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n6
+		i += n7
 	}
 	if m.XXX_unrecognized != nil {
 		i += copy(dAtA[i:], m.XXX_unrecognized)
@@ -1156,15 +1437,45 @@ func (m *PaginatedResponse) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0xa
 		i++
 		i = encodeVarintUserApi(dAtA, i, uint64(m.Error.Size()))
-		n7, err := m.Error.MarshalTo(dAtA[i:])
+		n8, err := m.Error.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n7
+		i += n8
+	}
+	if m.Total != 0 {
+		dAtA[i] = 0x10
+		i++
+		i = encodeVarintUserApi(dAtA, i, uint64(m.Total))
+	}
+	if m.PerPage != 0 {
+		dAtA[i] = 0x18
+		i++
+		i = encodeVarintUserApi(dAtA, i, uint64(m.PerPage))
+	}
+	if m.Count != 0 {
+		dAtA[i] = 0x20
+		i++
+		i = encodeVarintUserApi(dAtA, i, uint64(m.Count))
+	}
+	if m.CurrentPage != 0 {
+		dAtA[i] = 0x28
+		i++
+		i = encodeVarintUserApi(dAtA, i, uint64(m.CurrentPage))
+	}
+	if m.NextCursor != nil {
+		dAtA[i] = 0x32
+		i++
+		i = encodeVarintUserApi(dAtA, i, uint64(m.NextCursor.Size()))
+		n9, err := m.NextCursor.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n9
 	}
 	if len(m.Members) > 0 {
 		for _, msg := range m.Members {
-			dAtA[i] = 0x12
+			dAtA[i] = 0x3a
 			i++
 			i = encodeVarintUserApi(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -1194,8 +1505,9 @@ func NewPopulatedCreateRequest(r randyUserApi, easy bool) *CreateRequest {
 	this := &CreateRequest{}
 	this.RealmId = string(randStringUserApi(r))
 	this.Principal = string(randStringUserApi(r))
+	this.Secret = string(randStringUserApi(r))
 	if !easy && r.Intn(10) != 0 {
-		this.XXX_unrecognized = randUnrecognizedUserApi(r, 3)
+		this.XXX_unrecognized = randUnrecognizedUserApi(r, 4)
 	}
 	return this
 }
@@ -1233,6 +1545,9 @@ func NewPopulatedSearchRequest(r randyUserApi, easy bool) *SearchRequest {
 		this.Sorts[i] = string(randStringUserApi(r))
 	}
 	if r.Intn(10) != 0 {
+		this.Cursor = types.NewPopulatedStringValue(r, easy)
+	}
+	if r.Intn(10) != 0 {
 		this.RealmId = types.NewPopulatedStringValue(r, easy)
 	}
 	if r.Intn(10) != 0 {
@@ -1242,7 +1557,18 @@ func NewPopulatedSearchRequest(r randyUserApi, easy bool) *SearchRequest {
 		this.Principal = types.NewPopulatedStringValue(r, easy)
 	}
 	if !easy && r.Intn(10) != 0 {
-		this.XXX_unrecognized = randUnrecognizedUserApi(r, 7)
+		this.XXX_unrecognized = randUnrecognizedUserApi(r, 8)
+	}
+	return this
+}
+
+func NewPopulatedAuthenticateRequest(r randyUserApi, easy bool) *AuthenticateRequest {
+	this := &AuthenticateRequest{}
+	this.RealmId = string(randStringUserApi(r))
+	this.Principal = string(randStringUserApi(r))
+	this.Secret = string(randStringUserApi(r))
+	if !easy && r.Intn(10) != 0 {
+		this.XXX_unrecognized = randUnrecognizedUserApi(r, 4)
 	}
 	return this
 }
@@ -1266,6 +1592,13 @@ func NewPopulatedPaginatedResponse(r randyUserApi, easy bool) *PaginatedResponse
 	if r.Intn(10) != 0 {
 		this.Error = v1.NewPopulatedError(r, easy)
 	}
+	this.Total = uint32(r.Uint32())
+	this.PerPage = uint32(r.Uint32())
+	this.Count = uint32(r.Uint32())
+	this.CurrentPage = uint32(r.Uint32())
+	if r.Intn(10) != 0 {
+		this.NextCursor = types.NewPopulatedStringValue(r, easy)
+	}
 	if r.Intn(10) != 0 {
 		v2 := r.Intn(5)
 		this.Members = make([]*User, v2)
@@ -1274,7 +1607,7 @@ func NewPopulatedPaginatedResponse(r randyUserApi, easy bool) *PaginatedResponse
 		}
 	}
 	if !easy && r.Intn(10) != 0 {
-		this.XXX_unrecognized = randUnrecognizedUserApi(r, 3)
+		this.XXX_unrecognized = randUnrecognizedUserApi(r, 8)
 	}
 	return this
 }
@@ -1370,6 +1703,10 @@ func (m *CreateRequest) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovUserApi(uint64(l))
 	}
+	l = len(m.Secret)
+	if l > 0 {
+		n += 1 + l + sovUserApi(uint64(l))
+	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
 	}
@@ -1438,6 +1775,10 @@ func (m *SearchRequest) Size() (n int) {
 			n += 1 + l + sovUserApi(uint64(l))
 		}
 	}
+	if m.Cursor != nil {
+		l = m.Cursor.Size()
+		n += 1 + l + sovUserApi(uint64(l))
+	}
 	if m.RealmId != nil {
 		l = m.RealmId.Size()
 		n += 1 + l + sovUserApi(uint64(l))
@@ -1448,6 +1789,30 @@ func (m *SearchRequest) Size() (n int) {
 	}
 	if m.Principal != nil {
 		l = m.Principal.Size()
+		n += 1 + l + sovUserApi(uint64(l))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *AuthenticateRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.RealmId)
+	if l > 0 {
+		n += 1 + l + sovUserApi(uint64(l))
+	}
+	l = len(m.Principal)
+	if l > 0 {
+		n += 1 + l + sovUserApi(uint64(l))
+	}
+	l = len(m.Secret)
+	if l > 0 {
 		n += 1 + l + sovUserApi(uint64(l))
 	}
 	if m.XXX_unrecognized != nil {
@@ -1484,6 +1849,22 @@ func (m *PaginatedResponse) Size() (n int) {
 	_ = l
 	if m.Error != nil {
 		l = m.Error.Size()
+		n += 1 + l + sovUserApi(uint64(l))
+	}
+	if m.Total != 0 {
+		n += 1 + sovUserApi(uint64(m.Total))
+	}
+	if m.PerPage != 0 {
+		n += 1 + sovUserApi(uint64(m.PerPage))
+	}
+	if m.Count != 0 {
+		n += 1 + sovUserApi(uint64(m.Count))
+	}
+	if m.CurrentPage != 0 {
+		n += 1 + sovUserApi(uint64(m.CurrentPage))
+	}
+	if m.NextCursor != nil {
+		l = m.NextCursor.Size()
 		n += 1 + l + sovUserApi(uint64(l))
 	}
 	if len(m.Members) > 0 {
@@ -1605,6 +1986,38 @@ func (m *CreateRequest) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.Principal = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Secret", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowUserApi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthUserApi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthUserApi
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Secret = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -2007,6 +2420,42 @@ func (m *SearchRequest) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 4:
 			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Cursor", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowUserApi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthUserApi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthUserApi
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Cursor == nil {
+				m.Cursor = &types.StringValue{}
+			}
+			if err := m.Cursor.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RealmId", wireType)
 			}
 			var msglen int
@@ -2041,7 +2490,7 @@ func (m *SearchRequest) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 5:
+		case 6:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field UserId", wireType)
 			}
@@ -2077,7 +2526,7 @@ func (m *SearchRequest) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 6:
+		case 7:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Principal", wireType)
 			}
@@ -2112,6 +2561,157 @@ func (m *SearchRequest) Unmarshal(dAtA []byte) error {
 			if err := m.Principal.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipUserApi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthUserApi
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthUserApi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+
+func (m *AuthenticateRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowUserApi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: AuthenticateRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: AuthenticateRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RealmId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowUserApi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthUserApi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthUserApi
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.RealmId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Principal", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowUserApi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthUserApi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthUserApi
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Principal = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Secret", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowUserApi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthUserApi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthUserApi
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Secret = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -2332,6 +2932,118 @@ func (m *PaginatedResponse) Unmarshal(dAtA []byte) error {
 			}
 			iNdEx = postIndex
 		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Total", wireType)
+			}
+			m.Total = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowUserApi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Total |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PerPage", wireType)
+			}
+			m.PerPage = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowUserApi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.PerPage |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Count", wireType)
+			}
+			m.Count = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowUserApi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Count |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CurrentPage", wireType)
+			}
+			m.CurrentPage = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowUserApi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.CurrentPage |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field NextCursor", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowUserApi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthUserApi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthUserApi
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.NextCursor == nil {
+				m.NextCursor = &types.StringValue{}
+			}
+			if err := m.NextCursor.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 7:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Members", wireType)
 			}

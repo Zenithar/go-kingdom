@@ -55,23 +55,51 @@ service UserAPI {
   rpc Delete(GetRequest) returns (SingleResponse);
   // Search for user identity.
   rpc Search(SearchRequest) returns (PaginatedResponse);
+  // Authenticate user identity.
+  rpc Authenticate(AuthenticateRequest) returns (SingleResponse);
 }
 
 // -----------------------------------------------------------------------------
 
 message CreateRequest {
-  string realm_id = 1;
-  string principal = 2;
+  string realm_id = 1 [
+    (validate.rules).string = {
+      pattern: "^[0-9A-Za-z]+$"
+      len: 32
+    }
+  ];
+  string principal = 2 [(validate.rules).string.pattern = "^[\x00-\x7F]+$"];
+  string secret = 3 [(validate.rules).string.pattern = "^[\x00-\x7F]+$"];
 }
 
 message GetRequest {
-  string realm_id = 1;
-  string user_id = 2;
+  string realm_id = 1 [
+    (validate.rules).string = {
+      pattern: "^[0-9A-Za-z]+$"
+      len: 32
+    }
+  ];
+  string user_id = 2 [
+    (validate.rules).string = {
+      pattern: "^[0-9A-Za-z]+$"
+      len: 32
+    }
+  ];
 }
 
 message UpdateRequest {
-  string realm_id = 1;
-  string user_id = 2;
+  string realm_id = 1 [
+    (validate.rules).string = {
+      pattern: "^[0-9A-Za-z]+$"
+      len: 32
+    }
+  ];
+  string user_id = 2 [
+    (validate.rules).string = {
+      pattern: "^[0-9A-Za-z]+$"
+      len: 32
+    }
+  ];
   google.protobuf.StringValue secret = 3;
 }
 
@@ -79,9 +107,26 @@ message SearchRequest {
   uint32 page = 1;
   uint32 per_page = 2;
   repeated string sorts = 3;
-  google.protobuf.StringValue realm_id = 4;
-  google.protobuf.StringValue user_id = 5;
-  google.protobuf.StringValue principal = 6;
+  google.protobuf.StringValue cursor = 4;
+  google.protobuf.StringValue realm_id = 5 [
+    (validate.rules).string = {
+      pattern: "^[0-9A-Za-z]+$"
+      len: 32
+    }
+  ];
+  google.protobuf.StringValue user_id = 6 [
+    (validate.rules).string = {
+      pattern: "^[0-9A-Za-z]+$"
+      len: 32
+    }
+  ];
+  google.protobuf.StringValue principal = 7;
+}
+
+message AuthenticateRequest {
+  string realm_id = 1;
+  string principal = 2;
+  string secret = 3;
 }
 
 message SingleResponse {
@@ -91,5 +136,10 @@ message SingleResponse {
 
 message PaginatedResponse {
   .kingdom.system.v1.Error error = 1;
-  repeated User members = 2;
+  uint32 total = 2;
+  uint32 per_page = 3;
+  uint32 count = 4;
+  uint32 current_page = 5;
+  google.protobuf.StringValue next_cursor = 6;
+  repeated User members = 7;
 }

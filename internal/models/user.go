@@ -43,3 +43,8 @@ func (u *User) Validate() error {
 func (u *User) SetPrincipal(principal string) {
 	u.Principal = helpers.PrincipalHashFunc(principal)
 }
+
+// Authenticate user identity
+func (u *User) Authenticate(password string) (bool, error) {
+	return helpers.CheckPasswordFunc(u.Secret, password)
+}

@@ -23,4 +23,5 @@ type User interface {
 	Update(ctx context.Context, req *userv1.UpdateRequest) (res *userv1.SingleResponse, err error)
 	Delete(ctx context.Context, req *userv1.GetRequest) (res *userv1.SingleResponse, err error)
 	Search(ctx context.Context, req *userv1.SearchRequest) (res *userv1.PaginatedResponse, err error)
+	Authenticate(ctx context.Context, req *userv1.AuthenticateRequest) (res *userv1.SingleResponse, err error)
 }

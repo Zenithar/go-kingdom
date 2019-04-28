@@ -107,6 +107,6 @@ message PaginatedResponse {
   uint32 per_page = 3;
   uint32 count = 4;
   uint32 current_page = 5;
-  string next_cursor = 6;
+  google.protobuf.StringValue next_cursor = 6;
   repeated Realm members = 7;
 }

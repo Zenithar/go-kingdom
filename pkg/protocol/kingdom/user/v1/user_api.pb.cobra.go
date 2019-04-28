@@ -458,3 +458,55 @@ func init() {
 	UserAPIClientCommand.AddCommand(userAPI_SearchClientCommand)
 	DefaultClientCommandConfig.AddFlags(userAPI_SearchClientCommand.Flags())
 }
+
+var userAPI_AuthenticateClientCommand = &cobra.Command{
+	Use:  "authenticate",
+	Long: "Authenticate client\n\nYou can use environment variables with the same name of the command flags.\nAll caps and s/-/_, e.g. SERVER_ADDR.",
+	Example: `
+Save a sample request to a file (or refer to your protobuf descriptor to create one):
+	authenticate -p > req.json
+Submit request using file:
+	authenticate -f req.json
+Authenticate using the Authorization header (requires transport security):
+	export AUTH_TOKEN=your_access_token
+	export SERVER_ADDR=api.example.com:443
+	echo '{json}' | authenticate --tls`,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		var req AuthenticateRequest
+
+		// Get a connection
+		conn, err := dial(DefaultClientCommandConfig)
+		if err != nil {
+			return err
+		}
+		defer conn.Close()
+
+		// Initialize client wrapper
+		grpcClient := NewUserAPIClient(conn)
+
+		// Unmarshal request
+		if err := jsonpb.Unmarshal(bufio.NewReader(os.Stdin), &req); err != nil {
+			return err
+		}
+
+		// Prepare context
+		ctx := context.Background()
+
+		// Do the call
+		res, err := grpcClient.Authenticate(ctx, &req)
+		if err != nil {
+			return err
+		}
+
+		// Beautify result
+		beautify(res)
+
+		// no error
+		return nil
+	},
+}
+
+func init() {
+	UserAPIClientCommand.AddCommand(userAPI_AuthenticateClientCommand)
+	DefaultClientCommandConfig.AddFlags(userAPI_AuthenticateClientCommand.Flags())
+}
