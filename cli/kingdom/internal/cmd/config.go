@@ -14,4 +14,5 @@ var configCmd = &cobra.Command{
 func init() {
 	configNewCmd.Flags().BoolVar(&configNewAsEnvFlag, "env", false, "Print configuration as environment variable")
 	configCmd.AddCommand(configNewCmd)
+	configCmd.AddCommand(configMigrateCmd)
 }

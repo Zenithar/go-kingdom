@@ -27,9 +27,6 @@ var serverCmd = &cobra.Command{
 		// Initialize config
 		initConfig()
 
-		// Starting banner
-		log.For(ctx).Info("Starting kingdom gRPC server ...")
-
 		// Start goroutine group
 		err := platform.Run(ctx, &platform.Application{
 			Debug:           conf.Debug.Enable,
@@ -37,20 +34,26 @@ var serverCmd = &cobra.Command{
 			Version:         version.Version,
 			Revision:        version.Revision,
 			Instrumentation: conf.Instrumentation,
-			Builder: func(upg *tableflip.Upgrader, group run.Group) {
+			Builder: func(upg *tableflip.Upgrader, group *run.Group) {
+				// Starting banner
+				log.For(ctx).Info("Starting kingdom gRPC server ...")
+
+				// Allocate listener
 				ln, err := upg.Fds.Listen(conf.Server.Network, conf.Server.Listen)
 				if err != nil {
 					log.For(ctx).Fatal("Unable to start GRPC server", zap.Error(err))
 				}
 
+				// Attach the dispatcher
 				server, err := grpc.New(ctx, conf)
 				if err != nil {
 					log.For(ctx).Fatal("Unable to start GRPC server", zap.Error(err))
 				}
 
+				// Add to goroutine group
 				group.Add(
 					func() error {
-						log.For(ctx).Info("Starting GRPC server", zap.Stringer("address", ln.Addr()))
+						log.For(ctx).Info("GRPC server listening ...", zap.Stringer("address", ln.Addr()))
 						return server.Serve(ln)
 					},
 					func(e error) {

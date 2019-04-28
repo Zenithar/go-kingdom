@@ -88,7 +88,7 @@ type Gen mg.Namespace
 func (Gen) Wire() {
 	color.Blue("### Wiring dispatchers")
 
-	mustGoGenerate("gRPC", "go.zenithar.org/kingdom/cli/kingdom/dispatchers/grpc")
+	mustGoGenerate("gRPC", "go.zenithar.org/kingdom/cli/kingdom/internal/dispatchers/grpc")
 }
 
 // Generate mocks for tests
@@ -143,7 +143,7 @@ type Go mg.Namespace
 // Generate go code
 func (Go) Generate() error {
 	color.Cyan("## Generate code")
-	mg.SerialDeps(Gen.Protobuf, Gen.Mocks, Gen.Migrations, Gen.Decorators)
+	mg.SerialDeps(Gen.Protobuf, Gen.Mocks, Gen.Migrations, Gen.Decorators, Gen.Wire)
 	return nil
 }
 

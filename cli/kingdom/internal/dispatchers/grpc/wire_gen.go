@@ -17,13 +17,12 @@ import (
 	"go.uber.org/zap"
 	"go.zenithar.org/kingdom/cli/kingdom/internal/config"
 	"go.zenithar.org/kingdom/cli/kingdom/internal/core"
-	postgresql2 "go.zenithar.org/kingdom/internal/repositories/pkg/postgresql"
+	"go.zenithar.org/kingdom/internal/repositories/pkg/postgresql"
 	"go.zenithar.org/kingdom/internal/services/pkg/v1"
 	"go.zenithar.org/kingdom/internal/services/pkg/v1/realm"
 	"go.zenithar.org/kingdom/internal/services/pkg/v1/user"
 	"go.zenithar.org/kingdom/pkg/protocol/kingdom/realm/v1"
 	"go.zenithar.org/kingdom/pkg/protocol/kingdom/user/v1"
-	"go.zenithar.org/pkg/db/adapter/postgresql"
 	"go.zenithar.org/pkg/log"
 	"go.zenithar.org/pkg/tlsconfig"
 	"google.golang.org/grpc"
@@ -37,13 +36,13 @@ import (
 
 func setupLocalPostgreSQL(ctx context.Context, cfg *config.Configuration) (*grpc.Server, error) {
 	configuration := core.PosgreSQLConfig(cfg)
-	db, err := postgresql.Connection(ctx, configuration)
+	db, err := postgresql.AutoMigrate(ctx, configuration)
 	if err != nil {
 		return nil, err
 	}
-	repositoriesUser := postgresql2.NewUserRepository(db)
+	repositoriesUser := postgresql.NewUserRepository(db)
 	v1User := user.New(repositoriesUser)
-	repositoriesRealm := postgresql2.NewRealmRepository(db)
+	repositoriesRealm := postgresql.NewRealmRepository(db)
 	v1Realm := realm.New(repositoriesRealm)
 	server, err := grpcServer(ctx, cfg, v1User, v1Realm)
 	if err != nil {
@@ -58,7 +57,8 @@ func grpcServer(ctx context.Context, cfg *config.Configuration, users v1.User, r
 	sopts := []grpc.ServerOption{}
 	grpc_zap.ReplaceGrpcLogger(zap.L())
 
-	sopts = append(sopts, grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(grpc_zap.StreamServerInterceptor(zap.L()), grpc_recovery.StreamServerInterceptor())), grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(grpc_recovery.UnaryServerInterceptor(), grpc_zap.UnaryServerInterceptor(zap.L()))), grpc.StatsHandler(&ocgrpc.ServerHandler{}))
+	sopts = append(sopts, grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(grpc_zap.StreamServerInterceptor(zap.L()), grpc_recovery.StreamServerInterceptor())), grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(grpc_recovery.UnaryServerInterceptor(), grpc_zap.UnaryServerInterceptor(zap.L()))), grpc.StatsHandler(&ocgrpc.ServerHandler{}),
+	)
 
 	if cfg.Server.UseTLS {
 

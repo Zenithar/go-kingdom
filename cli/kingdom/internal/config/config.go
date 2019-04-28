@@ -13,10 +13,10 @@ type Configuration struct {
 	Core struct {
 		AutoMigrate bool   `toml:"-" default:"false"`
 		Type        string `toml:"type" default:"postgresql" comment:"Database connector to use: rethinkdb."`
-		Hosts       string `toml:"hosts" default:"127.0.0.1:5432" comment:"Database hosts (comma separated)"`
+		Hosts       string `toml:"hosts" default:"postgresql://kingdom:changeme@localhost:5432/kingdom?driver=pgx" comment:"Database hosts (comma separated)"`
 		Database    string `toml:"database" default:"kingdom" comment:"Database namespace"`
-		Username    string `toml:"username" default:"" comment:"Database connection username"`
-		Password    string `toml:"password" default:"" comment:"Database connection password"`
+		Username    string `toml:"username" default:"kingdom" comment:"Database connection username"`
+		Password    string `toml:"password" default:"changeme" comment:"Database connection password"`
 	} `toml:"Core" comment:"###############################\n Core \n##############################"`
 
 	Server struct {
