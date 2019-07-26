@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"sync"
 
-	"go.uber.org/zap"
 	"google.golang.org/grpc"
 
 	"go.zenithar.org/kingdom/cli/kingdom/internal/config"
@@ -34,7 +33,7 @@ func New(ctx context.Context, cfg *config.Configuration) (*grpc.Server, error) {
 
 		// Apply configuration
 		if err := app.ApplyConfiguration(cfg); err != nil {
-			log.For(ctx).Fatal("Unable to initialize server settings", zap.Error(err))
+			log.For(ctx).Fatal("Unable to initialize server settings", log.Error(err))
 		}
 
 		// Initialize Core components
