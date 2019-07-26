@@ -2,7 +2,7 @@ package realm
 
 import (
 	"go.zenithar.org/kingdom/internal/models"
-	realmv1 "go.zenithar.org/kingdom/pkg/protocol/kingdom/realm/v1"
+	realmv1 "go.zenithar.org/kingdom/pkg/gen/go/kingdom/realm/v1"
 )
 
 // FromEntity converts entity object to service object

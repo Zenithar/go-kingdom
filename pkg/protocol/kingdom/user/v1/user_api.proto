@@ -37,26 +37,26 @@ option java_package = "org.zenithar.kingdom.user.v1";
 option objc_class_prefix = "KUX";
 option php_namespace = "Kingdom\\User\\V1";
 
+import "github.com/envoyproxy/protoc-gen-validate/validate/validate.proto";
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
-import "github.com/lyft/protoc-gen-validate/validate/validate.proto";
 import "google/protobuf/wrappers.proto";
-import "pkg/protocol/kingdom/system/v1/system.proto";
-import "pkg/protocol/kingdom/user/v1/user.proto";
+import "kingdom/system/v1/system.proto";
+import "kingdom/user/v1/user.proto";
 
 // UserAPI manage user objects.
 service UserAPI {
   // Create an user identity.
-  rpc Create(CreateRequest) returns (SingleResponse);
+  rpc Create(CreateRequest) returns (CreateResponse);
   // Get an user by id.
-  rpc Get(GetRequest) returns (SingleResponse);
+  rpc Get(GetRequest) returns (GetResponse);
   // Update user attributes.
-  rpc Update(UpdateRequest) returns (SingleResponse);
+  rpc Update(UpdateRequest) returns (UpdateResponse);
   // Delete an user by id.
-  rpc Delete(GetRequest) returns (SingleResponse);
+  rpc Delete(DeleteRequest) returns (DeleteResponse);
   // Search for user identity.
-  rpc Search(SearchRequest) returns (PaginatedResponse);
+  rpc Search(SearchRequest) returns (SearchResponse);
   // Authenticate user identity.
-  rpc Authenticate(AuthenticateRequest) returns (SingleResponse);
+  rpc Authenticate(AuthenticateRequest) returns (AuthenticateResponse);
 }
 
 // -----------------------------------------------------------------------------
@@ -103,6 +103,21 @@ message UpdateRequest {
   google.protobuf.StringValue secret = 3;
 }
 
+message DeleteRequest {
+  string realm_id = 1 [
+    (validate.rules).string = {
+      pattern: "^[0-9A-Za-z]+$"
+      len: 32
+    }
+  ];
+  string user_id = 2 [
+    (validate.rules).string = {
+      pattern: "^[0-9A-Za-z]+$"
+      len: 32
+    }
+  ];
+}
+
 message SearchRequest {
   uint32 page = 1;
   uint32 per_page = 2;
@@ -129,12 +144,26 @@ message AuthenticateRequest {
   string secret = 3;
 }
 
-message SingleResponse {
+message CreateResponse {
   .kingdom.system.v1.Error error = 1;
   User entity = 2;
 }
 
-message PaginatedResponse {
+message GetResponse {
+  .kingdom.system.v1.Error error = 1;
+  User entity = 2;
+}
+
+message UpdateResponse {
+  .kingdom.system.v1.Error error = 1;
+  User entity = 2;
+}
+
+message DeleteResponse {
+  .kingdom.system.v1.Error error = 1;
+}
+
+message SearchResponse {
   .kingdom.system.v1.Error error = 1;
   uint32 total = 2;
   uint32 per_page = 3;
@@ -142,4 +171,8 @@ message PaginatedResponse {
   uint32 current_page = 5;
   google.protobuf.StringValue next_cursor = 6;
   repeated User members = 7;
+}
+
+message AuthenticateResponse {
+  .kingdom.system.v1.Error error = 1;
 }

@@ -4,6 +4,7 @@ package realmv1
 
 import (
 	"context"
+
 	"github.com/bxcodec/faker"
 )
 
@@ -12,8 +13,8 @@ import (
 type MockRealmAPIServer struct{}
 
 // Create is mock implementation of the method Create
-func (MockRealmAPIServer) Create(context.Context, *CreateRequest) (*SingleResponse, error) {
-	var res SingleResponse
+func (MockRealmAPIServer) Create(context.Context, *CreateRequest) (*CreateResponse, error) {
+	var res CreateResponse
 	if err := faker.FakeData(&res); err != nil {
 		return nil, err
 	}
@@ -21,8 +22,8 @@ func (MockRealmAPIServer) Create(context.Context, *CreateRequest) (*SingleRespon
 }
 
 // Get is mock implementation of the method Get
-func (MockRealmAPIServer) Get(context.Context, *GetRequest) (*SingleResponse, error) {
-	var res SingleResponse
+func (MockRealmAPIServer) Get(context.Context, *GetRequest) (*GetResponse, error) {
+	var res GetResponse
 	if err := faker.FakeData(&res); err != nil {
 		return nil, err
 	}
@@ -30,8 +31,8 @@ func (MockRealmAPIServer) Get(context.Context, *GetRequest) (*SingleResponse, er
 }
 
 // Update is mock implementation of the method Update
-func (MockRealmAPIServer) Update(context.Context, *UpdateRequest) (*SingleResponse, error) {
-	var res SingleResponse
+func (MockRealmAPIServer) Update(context.Context, *UpdateRequest) (*UpdateResponse, error) {
+	var res UpdateResponse
 	if err := faker.FakeData(&res); err != nil {
 		return nil, err
 	}
@@ -39,8 +40,8 @@ func (MockRealmAPIServer) Update(context.Context, *UpdateRequest) (*SingleRespon
 }
 
 // Delete is mock implementation of the method Delete
-func (MockRealmAPIServer) Delete(context.Context, *GetRequest) (*SingleResponse, error) {
-	var res SingleResponse
+func (MockRealmAPIServer) Delete(context.Context, *DeleteRequest) (*DeleteResponse, error) {
+	var res DeleteResponse
 	if err := faker.FakeData(&res); err != nil {
 		return nil, err
 	}
@@ -48,8 +49,8 @@ func (MockRealmAPIServer) Delete(context.Context, *GetRequest) (*SingleResponse,
 }
 
 // Search is mock implementation of the method Search
-func (MockRealmAPIServer) Search(context.Context, *SearchRequest) (*PaginatedResponse, error) {
-	var res PaginatedResponse
+func (MockRealmAPIServer) Search(context.Context, *SearchRequest) (*SearchResponse, error) {
+	var res SearchResponse
 	if err := faker.FakeData(&res); err != nil {
 		return nil, err
 	}

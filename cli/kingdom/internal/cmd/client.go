@@ -3,8 +3,8 @@ package cmd
 import (
 	"github.com/spf13/cobra"
 
-	realmv1 "go.zenithar.org/kingdom/pkg/protocol/kingdom/realm/v1"
-	userv1 "go.zenithar.org/kingdom/pkg/protocol/kingdom/user/v1"
+	realmv1 "go.zenithar.org/kingdom/pkg/gen/go/kingdom/realm/v1"
+	userv1 "go.zenithar.org/kingdom/pkg/gen/go/kingdom/user/v1"
 )
 
 // -----------------------------------------------------------------------------

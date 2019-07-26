@@ -2,7 +2,7 @@ package user
 
 import (
 	"go.zenithar.org/kingdom/internal/models"
-	userv1 "go.zenithar.org/kingdom/pkg/protocol/kingdom/user/v1"
+	userv1 "go.zenithar.org/kingdom/pkg/gen/go/kingdom/user/v1"
 )
 
 // FromEntity converts entity object to service object

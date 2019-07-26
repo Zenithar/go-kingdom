@@ -10,8 +10,8 @@ import (
 	"go.zenithar.org/kingdom/cli/kingdom/internal/core"
 
 	corev1 "go.zenithar.org/kingdom/internal/services/pkg/v1"
-	realmv1 "go.zenithar.org/kingdom/pkg/protocol/kingdom/realm/v1"
-	userv1 "go.zenithar.org/kingdom/pkg/protocol/kingdom/user/v1"
+	realmv1 "go.zenithar.org/kingdom/pkg/gen/go/kingdom/realm/v1"
+	userv1 "go.zenithar.org/kingdom/pkg/gen/go/kingdom/user/v1"
 
 	"github.com/google/wire"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"

@@ -10,8 +10,8 @@ import (
 	"go.zenithar.org/kingdom/internal/repositories"
 	"go.zenithar.org/kingdom/internal/services/internal/constraints"
 	apiv1 "go.zenithar.org/kingdom/internal/services/pkg/v1"
-	sysv1 "go.zenithar.org/kingdom/pkg/protocol/kingdom/system/v1"
-	userv1 "go.zenithar.org/kingdom/pkg/protocol/kingdom/user/v1"
+	sysv1 "go.zenithar.org/kingdom/pkg/gen/go/kingdom/system/v1"
+	userv1 "go.zenithar.org/kingdom/pkg/gen/go/kingdom/user/v1"
 	"go.zenithar.org/pkg/db"
 )
 
@@ -28,8 +28,8 @@ func New(users repositories.User) apiv1.User {
 
 // -----------------------------------------------------------------------------
 
-func (s *service) Create(ctx context.Context, req *userv1.CreateRequest) (*userv1.SingleResponse, error) {
-	res := &userv1.SingleResponse{}
+func (s *service) Create(ctx context.Context, req *userv1.CreateRequest) (*userv1.CreateResponse, error) {
+	res := &userv1.CreateResponse{}
 
 	// Check request
 	if req == nil {
@@ -89,8 +89,8 @@ func (s *service) Create(ctx context.Context, req *userv1.CreateRequest) (*userv
 	return res, nil
 }
 
-func (s *service) Get(ctx context.Context, req *userv1.GetRequest) (*userv1.SingleResponse, error) {
-	res := &userv1.SingleResponse{}
+func (s *service) Get(ctx context.Context, req *userv1.GetRequest) (*userv1.GetResponse, error) {
+	res := &userv1.GetResponse{}
 
 	// Check request
 	if req == nil {
@@ -137,8 +137,8 @@ func (s *service) Get(ctx context.Context, req *userv1.GetRequest) (*userv1.Sing
 	return res, nil
 }
 
-func (s *service) Update(ctx context.Context, req *userv1.UpdateRequest) (*userv1.SingleResponse, error) {
-	res := &userv1.SingleResponse{}
+func (s *service) Update(ctx context.Context, req *userv1.UpdateRequest) (*userv1.UpdateResponse, error) {
+	res := &userv1.UpdateResponse{}
 	// Prepare expected results
 	var entity models.User
 
@@ -186,8 +186,8 @@ func (s *service) Update(ctx context.Context, req *userv1.UpdateRequest) (*userv
 	return res, nil
 }
 
-func (s *service) Delete(ctx context.Context, req *userv1.GetRequest) (*userv1.SingleResponse, error) {
-	res := &userv1.SingleResponse{}
+func (s *service) Delete(ctx context.Context, req *userv1.DeleteRequest) (*userv1.DeleteResponse, error) {
+	res := &userv1.DeleteResponse{}
 
 	// Prepare expected results
 	var entity models.User
@@ -227,8 +227,8 @@ func (s *service) Delete(ctx context.Context, req *userv1.GetRequest) (*userv1.S
 	return res, nil
 }
 
-func (s *service) Search(ctx context.Context, req *userv1.SearchRequest) (*userv1.PaginatedResponse, error) {
-	res := &userv1.PaginatedResponse{}
+func (s *service) Search(ctx context.Context, req *userv1.SearchRequest) (*userv1.SearchResponse, error) {
+	res := &userv1.SearchResponse{}
 
 	// Validate service constraints
 	if err := constraints.Validate(ctx,
@@ -286,8 +286,8 @@ func (s *service) Search(ctx context.Context, req *userv1.SearchRequest) (*userv
 	return res, nil
 }
 
-func (s *service) Authenticate(ctx context.Context, req *userv1.AuthenticateRequest) (*userv1.SingleResponse, error) {
-	res := &userv1.SingleResponse{}
+func (s *service) Authenticate(ctx context.Context, req *userv1.AuthenticateRequest) (*userv1.AuthenticateResponse, error) {
+	res := &userv1.AuthenticateResponse{}
 
 	// Check request
 	if req == nil {
@@ -343,9 +343,6 @@ func (s *service) Authenticate(ctx context.Context, req *userv1.AuthenticateRequ
 		}
 		return res, nil
 	}
-
-	// Prepare response
-	res.Entity = FromEntity(entity)
 
 	// Return result
 	return res, nil

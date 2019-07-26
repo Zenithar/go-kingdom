@@ -1,16 +1,11 @@
-excludes:
-    - ./vendor
-    - ./tools/vendor
 
 protoc:
-  version: 3.7.1
-
   # Additional paths to include with -I to protoc.
   # By default, the directory of the config file is included,
   # or the current directory if there is no config file.
   includes:
-    - ./vendor
-    - ./tools/vendor
+    - ../../vendor
+    - ../../tools/vendor
 
   # If not set, compile will fail if there are unused imports.
   # Setting this will ignore unused imports.
@@ -19,28 +14,19 @@ protoc:
 lint:
   group: uber2
   file_header:
-    path: LICENSE
+    path: ../../LICENSE
   java_package_prefix: org.zenithar
-  rules:
-    remove:
-      - SERVICE_NAMES_API_SUFFIX
-      - REQUEST_RESPONSE_NAMES_MATCH_RPC
-      - REQUEST_RESPONSE_TYPES_UNIQUE
 generate:
   go_options:
-    import_path: go.zenithar.org/kingdom
+    import_path: go.zenithar.org/kingdom/pkg/protocol
   plugins:
     - name: gogo
       type: gogo
       flags: plugins=grpc
-      output: .
-    - name: validate
-      type: gogo
-      flags: lang=gogo
-      output: .
+      output: ../gen/go
     - name: cobra
       type: gogo
-      output: .
+      output: ../gen/go
     - name: mock
       type: gogo
-      output: .
+      output: ../gen/go

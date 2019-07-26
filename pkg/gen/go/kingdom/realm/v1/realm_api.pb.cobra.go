@@ -368,7 +368,7 @@ Authenticate using the Authorization header (requires transport security):
 	export SERVER_ADDR=api.example.com:443
 	echo '{json}' | delete --tls`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		var req GetRequest
+		var req DeleteRequest
 
 		// Get a connection
 		conn, err := dial(DefaultClientCommandConfig)

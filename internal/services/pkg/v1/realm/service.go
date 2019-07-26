@@ -9,8 +9,8 @@ import (
 	"go.zenithar.org/kingdom/internal/repositories"
 	"go.zenithar.org/kingdom/internal/services/internal/constraints"
 	apiv1 "go.zenithar.org/kingdom/internal/services/pkg/v1"
-	realmv1 "go.zenithar.org/kingdom/pkg/protocol/kingdom/realm/v1"
-	sysv1 "go.zenithar.org/kingdom/pkg/protocol/kingdom/system/v1"
+	realmv1 "go.zenithar.org/kingdom/pkg/gen/go/kingdom/realm/v1"
+	sysv1 "go.zenithar.org/kingdom/pkg/gen/go/kingdom/system/v1"
 	"go.zenithar.org/pkg/db"
 )
 
@@ -27,8 +27,8 @@ func New(realms repositories.Realm) apiv1.Realm {
 
 // -----------------------------------------------------------------------------
 
-func (s *service) Create(ctx context.Context, req *realmv1.CreateRequest) (*realmv1.SingleResponse, error) {
-	res := &realmv1.SingleResponse{}
+func (s *service) Create(ctx context.Context, req *realmv1.CreateRequest) (*realmv1.CreateResponse, error) {
+	res := &realmv1.CreateResponse{}
 
 	// Check request
 	if req == nil {
@@ -72,8 +72,8 @@ func (s *service) Create(ctx context.Context, req *realmv1.CreateRequest) (*real
 	return res, nil
 }
 
-func (s *service) Get(ctx context.Context, req *realmv1.GetRequest) (*realmv1.SingleResponse, error) {
-	res := &realmv1.SingleResponse{}
+func (s *service) Get(ctx context.Context, req *realmv1.GetRequest) (*realmv1.GetResponse, error) {
+	res := &realmv1.GetResponse{}
 
 	// Check request
 	if req == nil {
@@ -120,8 +120,8 @@ func (s *service) Get(ctx context.Context, req *realmv1.GetRequest) (*realmv1.Si
 	return res, nil
 }
 
-func (s *service) Update(ctx context.Context, req *realmv1.UpdateRequest) (*realmv1.SingleResponse, error) {
-	res := &realmv1.SingleResponse{}
+func (s *service) Update(ctx context.Context, req *realmv1.UpdateRequest) (*realmv1.UpdateResponse, error) {
+	res := &realmv1.UpdateResponse{}
 	// Prepare expected results
 	var entity models.Realm
 
@@ -186,8 +186,8 @@ func (s *service) Update(ctx context.Context, req *realmv1.UpdateRequest) (*real
 	return res, nil
 }
 
-func (s *service) Delete(ctx context.Context, req *realmv1.GetRequest) (*realmv1.SingleResponse, error) {
-	res := &realmv1.SingleResponse{}
+func (s *service) Delete(ctx context.Context, req *realmv1.DeleteRequest) (*realmv1.DeleteResponse, error) {
+	res := &realmv1.DeleteResponse{}
 
 	// Prepare expected results
 	var entity models.Realm
@@ -227,8 +227,8 @@ func (s *service) Delete(ctx context.Context, req *realmv1.GetRequest) (*realmv1
 	return res, nil
 }
 
-func (s *service) Search(ctx context.Context, req *realmv1.SearchRequest) (*realmv1.PaginatedResponse, error) {
-	res := &realmv1.PaginatedResponse{}
+func (s *service) Search(ctx context.Context, req *realmv1.SearchRequest) (*realmv1.SearchResponse, error) {
+	res := &realmv1.SearchResponse{}
 
 	// Validate service constraints
 	if err := constraints.Validate(ctx,

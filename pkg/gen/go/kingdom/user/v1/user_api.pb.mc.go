@@ -4,6 +4,7 @@ package userv1
 
 import (
 	"context"
+
 	"github.com/bxcodec/faker"
 )
 
@@ -12,8 +13,8 @@ import (
 type MockUserAPIServer struct{}
 
 // Create is mock implementation of the method Create
-func (MockUserAPIServer) Create(context.Context, *CreateRequest) (*SingleResponse, error) {
-	var res SingleResponse
+func (MockUserAPIServer) Create(context.Context, *CreateRequest) (*CreateResponse, error) {
+	var res CreateResponse
 	if err := faker.FakeData(&res); err != nil {
 		return nil, err
 	}
@@ -21,8 +22,8 @@ func (MockUserAPIServer) Create(context.Context, *CreateRequest) (*SingleRespons
 }
 
 // Get is mock implementation of the method Get
-func (MockUserAPIServer) Get(context.Context, *GetRequest) (*SingleResponse, error) {
-	var res SingleResponse
+func (MockUserAPIServer) Get(context.Context, *GetRequest) (*GetResponse, error) {
+	var res GetResponse
 	if err := faker.FakeData(&res); err != nil {
 		return nil, err
 	}
@@ -30,8 +31,8 @@ func (MockUserAPIServer) Get(context.Context, *GetRequest) (*SingleResponse, err
 }
 
 // Update is mock implementation of the method Update
-func (MockUserAPIServer) Update(context.Context, *UpdateRequest) (*SingleResponse, error) {
-	var res SingleResponse
+func (MockUserAPIServer) Update(context.Context, *UpdateRequest) (*UpdateResponse, error) {
+	var res UpdateResponse
 	if err := faker.FakeData(&res); err != nil {
 		return nil, err
 	}
@@ -39,8 +40,8 @@ func (MockUserAPIServer) Update(context.Context, *UpdateRequest) (*SingleRespons
 }
 
 // Delete is mock implementation of the method Delete
-func (MockUserAPIServer) Delete(context.Context, *GetRequest) (*SingleResponse, error) {
-	var res SingleResponse
+func (MockUserAPIServer) Delete(context.Context, *DeleteRequest) (*DeleteResponse, error) {
+	var res DeleteResponse
 	if err := faker.FakeData(&res); err != nil {
 		return nil, err
 	}
@@ -48,8 +49,8 @@ func (MockUserAPIServer) Delete(context.Context, *GetRequest) (*SingleResponse, 
 }
 
 // Search is mock implementation of the method Search
-func (MockUserAPIServer) Search(context.Context, *SearchRequest) (*PaginatedResponse, error) {
-	var res PaginatedResponse
+func (MockUserAPIServer) Search(context.Context, *SearchRequest) (*SearchResponse, error) {
+	var res SearchResponse
 	if err := faker.FakeData(&res); err != nil {
 		return nil, err
 	}
@@ -57,8 +58,8 @@ func (MockUserAPIServer) Search(context.Context, *SearchRequest) (*PaginatedResp
 }
 
 // Authenticate is mock implementation of the method Authenticate
-func (MockUserAPIServer) Authenticate(context.Context, *AuthenticateRequest) (*SingleResponse, error) {
-	var res SingleResponse
+func (MockUserAPIServer) Authenticate(context.Context, *AuthenticateRequest) (*AuthenticateResponse, error) {
+	var res AuthenticateResponse
 	if err := faker.FakeData(&res); err != nil {
 		return nil, err
 	}

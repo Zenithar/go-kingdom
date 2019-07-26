@@ -55,7 +55,7 @@ func Build() {
 	fmt.Println("")
 
 	color.Red("# Core packages ------------------------------------------------------------")
-	mg.SerialDeps(Go.Deps, Go.Generate, Go.Format, Go.Import, Go.Lint, Go.Test)
+	mg.SerialDeps(Go.Deps, Go.License, Go.Generate, Go.Format, Go.Import, Go.Lint, Go.Test)
 
 	fmt.Println("")
 	color.Red("# Artifacts ----------------------------------------------------------------")
@@ -117,23 +117,8 @@ func (Gen) Migrations() {
 // Generate protobuf
 func (Gen) Protobuf() error {
 	color.Blue("### Protobuf")
-	mg.SerialDeps(Prototool.Lint)
 
-	return sh.RunV("prototool", "generate")
-}
-
-// -----------------------------------------------------------------------------
-
-type Prototool mg.Namespace
-
-func (Prototool) Lint() error {
-	fmt.Println("#### Lint protobuf")
-	return sh.RunV("prototool", "lint")
-}
-
-func (Prototool) Format() error {
-	fmt.Println("#### Format protobuf")
-	return sh.RunV("prototool", "format")
+	return sh.RunV("prototool", "all", "--fix", "pkg/protocol")
 }
 
 // -----------------------------------------------------------------------------
@@ -170,6 +155,12 @@ func (Go) Tidy() error {
 func (Go) Deps() error {
 	color.Cyan("## Vendoring dependencies")
 	return sh.RunV("go", "mod", "vendor")
+}
+
+// Deps install dependency tools.
+func (Go) License() error {
+	color.Cyan("## Check license")
+	return sh.RunV("wwhrd", "check")
 }
 
 // Format runs gofmt on everything

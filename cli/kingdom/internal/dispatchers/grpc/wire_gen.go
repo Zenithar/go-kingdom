@@ -8,6 +8,7 @@ package grpc
 import (
 	"context"
 	"crypto/tls"
+
 	"github.com/grpc-ecosystem/go-grpc-middleware"
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/zap"
 	"github.com/grpc-ecosystem/go-grpc-middleware/recovery"
@@ -21,8 +22,8 @@ import (
 	"go.zenithar.org/kingdom/internal/services/pkg/v1"
 	"go.zenithar.org/kingdom/internal/services/pkg/v1/realm"
 	"go.zenithar.org/kingdom/internal/services/pkg/v1/user"
-	"go.zenithar.org/kingdom/pkg/protocol/kingdom/realm/v1"
-	"go.zenithar.org/kingdom/pkg/protocol/kingdom/user/v1"
+	"go.zenithar.org/kingdom/pkg/gen/go/kingdom/realm/v1"
+	"go.zenithar.org/kingdom/pkg/gen/go/kingdom/user/v1"
 	"go.zenithar.org/pkg/log"
 	"go.zenithar.org/pkg/tlsconfig"
 	"google.golang.org/grpc"

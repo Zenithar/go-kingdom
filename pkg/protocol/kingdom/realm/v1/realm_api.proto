@@ -37,24 +37,24 @@ option java_package = "org.zenithar.kingdom.realm.v1";
 option objc_class_prefix = "KRX";
 option php_namespace = "Kingdom\\Realm\\V1";
 
+import "github.com/envoyproxy/protoc-gen-validate/validate/validate.proto";
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
-import "github.com/lyft/protoc-gen-validate/validate/validate.proto";
 import "google/protobuf/wrappers.proto";
-import "pkg/protocol/kingdom/realm/v1/realm.proto";
-import "pkg/protocol/kingdom/system/v1/system.proto";
+import "kingdom/realm/v1/realm.proto";
+import "kingdom/system/v1/system.proto";
 
 // RealmAPI manage realm objects.
 service RealmAPI {
   // Create a realm.
-  rpc Create(CreateRequest) returns (SingleResponse);
+  rpc Create(CreateRequest) returns (CreateResponse);
   // Get a realm by id.
-  rpc Get(GetRequest) returns (SingleResponse);
+  rpc Get(GetRequest) returns (GetResponse);
   // Update realm attributes.
-  rpc Update(UpdateRequest) returns (SingleResponse);
+  rpc Update(UpdateRequest) returns (UpdateResponse);
   // Delete a realm by id.
-  rpc Delete(GetRequest) returns (SingleResponse);
+  rpc Delete(DeleteRequest) returns (DeleteResponse);
   // Search for realms.
-  rpc Search(SearchRequest) returns (PaginatedResponse);
+  rpc Search(SearchRequest) returns (SearchResponse);
 }
 
 // -----------------------------------------------------------------------------
@@ -82,6 +82,15 @@ message UpdateRequest {
   google.protobuf.StringValue label = 2;
 }
 
+message DeleteRequest {
+  string id = 1 [
+    (validate.rules).string = {
+      pattern: "^[0-9A-Za-z]+$"
+      len: 32
+    }
+  ];
+}
+
 message SearchRequest {
   uint32 page = 1;
   uint32 per_page = 2;
@@ -96,12 +105,26 @@ message SearchRequest {
   google.protobuf.StringValue label = 6;
 }
 
-message SingleResponse {
+message CreateResponse {
   .kingdom.system.v1.Error error = 1;
   Realm entity = 2;
 }
 
-message PaginatedResponse {
+message GetResponse {
+  .kingdom.system.v1.Error error = 1;
+  Realm entity = 2;
+}
+
+message UpdateResponse {
+  .kingdom.system.v1.Error error = 1;
+  Realm entity = 2;
+}
+
+message DeleteResponse {
+  .kingdom.system.v1.Error error = 1;
+}
+
+message SearchResponse {
   .kingdom.system.v1.Error error = 1;
   uint32 total = 2;
   uint32 per_page = 3;

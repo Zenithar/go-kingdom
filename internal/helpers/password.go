@@ -17,9 +17,9 @@ func init() {
 	once.Do(func() {
 		var err error
 		b, err = butcher.New(
-			butcher.WithAlgorithm(hasher.ScryptBlake2b512),
+			butcher.WithAlgorithm(hasher.Argon2id),
 			butcher.WithPepper(pepper),
-			butcher.WithSaltFunc(butcher.RandomNonce(8)),
+			butcher.WithSaltFunc(butcher.RandomNonce(32)),
 		)
 		if err != nil {
 			panic(err)
