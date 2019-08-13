@@ -1,6 +1,8 @@
 package user
 
 import (
+	"fmt"
+
 	"go.zenithar.org/kingdom/internal/models"
 	userv1 "go.zenithar.org/kingdom/pkg/gen/go/kingdom/user/v1"
 )
@@ -10,6 +12,7 @@ func FromEntity(entity *models.User) *userv1.User {
 	return &userv1.User{
 		RealmId: entity.RealmID,
 		UserId:  entity.ID,
+		Urn:     fmt.Sprintf("kndm:v1:user:%s:%s", entity.RealmID, entity.ID),
 	}
 }
 

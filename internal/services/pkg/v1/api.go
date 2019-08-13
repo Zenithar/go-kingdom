@@ -18,10 +18,16 @@ type Realm interface {
 
 // User management service contract
 type User interface {
+	Authenticator
+
 	Create(ctx context.Context, req *userv1.CreateRequest) (res *userv1.CreateResponse, err error)
 	Get(ctx context.Context, req *userv1.GetRequest) (res *userv1.GetResponse, err error)
 	Update(ctx context.Context, req *userv1.UpdateRequest) (res *userv1.UpdateResponse, err error)
 	Delete(ctx context.Context, req *userv1.DeleteRequest) (res *userv1.DeleteResponse, err error)
 	Search(ctx context.Context, req *userv1.SearchRequest) (res *userv1.SearchResponse, err error)
+}
+
+// Authenticator service contract
+type Authenticator interface {
 	Authenticate(ctx context.Context, req *userv1.AuthenticateRequest) (res *userv1.AuthenticateResponse, err error)
 }

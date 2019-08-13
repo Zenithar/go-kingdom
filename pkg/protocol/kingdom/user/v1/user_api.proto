@@ -139,7 +139,12 @@ message SearchRequest {
 }
 
 message AuthenticateRequest {
-  string realm_id = 1;
+  string realm_id = 1 [
+    (validate.rules).string = {
+      pattern: "^[0-9A-Za-z]+$"
+      len: 32
+    }
+  ];
   string principal = 2;
   string secret = 3;
 }

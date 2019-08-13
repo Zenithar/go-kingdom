@@ -43,4 +43,5 @@ import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 message User {
   string realm_id = 1;
   string user_id = 2;
+  string urn = 3;
 }

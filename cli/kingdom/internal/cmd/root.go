@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"go.uber.org/zap"
 	iconfig "go.zenithar.org/kingdom/cli/kingdom/internal/config"
 
 	"github.com/spf13/cobra"
@@ -44,6 +45,6 @@ var (
 
 func initConfig() {
 	if err := config.Load(conf, "KNDM", cfgFile); err != nil {
-		log.Bg().Fatal("Unable load config", log.Error(err))
+		log.Bg().Fatal("Unable load config", zap.Error(err))
 	}
 }

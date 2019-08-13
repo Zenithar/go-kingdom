@@ -75,7 +75,7 @@ func grpcServer(ctx context.Context, cfg *config.Configuration, users v1.User, r
 			ClientAuth: clientAuth,
 		})
 		if err != nil {
-			log.For(ctx).Error("Unable to build TLS configuration from settings", log.Error(err))
+			log.For(ctx).Error("Unable to build TLS configuration from settings", zap.Error(err))
 			return nil, err
 		}
 
@@ -94,12 +94,12 @@ func grpcServer(ctx context.Context, cfg *config.Configuration, users v1.User, r
 
 	err := view.Register(ochttp.ServerRequestCountView, ochttp.ServerRequestBytesView, ochttp.ServerResponseBytesView, ochttp.ServerLatencyView, ochttp.ServerRequestCountByMethod, ochttp.ServerResponseCountByStatusCode)
 	if err != nil {
-		log.For(ctx).Fatal("Unable to register HTTP stat views", log.Error(err))
+		log.For(ctx).Fatal("Unable to register HTTP stat views", zap.Error(err))
 	}
 
 	err = view.Register(ocgrpc.DefaultServerViews...)
 	if err != nil {
-		log.For(ctx).Fatal("Unable to register gRPC stat views", log.Error(err))
+		log.For(ctx).Fatal("Unable to register gRPC stat views", zap.Error(err))
 	}
 
 	return server, nil
