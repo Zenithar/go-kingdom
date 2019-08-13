@@ -8,6 +8,7 @@ import (
 
 	"go.zenithar.org/kingdom/cli/kingdom/internal/config"
 	"go.zenithar.org/kingdom/cli/kingdom/internal/core"
+	"go.zenithar.org/kingdom/cli/kingdom/internal/dispatchers/grpc/internal"
 
 	corev1 "go.zenithar.org/kingdom/internal/services/pkg/v1"
 	realmv1 "go.zenithar.org/kingdom/pkg/gen/go/kingdom/realm/v1"
@@ -45,6 +46,7 @@ func grpcServer(ctx context.Context, cfg *config.Configuration, users corev1.Use
 		)),
 		grpc.UnaryInterceptor(
 			grpc_middleware.ChainUnaryServer(
+				internal.ServiceErrorTranslationUnaryServerInterceptor(),
 				grpc_recovery.UnaryServerInterceptor(),
 				grpc_zap.UnaryServerInterceptor(zap.L()),
 			),

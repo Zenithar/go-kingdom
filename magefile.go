@@ -129,6 +129,8 @@ type Go mg.Namespace
 func (Go) Generate() error {
 	color.Cyan("## Generate code")
 	mg.SerialDeps(Gen.Protobuf, Gen.Mocks, Gen.Migrations, Gen.Decorators, Gen.Wire)
+
+	mustGoGenerate("Stringer", "go.zenithar.org/kingdom/internal/services/internal/...")
 	return nil
 }
 

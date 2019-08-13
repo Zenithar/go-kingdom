@@ -2,8 +2,9 @@ package constraints
 
 import (
 	"context"
-	"errors"
 	"reflect"
+
+	"go.zenithar.org/pkg/errors"
 )
 
 func isNil(c interface{}) bool {
@@ -14,7 +15,7 @@ func isNil(c interface{}) bool {
 func MustNotBeNil(object interface{}, message string) func(context.Context) error {
 	return func(ctx context.Context) error {
 		if isNil(object) {
-			return errors.New(message)
+			return errors.Newf(errors.InvalidArgument, nil, "%s must not be nil", message)
 		}
 
 		// Return no error

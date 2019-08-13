@@ -1,6 +1,10 @@
 package constraints
 
-import "context"
+import (
+	"context"
+
+	"go.zenithar.org/pkg/errors"
+)
 
 // Validable interface used to defines Validation protocol
 type Validable interface {
@@ -11,6 +15,9 @@ type Validable interface {
 func MustBeValid(validable Validable) func(context.Context) error {
 	return func(ctx context.Context) error {
 		// Validate request
-		return validable.Validate()
+		if err := validable.Validate(); err != nil {
+			return errors.Newf(errors.InvalidArgument, err, "unable to validate object")
+		}
+		return nil
 	}
 }

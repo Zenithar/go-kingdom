@@ -2,10 +2,10 @@ package constraints
 
 import (
 	"context"
-	"errors"
 
 	"go.zenithar.org/kingdom/internal/models"
 	"go.zenithar.org/kingdom/internal/repositories"
+	"go.zenithar.org/pkg/errors"
 )
 
 // EntityRetrieverFunc describes function indirection for repositories
@@ -15,10 +15,10 @@ func mustExists(finder EntityRetrieverFunc) func(ctx context.Context) error {
 	return func(ctx context.Context) error {
 		object, err := finder(ctx)
 		if err != nil {
-			return err
+			return errors.Newf(errors.Internal, err, "unable to check object existence")
 		}
 		if isNil(object) {
-			return errors.New("Object not found")
+			return errors.Newf(errors.NotFound, nil, "object not found")
 		}
 		return nil
 	}

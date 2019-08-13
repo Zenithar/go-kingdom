@@ -16,6 +16,7 @@ require (
 	github.com/google/wire v0.3.0
 	github.com/hexdigest/gowrap v1.1.4
 	github.com/iancoleman/strcase v0.0.0-20190422225806-e506e3ef7365 // indirect
+	github.com/izumin5210/gex v0.5.0 // indirect
 	github.com/jessevdk/go-flags v1.4.0 // indirect
 	github.com/magefile/mage v1.8.0
 	github.com/ryanuber/go-license v0.0.0-20180405065157-c69f41c2c8d6 // indirect

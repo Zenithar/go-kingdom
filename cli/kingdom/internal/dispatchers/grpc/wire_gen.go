@@ -18,6 +18,7 @@ import (
 	"go.uber.org/zap"
 	"go.zenithar.org/kingdom/cli/kingdom/internal/config"
 	"go.zenithar.org/kingdom/cli/kingdom/internal/core"
+	"go.zenithar.org/kingdom/cli/kingdom/internal/dispatchers/grpc/internal"
 	"go.zenithar.org/kingdom/internal/repositories/pkg/postgresql"
 	"go.zenithar.org/kingdom/internal/services/pkg/v1"
 	"go.zenithar.org/kingdom/internal/services/pkg/v1/realm"
@@ -58,7 +59,7 @@ func grpcServer(ctx context.Context, cfg *config.Configuration, users v1.User, r
 	sopts := []grpc.ServerOption{}
 	grpc_zap.ReplaceGrpcLogger(zap.L())
 
-	sopts = append(sopts, grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(grpc_zap.StreamServerInterceptor(zap.L()), grpc_recovery.StreamServerInterceptor())), grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(grpc_recovery.UnaryServerInterceptor(), grpc_zap.UnaryServerInterceptor(zap.L()))), grpc.StatsHandler(&ocgrpc.ServerHandler{}),
+	sopts = append(sopts, grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(grpc_zap.StreamServerInterceptor(zap.L()), grpc_recovery.StreamServerInterceptor())), grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(internal.ServiceErrorTranslationUnaryServerInterceptor(), grpc_recovery.UnaryServerInterceptor(), grpc_zap.UnaryServerInterceptor(zap.L()))), grpc.StatsHandler(&ocgrpc.ServerHandler{}),
 	)
 
 	if cfg.Server.UseTLS {

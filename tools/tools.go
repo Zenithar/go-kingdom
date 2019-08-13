@@ -19,6 +19,7 @@ import (
 	_ "github.com/uber/prototool/cmd/prototool"
 	_ "go.zenithar.org/protoc-gen-cobra"
 	_ "golang.org/x/tools/cmd/goimports"
+	_ "golang.org/x/tools/cmd/stringer"
 	_ "gotest.tools/gotestsum"
 	_ "mvdan.cc/gofumpt"
 )

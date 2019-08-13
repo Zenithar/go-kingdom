@@ -2,10 +2,10 @@ package constraints
 
 import (
 	"context"
-	"fmt"
 
 	"go.zenithar.org/kingdom/internal/repositories"
 	"go.zenithar.org/pkg/db"
+	"go.zenithar.org/pkg/errors"
 )
 
 // mustBeUnique specification checks if the given name already exists
@@ -14,10 +14,10 @@ func mustBeUnique(finder EntityRetrieverFunc, attribute string) func(ctx context
 		// Retrieve object from repository
 		object, err := finder(ctx)
 		if err != nil && err != db.ErrNoResult {
-			return err
+			return errors.Newf(errors.Internal, err, "unable to check uniqueness property")
 		}
 		if !isNil(object) {
-			return fmt.Errorf("%s is already used", attribute)
+			return errors.Newf(errors.AlreadyExists, nil, "%s is already used", attribute)
 		}
 
 		return nil

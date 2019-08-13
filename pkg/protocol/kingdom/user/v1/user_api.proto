@@ -180,4 +180,5 @@ message SearchResponse {
 
 message AuthenticateResponse {
   .kingdom.system.v1.Error error = 1;
+  User identity = 2;
 }

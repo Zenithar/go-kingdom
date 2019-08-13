@@ -2,7 +2,6 @@ package user
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 
 	"go.zenithar.org/kingdom/internal/helpers"
@@ -13,6 +12,7 @@ import (
 	sysv1 "go.zenithar.org/kingdom/pkg/gen/go/kingdom/system/v1"
 	userv1 "go.zenithar.org/kingdom/pkg/gen/go/kingdom/user/v1"
 	"go.zenithar.org/pkg/db"
+	"go.zenithar.org/pkg/errors"
 )
 
 type service struct {
@@ -37,7 +37,7 @@ func (s *service) Create(ctx context.Context, req *userv1.CreateRequest) (*userv
 			Code:    http.StatusBadRequest,
 			Message: "request must not be nil",
 		}
-		return res, fmt.Errorf("request must not be nil")
+		return res, errors.Newf(errors.InvalidArgument, nil, "request must not be nil")
 	}
 
 	// Hash principal
@@ -69,7 +69,7 @@ func (s *service) Create(ctx context.Context, req *userv1.CreateRequest) (*userv
 			Code:    http.StatusInternalServerError,
 			Message: "Unable to hash password",
 		}
-		return res, err
+		return res, errors.Newf(errors.Internal, err, "unable to hash password")
 	}
 	entity.Secret = secret
 
@@ -79,7 +79,7 @@ func (s *service) Create(ctx context.Context, req *userv1.CreateRequest) (*userv
 			Code:    http.StatusInternalServerError,
 			Message: "Unable to create user",
 		}
-		return res, err
+		return res, errors.Newf(errors.Internal, err, "unable to create entity")
 	}
 
 	// Prepare response
@@ -98,7 +98,7 @@ func (s *service) Get(ctx context.Context, req *userv1.GetRequest) (*userv1.GetR
 			Code:    http.StatusBadRequest,
 			Message: "request must not be nil",
 		}
-		return res, fmt.Errorf("request must not be nil")
+		return res, errors.Newf(errors.InvalidArgument, nil, "request must not be nil")
 	}
 
 	// Validate service constraints
@@ -120,14 +120,14 @@ func (s *service) Get(ctx context.Context, req *userv1.GetRequest) (*userv1.GetR
 			Code:    http.StatusInternalServerError,
 			Message: "Unable to retrieve User",
 		}
-		return res, err
+		return res, errors.Newf(errors.Internal, err, "unable to retrieve entity")
 	}
 	if entity == nil {
 		res.Error = &sysv1.Error{
 			Code:    http.StatusNotFound,
 			Message: "User not found",
 		}
-		return res, db.ErrNoResult
+		return res, errors.Newf(errors.NotFound, err, "entity not found")
 	}
 
 	// Prepare response
@@ -148,7 +148,7 @@ func (s *service) Update(ctx context.Context, req *userv1.UpdateRequest) (*userv
 			Code:    http.StatusBadRequest,
 			Message: "request must not be nil",
 		}
-		return res, fmt.Errorf("request must not be nil")
+		return res, errors.Newf(errors.InvalidArgument, nil, "request must not be nil")
 	}
 
 	// Validate service constraints
@@ -175,7 +175,7 @@ func (s *service) Update(ctx context.Context, req *userv1.UpdateRequest) (*userv
 				Code:    http.StatusInternalServerError,
 				Message: "Unable to update User object",
 			}
-			return res, err
+			return res, errors.Newf(errors.Internal, err, "unable to retrieve entity")
 		}
 	}
 
@@ -198,7 +198,7 @@ func (s *service) Delete(ctx context.Context, req *userv1.DeleteRequest) (*userv
 			Code:    http.StatusBadRequest,
 			Message: "request must not be nil",
 		}
-		return res, fmt.Errorf("request must not be nil")
+		return res, errors.Newf(errors.InvalidArgument, nil, "request must not be nil")
 	}
 
 	// Validate service constraints
@@ -220,7 +220,7 @@ func (s *service) Delete(ctx context.Context, req *userv1.DeleteRequest) (*userv
 			Code:    http.StatusInternalServerError,
 			Message: "Unable to delete User object",
 		}
-		return res, err
+		return res, errors.Newf(errors.Internal, err, "unable to delete entity")
 	}
 
 	// Return expected result
@@ -230,10 +230,17 @@ func (s *service) Delete(ctx context.Context, req *userv1.DeleteRequest) (*userv
 func (s *service) Search(ctx context.Context, req *userv1.SearchRequest) (*userv1.SearchResponse, error) {
 	res := &userv1.SearchResponse{}
 
+	// Check request
+	if req == nil {
+		res.Error = &sysv1.Error{
+			Code:    http.StatusBadRequest,
+			Message: "request must not be nil",
+		}
+		return res, errors.Newf(errors.InvalidArgument, nil, "request must not be nil")
+	}
+
 	// Validate service constraints
 	if err := constraints.Validate(ctx,
-		// Request must not be nil
-		constraints.MustNotBeNil(req, "Request must not be nil"),
 		// Request must be syntaxically valid
 		constraints.MustBeValid(req),
 	); err != nil {
@@ -267,7 +274,7 @@ func (s *service) Search(ctx context.Context, req *userv1.SearchRequest) (*userv
 			Code:    http.StatusInternalServerError,
 			Message: "Unable to process request",
 		}
-		return res, err
+		return res, errors.Newf(errors.Internal, err, "unable to delete entity")
 	}
 
 	// Set pagination total for paging calcul
@@ -295,7 +302,7 @@ func (s *service) Authenticate(ctx context.Context, req *userv1.AuthenticateRequ
 			Code:    http.StatusBadRequest,
 			Message: "request must not be nil",
 		}
-		return res, fmt.Errorf("request must not be nil")
+		return res, errors.Newf(errors.InvalidArgument, nil, "request must not be nil")
 	}
 
 	// Validate service constraints
@@ -317,14 +324,14 @@ func (s *service) Authenticate(ctx context.Context, req *userv1.AuthenticateRequ
 			Code:    http.StatusInternalServerError,
 			Message: "Unable to retrieve User",
 		}
-		return res, err
+		return res, errors.Newf(errors.Internal, err, "unable to retrieve entity")
 	}
 	if entity == nil {
 		res.Error = &sysv1.Error{
 			Code:    http.StatusNotFound,
 			Message: "User not found",
 		}
-		return res, db.ErrNoResult
+		return res, errors.Newf(errors.NotFound, err, "entity not found")
 	}
 
 	// Check password
@@ -334,15 +341,18 @@ func (s *service) Authenticate(ctx context.Context, req *userv1.AuthenticateRequ
 			Code:    http.StatusInternalServerError,
 			Message: "Unable to retrieve User",
 		}
-		return res, err
+		return res, errors.Newf(errors.Internal, err, "unable to retrieve entity")
 	}
 	if !valid {
 		res.Error = &sysv1.Error{
 			Code:    http.StatusUnauthorized,
 			Message: "Authentication failed",
 		}
-		return res, nil
+		return res, errors.Newf(errors.Unauthenticated, nil, "authentication failed")
 	}
+
+	// Return user
+	res.Identity = FromEntity(entity)
 
 	// Return result
 	return res, nil
