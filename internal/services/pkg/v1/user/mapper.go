@@ -10,9 +10,7 @@ import (
 // FromEntity converts entity object to service object
 func FromEntity(entity *models.User) *userv1.User {
 	return &userv1.User{
-		RealmId: entity.RealmID,
-		UserId:  entity.ID,
-		Urn:     fmt.Sprintf("kndm:v1:user:%s:%s", entity.RealmID, entity.ID),
+		Urn: fmt.Sprintf("kndm:v1::user:%s:%s", entity.RealmID, entity.ID),
 	}
 }
 

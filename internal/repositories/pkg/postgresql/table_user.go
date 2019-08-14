@@ -10,6 +10,7 @@ import (
 	"go.zenithar.org/pkg/db/adapter/postgresql"
 
 	sq "github.com/Masterminds/squirrel"
+	"github.com/davecgh/go-spew/spew"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -50,6 +51,8 @@ func (r *pgUserRepository) Get(ctx context.Context, realmID, id string) (*models
 	}, &entity); err != nil {
 		return nil, err
 	}
+
+	spew.Dump(entity)
 
 	return &entity, nil
 }

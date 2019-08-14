@@ -47,8 +47,8 @@ func grpcServer(ctx context.Context, cfg *config.Configuration, users corev1.Use
 		grpc.UnaryInterceptor(
 			grpc_middleware.ChainUnaryServer(
 				internal.ServiceErrorTranslationUnaryServerInterceptor(),
-				grpc_recovery.UnaryServerInterceptor(),
 				grpc_zap.UnaryServerInterceptor(zap.L()),
+				grpc_recovery.UnaryServerInterceptor(),
 			),
 		),
 		grpc.StatsHandler(&ocgrpc.ServerHandler{}),

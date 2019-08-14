@@ -6,6 +6,9 @@ import (
 
 	"go.zenithar.org/kingdom/cli/kingdom/internal/cmd"
 	"go.zenithar.org/pkg/log"
+
+	_ "gocloud.dev/secrets/hashivault"
+	_ "gocloud.dev/secrets/localsecrets"
 )
 
 // -----------------------------------------------------------------------------

@@ -41,7 +41,5 @@ import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 
 // User is an user identity member of a realm.
 message User {
-  string realm_id = 1;
-  string user_id = 2;
-  string urn = 3;
+  string urn = 1;
 }

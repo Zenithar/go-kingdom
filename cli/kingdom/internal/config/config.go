@@ -19,6 +19,11 @@ type Configuration struct {
 		Password    string `toml:"password" default:"changeme" comment:"Database connection password"`
 	} `toml:"Core" comment:"###############################\n Core \n##############################"`
 
+	Security struct {
+		KeeperURL   string `toml:"keeperURL" default:"base64key://smGbjm71Nxd1Ig5FS0wj9SlbzAIrnolCz9bQQ6uAhl4=" comment:"URL of secret keeper"`
+		PasswordKey string `toml:"passwordKey" default:"7vcfai7g8DvLjFeaFKtUBaTvmuql+RNG1X+zqZ390duK1BkQjC7FIuVHZD2LoSdFoOEukVqwAsoQjYjU2KL4e/ktAJdDucNv" comment:"Password at-rest encryption key"`
+	} `toml:"Security" comment:"###############################\n Security \n##############################"`
+
 	Server struct {
 		Network string `toml:"network" default:"tcp" comment:"Network class used for listen (tcp, tcp4, tcp6, unixsocket)"`
 		Listen  string `toml:"listen" default:":5555" comment:"Listen address for gRPC server"`
@@ -29,5 +34,5 @@ type Configuration struct {
 			CACertificatePath            string `toml:"caCertificatePath" default:"" comment:"CA Certificate Path"`
 			ClientAuthenticationRequired bool   `toml:"clientAuthenticationRequired" default:"false" comment:"Force client authentication"`
 		} `toml:"TLS" comment:"TLS Socket settings"`
-	}
+	} `toml:"Server" comment:"###############################\n Server \n##############################"`
 }

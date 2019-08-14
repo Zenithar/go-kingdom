@@ -2,12 +2,16 @@ package user
 
 import (
 	"context"
+	"crypto/cipher"
+	"encoding/base64"
 	"net/http"
 
 	"go.zenithar.org/kingdom/internal/helpers"
 	"go.zenithar.org/kingdom/internal/models"
 	"go.zenithar.org/kingdom/internal/repositories"
 	"go.zenithar.org/kingdom/internal/services/internal/constraints"
+	"go.zenithar.org/kingdom/internal/services/internal/value"
+	aestransformer "go.zenithar.org/kingdom/internal/services/internal/value/encrypt/aes"
 	apiv1 "go.zenithar.org/kingdom/internal/services/pkg/v1"
 	sysv1 "go.zenithar.org/kingdom/pkg/gen/go/kingdom/system/v1"
 	userv1 "go.zenithar.org/kingdom/pkg/gen/go/kingdom/user/v1"
@@ -16,13 +20,19 @@ import (
 )
 
 type service struct {
-	users repositories.User
+	users       repositories.User
+	transformer value.Transformer
 }
 
+// PasswordBlock is an alias to cipher.Block for wiring
+type PasswordBlock cipher.Block
+
 // New services instance
-func New(users repositories.User) apiv1.User {
+func New(users repositories.User, passwordBlock PasswordBlock) apiv1.User {
+	// Initialize transformer
 	return &service{
-		users: users,
+		users:       users,
+		transformer: aestransformer.NewCBCTransformer(passwordBlock),
 	}
 }
 
@@ -71,7 +81,19 @@ func (s *service) Create(ctx context.Context, req *userv1.CreateRequest) (*userv
 		}
 		return res, errors.Newf(errors.Internal, err, "unable to hash password")
 	}
-	entity.Secret = secret
+
+	// Encrypt secret (at-rest encryption)
+	out, err := s.transformer.TransformToStorage([]byte(secret))
+	if err != nil {
+		res.Error = &sysv1.Error{
+			Code:    http.StatusInternalServerError,
+			Message: "Unable to transform password",
+		}
+		return res, errors.Newf(errors.Internal, err, "unable to transform password")
+	}
+
+	// Assign secret
+	entity.Secret = base64.RawStdEncoding.EncodeToString(out)
 
 	// Create entity in database
 	if err := s.users.Create(ctx, entity); err != nil {

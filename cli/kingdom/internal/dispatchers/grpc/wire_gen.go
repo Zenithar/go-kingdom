@@ -43,7 +43,11 @@ func setupLocalPostgreSQL(ctx context.Context, cfg *config.Configuration) (*grpc
 		return nil, err
 	}
 	repositoriesUser := postgresql.NewUserRepository(db)
-	v1User := user.New(repositoriesUser)
+	passwordBlock, err := core.UserPasswordBlock(ctx, cfg)
+	if err != nil {
+		return nil, err
+	}
+	v1User := user.New(repositoriesUser, passwordBlock)
 	repositoriesRealm := postgresql.NewRealmRepository(db)
 	v1Realm := realm.New(repositoriesRealm)
 	server, err := grpcServer(ctx, cfg, v1User, v1Realm)
@@ -59,7 +63,7 @@ func grpcServer(ctx context.Context, cfg *config.Configuration, users v1.User, r
 	sopts := []grpc.ServerOption{}
 	grpc_zap.ReplaceGrpcLogger(zap.L())
 
-	sopts = append(sopts, grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(grpc_zap.StreamServerInterceptor(zap.L()), grpc_recovery.StreamServerInterceptor())), grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(internal.ServiceErrorTranslationUnaryServerInterceptor(), grpc_recovery.UnaryServerInterceptor(), grpc_zap.UnaryServerInterceptor(zap.L()))), grpc.StatsHandler(&ocgrpc.ServerHandler{}),
+	sopts = append(sopts, grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(grpc_zap.StreamServerInterceptor(zap.L()), grpc_recovery.StreamServerInterceptor())), grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(internal.ServiceErrorTranslationUnaryServerInterceptor(), grpc_zap.UnaryServerInterceptor(zap.L()), grpc_recovery.UnaryServerInterceptor())), grpc.StatsHandler(&ocgrpc.ServerHandler{}),
 	)
 
 	if cfg.Server.UseTLS {
