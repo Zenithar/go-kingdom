@@ -1,4 +1,4 @@
-package realm
+package mapper
 
 import (
 	"go.zenithar.org/kingdom/internal/models"
