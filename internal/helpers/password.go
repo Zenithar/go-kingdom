@@ -10,7 +10,7 @@ import (
 var (
 	b      *butcher.Butcher
 	once   sync.Once
-	pepper = []byte(")[bP6W9U=uai:'&Wqu2d%SOy>2!*Ifz7#W{Yv>'.4?iKu'OPJP0r6M|z3'?jed>")
+	pepper = []byte(")[bP6W9U=uai:'&Wqu2d%SOy>3'?jed>")
 )
 
 func init() {
@@ -40,9 +40,20 @@ var CheckPasswordFunc = func(encoded, password string) (bool, error) {
 
 // SetPasswordPepperKey used to set the key of password encoding function
 func SetPasswordPepperKey(key []byte) {
-	if len(key) != 64 {
-		panic("Password pepper hash key length must be 64bytes long.")
+	if len(key) != 32 {
+		panic("Password pepper hash key length must be 32bytes long.")
 	}
 
 	pepper = key
+
+	// Reload hasher
+	var err error
+	b, err = butcher.New(
+		butcher.WithAlgorithm(hasher.Argon2id),
+		butcher.WithPepper(pepper),
+		butcher.WithSaltFunc(butcher.RandomNonce(32)),
+	)
+	if err != nil {
+		panic(err)
+	}
 }

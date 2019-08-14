@@ -356,8 +356,28 @@ func (s *service) Authenticate(ctx context.Context, req *userv1.AuthenticateRequ
 		return res, errors.Newf(errors.NotFound, err, "entity not found")
 	}
 
+	// Assign secret
+	secret, err := base64.RawStdEncoding.DecodeString(entity.Secret)
+	if err != nil {
+		res.Error = &sysv1.Error{
+			Code:    http.StatusInternalServerError,
+			Message: "Unable to decode password",
+		}
+		return res, errors.Newf(errors.Internal, err, "unable to transform password")
+	}
+
+	// Decrypt secret (at-rest encryption)
+	out, _, err := s.transformer.TransformFromStorage(secret)
+	if err != nil {
+		res.Error = &sysv1.Error{
+			Code:    http.StatusInternalServerError,
+			Message: "Unable to transform password",
+		}
+		return res, errors.Newf(errors.Internal, err, "unable to transform password")
+	}
+
 	// Check password
-	valid, err := entity.Authenticate(req.Secret)
+	valid, err := helpers.CheckPasswordFunc(string(out), req.Secret)
 	if err != nil {
 		res.Error = &sysv1.Error{
 			Code:    http.StatusInternalServerError,

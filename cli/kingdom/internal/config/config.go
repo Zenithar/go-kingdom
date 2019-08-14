@@ -20,8 +20,9 @@ type Configuration struct {
 	} `toml:"Core" comment:"###############################\n Core \n##############################"`
 
 	Security struct {
-		KeeperURL   string `toml:"keeperURL" default:"base64key://smGbjm71Nxd1Ig5FS0wj9SlbzAIrnolCz9bQQ6uAhl4=" comment:"URL of secret keeper"`
-		PasswordKey string `toml:"passwordKey" default:"7vcfai7g8DvLjFeaFKtUBaTvmuql+RNG1X+zqZ390duK1BkQjC7FIuVHZD2LoSdFoOEukVqwAsoQjYjU2KL4e/ktAJdDucNv" comment:"Password at-rest encryption key"`
+		KeeperURL      string `toml:"keeperURL" default:"base64key://smGbjm71Nxd1Ig5FS0wj9SlbzAIrnolCz9bQQ6uAhl4=" comment:"URL of secret keeper"`
+		PasswordPepper string `toml:"passwordPepper" default:"l5JHSyEhraX+c8q9HpmDXdmsMGc+1I1MV1eWB1DttiE536dCG7eyQULNl09E9HRrkzTj9y6jH0Aoslkul7iIqK7ent+vtd6u" comment:"Password pepper seed"`
+		PasswordKey    string `toml:"passwordKey" default:"7vcfai7g8DvLjFeaFKtUBaTvmuql+RNG1X+zqZ390duK1BkQjC7FIuVHZD2LoSdFoOEukVqwAsoQjYjU2KL4e/ktAJdDucNv" comment:"Password at-rest encryption key"`
 	} `toml:"Security" comment:"###############################\n Security \n##############################"`
 
 	Server struct {

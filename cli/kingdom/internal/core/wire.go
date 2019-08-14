@@ -10,6 +10,7 @@ import (
 	"gocloud.dev/secrets"
 
 	"go.zenithar.org/kingdom/cli/kingdom/internal/config"
+	"go.zenithar.org/kingdom/internal/helpers"
 	"go.zenithar.org/kingdom/internal/repositories/pkg/postgresql"
 	"go.zenithar.org/kingdom/internal/services/pkg/v1/realm"
 	"go.zenithar.org/kingdom/internal/services/pkg/v1/user"
@@ -52,6 +53,21 @@ func UserPasswordBlock(ctx context.Context, cfg *config.Configuration) (user.Pas
 	if err != nil {
 		return nil, err
 	}
+
+	// Decode password pepper seed
+	pepper, err := base64.StdEncoding.DecodeString(cfg.Security.PasswordPepper)
+	if err != nil {
+		return nil, err
+	}
+
+	// Decrypt pepper seed
+	passwordPepper, err := keeper.Decrypt(ctx, pepper)
+	if err != nil {
+		return nil, err
+	}
+
+	// Assign the password deriver
+	helpers.SetPasswordPepperKey(passwordPepper)
 
 	// Decrypt password encryption key
 	passwordKey, err := keeper.Decrypt(ctx, secret)
