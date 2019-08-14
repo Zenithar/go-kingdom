@@ -43,14 +43,14 @@ var GetCommand = func(realms repositories.Realm) HandlerFunc {
 				Code:    http.StatusInternalServerError,
 				Message: "Unable to retrieve Realm",
 			}
-			return res, err
+			return res, errors.Newf(errors.Internal, err, "unable to retrieve entity")
 		}
 		if entity == nil {
 			res.Error = &sysv1.Error{
 				Code:    http.StatusNotFound,
 				Message: "Realm not found",
 			}
-			return res, db.ErrNoResult
+			return res, errors.Newf(errors.NotFound, nil, "entity not found")
 		}
 
 		// Prepare response

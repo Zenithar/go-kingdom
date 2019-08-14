@@ -76,7 +76,7 @@ var UpdateCommand = func(realms repositories.Realm) HandlerFunc {
 					Code:    http.StatusInternalServerError,
 					Message: "Unable to update Realm object",
 				}
-				return res, err
+				return res, errors.Newf(errors.Internal, nil, "unable to update entity")
 			}
 		}
 

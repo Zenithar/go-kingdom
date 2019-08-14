@@ -65,7 +65,7 @@ var SearchCommand = func(realms repositories.Realm) HandlerFunc {
 				Code:    http.StatusInternalServerError,
 				Message: "Unable to process request",
 			}
-			return res, err
+			return res, errors.Newf(errors.Internal, nil, "unable to query persistence")
 		}
 
 		// Set pagination total for paging calcul

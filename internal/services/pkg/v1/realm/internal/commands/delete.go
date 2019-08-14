@@ -54,7 +54,7 @@ var DeleteCommand = func(realms repositories.Realm) HandlerFunc {
 				Code:    http.StatusInternalServerError,
 				Message: "Unable to delete Realm object",
 			}
-			return res, err
+			return res, errors.Newf(errors.Internal, err, "unable to delete entity")
 		}
 
 		// Return expected result

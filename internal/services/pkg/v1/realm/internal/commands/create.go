@@ -22,7 +22,7 @@ var CreateCommand = func(realms repositories.Realm) HandlerFunc {
 			return nil, errors.Newf(errors.InvalidArgument, nil, "request has invalid type (%T)", req)
 		}
 
-		var res realmv1.CreateResponse
+		res := &realmv1.CreateResponse{}
 
 		// Validate service constraints
 		if err := constraints.Validate(ctx,
