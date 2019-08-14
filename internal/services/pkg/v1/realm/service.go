@@ -31,26 +31,26 @@ func New(realms repositories.Realm) apiv1.Realm {
 // -----------------------------------------------------------------------------
 
 func (s *service) Create(ctx context.Context, req *realmv1.CreateRequest) (*realmv1.CreateResponse, error) {
-	res, err := s.createCmd(ctx, req)
+	res, err := s.createCmd.Handle(ctx, req)
 	return res.(*realmv1.CreateResponse), err
 }
 
 func (s *service) Get(ctx context.Context, req *realmv1.GetRequest) (*realmv1.GetResponse, error) {
-	res, err := s.getCmd(ctx, req)
+	res, err := s.getCmd.Handle(ctx, req)
 	return res.(*realmv1.GetResponse), err
 }
 
 func (s *service) Update(ctx context.Context, req *realmv1.UpdateRequest) (*realmv1.UpdateResponse, error) {
-	res, err := s.updateCmd(ctx, req)
+	res, err := s.updateCmd.Handle(ctx, req)
 	return res.(*realmv1.UpdateResponse), err
 }
 
 func (s *service) Delete(ctx context.Context, req *realmv1.DeleteRequest) (*realmv1.DeleteResponse, error) {
-	res, err := s.deleteCmd(ctx, req)
+	res, err := s.deleteCmd.Handle(ctx, req)
 	return res.(*realmv1.DeleteResponse), err
 }
 
 func (s *service) Search(ctx context.Context, req *realmv1.SearchRequest) (*realmv1.SearchResponse, error) {
-	res, err := s.searchCmd(ctx, req)
+	res, err := s.searchCmd.Handle(ctx, req)
 	return res.(*realmv1.SearchResponse), err
 }
